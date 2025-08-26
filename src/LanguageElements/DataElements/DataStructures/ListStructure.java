@@ -34,4 +34,23 @@ public class ListStructure extends DataStructure{
     public BooleanPrimitive contains(DataElement element) {
         return new BooleanPrimitive(structure.contains(element));
     }
+
+    public DataElement get(NumberPrimitive index) {
+        int idx = index.getValue().intValue();
+        if (idx < 0 || idx >= structure.size()) {
+            return new Null(); // TODO: maybe throwing an exception is better
+        }
+        return structure.get(idx);
+    }
+
+    public void set(NumberPrimitive index, DataElement value) {
+        int idx = index.getValue().intValue();
+
+        if (idx < 0 || idx >= structure.size()) {
+            // TODO: throw exception
+        } else {
+            structure.set(idx, value);
+        }
+    }
+
 }
