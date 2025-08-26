@@ -1,8 +1,8 @@
-import Datastack.DataStack;
-import LanguageElements.DataElements.Primitives.NumberPrimitive;
-import Parsing.OperationRegistry;
+import Environment.DataStack;
+import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
+import Interpreter.OperationRegistry;
 
-import static Parsing.StackFunctionToken.ADD;
+import static Interpreter.Tokens.StackFunctionToken.ADD;
 
 public class Main {
     public static void main(String[] args) {

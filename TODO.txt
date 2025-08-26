@@ -1,3 +1,4 @@
+- build bools and null with tokens
 - lexer
 - parser
 - interpreter
