@@ -1,4 +1,5 @@
 package LanguageElements;
 
-public class LanguageElement {
+public abstract class LanguageElement {
+    public abstract void execute();
 }
