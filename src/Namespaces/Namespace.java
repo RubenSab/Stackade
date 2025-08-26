@@ -1,8 +1,11 @@
 package Namespaces;
 
+import LanguageElements.DataElements.Primitives.Null;
 import LanguageElements.LanguageElement;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class Namespace {
     private final HashMap<String, LanguageElement> namespace;
@@ -22,12 +25,15 @@ public class Namespace {
     }
 
     protected LanguageElement get(String name) {
-        return namespace.get(name); // TODO: handle UnresolvedTokenException before reaching namespace
+        return namespace.getOrDefault(name, new Null());
     }
 
     protected void assign(String name, LanguageElement value) {
-        if (value.getClass() == get(name).getClass()) {
+        LanguageElement oldValue = namespace.get(name);
+        if (oldValue != null && oldValue.getClass().equals(value.getClass())) {
             namespace.replace(name, value);
+        } else {
+            // TODO: throw exception
         }
     }
 }

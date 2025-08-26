@@ -1,6 +1,5 @@
 import Datastack.DataStack;
 import LanguageElements.DataElements.Primitives.NumberPrimitive;
-import LanguageElements.FunctionElements.StackBiFunction;
 import Parsing.OperationRegistry;
 
 import static Parsing.StackFunctionToken.ADD;
