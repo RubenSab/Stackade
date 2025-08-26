@@ -12,4 +12,9 @@ public abstract class Primitive<T> extends DataElement {
     public T getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

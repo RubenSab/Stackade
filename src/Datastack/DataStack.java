@@ -42,10 +42,14 @@ public class DataStack {
         return stack.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
+
     public static class EmptyPopException extends Exception {
         public EmptyPopException() {
             super("Attempted to pop from empty stack.");
         }
     }
-
 }

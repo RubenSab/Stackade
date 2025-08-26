@@ -24,5 +24,13 @@ public class NumberPrimitive extends Primitive<Number> {
     public int intValue() {
         return getValue().intValue();
     }
+
+    @Override
+    public String toString() {
+        if ((double) getValue() - intValue() == 0) {
+            return String.valueOf(intValue());
+        }
+        return super.toString();
+    }
 }
 
