@@ -6,10 +6,10 @@ import LanguageElements.LanguageElement;
 
 import java.util.function.Function;
 
-public class StackFunction extends LanguageElement {
+public class StackUnaryFunction extends LanguageElement {
     Function<DataElement, DataElement> function;
 
-    public StackFunction(Function<DataElement, DataElement> function) {
+    public StackUnaryFunction(Function<DataElement, DataElement> function) {
         this.function = function;
     }
 
