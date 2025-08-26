@@ -22,7 +22,7 @@ public class Namespace {
     }
 
     protected LanguageElement get(String name) {
-        return namespace.get(name); // UnresolvedTokenException is handled before reaching namespace
+        return namespace.get(name); // TODO: handle UnresolvedTokenException before reaching namespace
     }
 
     protected void assign(String name, LanguageElement value) {
@@ -30,6 +30,4 @@ public class Namespace {
             namespace.replace(name, value);
         }
     }
-
-    // TODO: apply function
 }
