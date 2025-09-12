@@ -1,5 +1,5 @@
 package Interpreter.Tokens;
 
-public enum AssignationToken implements NamedToken {
+public enum AssignationToken implements KeywordToken {
     ASSIGN, INCREMENT, DECREMENT
 }

@@ -6,7 +6,11 @@ import java.util.ArrayList;
 
 public class FunctionBlock extends LanguageElement {
 
-    private final ArrayList<LanguageElement> elements = new ArrayList<>();
+    private final ArrayList<LanguageElement> elements;
+
+    public FunctionBlock(ArrayList<LanguageElement> elements) {
+        this.elements = elements;
+    }
 
     @Override
     public void execute() {

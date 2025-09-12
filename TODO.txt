@@ -1,4 +1,4 @@
-- build bools and null with tokens
+- build bools and null with tokens, make them singletons
 - lexer
 - parser
 - interpreter

@@ -40,7 +40,6 @@ public class Namespaces extends Namespace{
                 .orElse(new Null()); // TODO: throw exception
     }
 
-
     public void assign(String name, LanguageElement value) {
         namespaces.getLast().assign(name, value);
     }

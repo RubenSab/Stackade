@@ -6,15 +6,15 @@ import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
 import Environment.LanguageElements.FunctionElements.StackBiFunction;
 import Environment.LanguageElements.FunctionElements.StackUnaryFunction;
 import Environment.LanguageElements.LanguageElement;
-import Interpreter.Tokens.ConstantToken;
-import Interpreter.Tokens.NamedToken;
+import Interpreter.Tokens.KnownValueToken;
+import Interpreter.Tokens.KeywordToken;
 import Interpreter.Tokens.StackFunctionToken;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class OperationRegistry {
-    private static final Map<NamedToken, LanguageElement> operations = new HashMap<>();
+    private static final Map<KeywordToken, LanguageElement> operations = new HashMap<>();
 
     static {
         // Binary functions
@@ -50,12 +50,12 @@ public class OperationRegistry {
                 ));
 
         // Constants (DataElement executes by pushing itself)
-        operations.put(ConstantToken.TRUE, new BooleanPrimitive("true"));
-        operations.put(ConstantToken.FALSE, new BooleanPrimitive("false"));
-        operations.put(ConstantToken.NULL, new Null());
+        operations.put(KnownValueToken.TRUE, new BooleanPrimitive("true"));
+        operations.put(KnownValueToken.FALSE, new BooleanPrimitive("false"));
+        operations.put(KnownValueToken.NULL, new Null());
     }
 
-    public static LanguageElement get(NamedToken token) {
+    public static LanguageElement get(KeywordToken token) {
         return operations.get(token);
     }
 }
