@@ -2,7 +2,7 @@ import Environment.DataStack;
 import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
 import Interpreter.OperationRegistry;
 
-import static Interpreter.Tokens.StackFunctionToken.ADD;
+import static Interpreter.Tokens.KeywordTokens.StackFunctionToken.ADD;
 
 public class Main {
     public static void main(String[] args) {

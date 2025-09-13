@@ -1,8 +1,8 @@
-package Interpreter.Tokens;
+package Interpreter.Tokens.PrimitiveTokens;
 
 import Environment.LanguageElements.DataElements.Primitives.Primitive;
 
-public abstract class PrimitiveToken<T> implements Token {
+public abstract class PrimitiveToken<T> implements TokenType {
     final private Primitive<T> primitive;
 
     public PrimitiveToken(Primitive<T> primitive) {

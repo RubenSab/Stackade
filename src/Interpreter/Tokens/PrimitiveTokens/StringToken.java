@@ -1,4 +1,4 @@
-package Interpreter.Tokens;
+package Interpreter.Tokens.PrimitiveTokens;
 
 import Environment.LanguageElements.DataElements.Primitives.Primitive;
 

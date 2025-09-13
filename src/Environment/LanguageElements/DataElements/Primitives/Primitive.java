@@ -1,7 +1,6 @@
 package Environment.LanguageElements.DataElements.Primitives;
 
 import Environment.LanguageElements.DataElements.DataElement;
-import Interpreter.Tokens.Token;
 
 public abstract class Primitive<T> extends DataElement {
     private final T value;

@@ -1,4 +1,4 @@
-package Interpreter.Tokens;
+package Interpreter.Tokens.KeywordTokens;
 
 public enum DefinitionToken implements KeywordToken {
     DEL,
