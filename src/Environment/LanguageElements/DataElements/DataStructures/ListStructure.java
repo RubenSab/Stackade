@@ -2,7 +2,6 @@ package Environment.LanguageElements.DataElements.DataStructures;
 
 import Environment.LanguageElements.DataElements.DataElement;
 import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
-import Environment.LanguageElements.DataElements.Primitives.Null;
 import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class ListStructure extends DataStructure{
     }
 
     @Override
-    public void add(DataElement element) {
+    public void put(DataElement element) {
         structure.add(element);
     }
 
@@ -38,7 +37,7 @@ public class ListStructure extends DataStructure{
     public DataElement get(NumberPrimitive index) {
         int idx = index.getValue().intValue();
         if (idx < 0 || idx >= structure.size()) {
-            return new Null(); // TODO: maybe throwing an exception is better
+            return null; // TODO: maybe throwing an exception is better
         }
         return structure.get(idx);
     }

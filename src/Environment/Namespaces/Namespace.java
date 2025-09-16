@@ -1,6 +1,4 @@
 package Environment.Namespaces;
-
-import Environment.LanguageElements.DataElements.Primitives.Null;
 import Environment.LanguageElements.LanguageElement;
 
 import java.util.HashMap;
@@ -23,7 +21,7 @@ public class Namespace {
     }
 
     protected LanguageElement get(String name) {
-        return namespace.getOrDefault(name, new Null());
+        return namespace.getOrDefault(name, null);
     }
 
     protected void assign(String name, LanguageElement value) {

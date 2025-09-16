@@ -1,10 +1,9 @@
 package Environment.Namespaces;
-
-import Environment.LanguageElements.DataElements.Primitives.Null;
 import Environment.LanguageElements.LanguageElement;
 
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Namespaces extends Namespace{
     private final LinkedList<Namespace> namespaces = new LinkedList<>();
@@ -35,9 +34,9 @@ public class Namespaces extends Namespace{
         return namespaces.stream()
                 .sorted(reverseOrder)
                 .map(ns -> ns.get(name))
-                .filter(x -> !x.getClass().equals(Null.class))
+                .filter(Objects::nonNull)
                 .findFirst()
-                .orElse(new Null()); // TODO: throw exception
+                .orElse(null); // TODO: throw exception
     }
 
     public void assign(String name, LanguageElement value) {

@@ -1,8 +1,6 @@
 import Environment.DataStack;
+import Execution.Lexer;
 import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
-import Interpreter.OperationRegistry;
-
-import static Interpreter.Tokens.KeywordTokens.StackFunctionToken.ADD;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,8 +9,10 @@ public class Main {
         new NumberPrimitive("2").execute();
         new NumberPrimitive("3").execute();
 
-        OperationRegistry.get(ADD).execute();
+        // OperationRegistry.get(ADD).execute();
 
         System.out.println(stack);
+
+        System.out.println(Lexer.tokenize("{(i 0 :num i < 10) (i dup 1 + = print SELF) (i \"done\\n\" print)}"));
     }
 }

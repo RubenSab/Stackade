@@ -1,7 +1,6 @@
 package Environment;
 
 import Environment.LanguageElements.DataElements.DataElement;
-import Environment.LanguageElements.DataElements.Primitives.Null;
 
 import java.util.Stack;
 
@@ -33,7 +32,7 @@ public class DataStack {
         if (!stack.isEmpty()) {
             return stack.peek();
         } else {
-            return new Null();
+            return null;
         }
     }
 

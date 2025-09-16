@@ -7,7 +7,7 @@ import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
 public abstract class DataStructure extends DataElement {
 
     public abstract NumberPrimitive size();
-    public abstract void add(DataElement element);
+    public abstract void put(DataElement element);
     public abstract void remove(DataElement element);
     public abstract void clear();
     public abstract BooleanPrimitive contains(DataElement element);
