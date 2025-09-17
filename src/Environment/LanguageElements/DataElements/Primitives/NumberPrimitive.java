@@ -1,12 +1,29 @@
 package Environment.LanguageElements.DataElements.Primitives;
 
-public class NumberPrimitive extends Primitive<Number> {
-    public NumberPrimitive(String repr) {
-        super(Double.valueOf(repr));
-    }
+public class NumberPrimitive extends Primitive<Double> {
 
     public NumberPrimitive(Number value) {
-        super(value);
+        super((double) value);
+    }
+    
+    public NumberPrimitive add(NumberPrimitive o) {
+        return new NumberPrimitive(getValue() + o.getValue());
+    }
+
+    public NumberPrimitive sub(NumberPrimitive o) {
+        return new NumberPrimitive(getValue() - o.getValue());
+    }
+
+    public NumberPrimitive mul(NumberPrimitive o) {
+        return new NumberPrimitive(getValue() * o.getValue());
+    }
+
+    public NumberPrimitive div(NumberPrimitive o) {
+        return new NumberPrimitive(getValue() / o.getValue());
+    }
+
+    public NumberPrimitive mod(NumberPrimitive o) {
+        return new NumberPrimitive(getValue() % o.getValue());
     }
 
     public NumberPrimitive floor() {
@@ -18,13 +35,14 @@ public class NumberPrimitive extends Primitive<Number> {
     }
 
     public NumberPrimitive round() {
-        return new NumberPrimitive(Math.round((double) getValue()));
+        return new NumberPrimitive((double) Math.round((double) getValue()));
     }
 
     public int intValue() {
         return getValue().intValue();
     }
 
+    
     @Override
     public String toString() {
         if ((double) getValue() - intValue() == 0) {

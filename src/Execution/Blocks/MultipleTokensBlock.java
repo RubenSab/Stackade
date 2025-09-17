@@ -10,6 +10,11 @@ public class MultipleTokensBlock implements Block {
         blocks.add(block);
     }
 
+    @Override
+    public void execute() {
+        blocks.forEach(Block::execute);
+    }
+
     public ArrayList<Block> getBlocks() {
         return blocks;
     }

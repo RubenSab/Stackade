@@ -70,8 +70,11 @@ public class Lexer {
             case "clear" -> { return KeywordToken.CLEAR; }
             case "contains" -> { return KeywordToken.CONTAINS; }
             case "set" -> { return KeywordToken.SET; }
-            case "TRUE" -> { return KeywordToken.TRUE; }
-            case "FALSE" -> { return KeywordToken.FALSE; }
+            case "true" -> { return KeywordToken.TRUE; }
+            case "false" -> { return KeywordToken.FALSE; }
+            case "self" -> { return KeywordToken.SELF; }
+            case "print" -> { return KeywordToken.PRINT; }
+            case "input" -> { return KeywordToken.INPUT; }
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     return new StringToken(representation);

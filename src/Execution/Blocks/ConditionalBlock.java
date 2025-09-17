@@ -1,5 +1,9 @@
 package Execution.Blocks;
 
+import Environment.ConditionalContextsStack;
+import Environment.DataStack;
+import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
+
 public class ConditionalBlock implements Block {
     private Block conditionBlock;
     private Block trueBlock;
@@ -14,6 +18,18 @@ public class ConditionalBlock implements Block {
         } else if (falseBlock == null) {
             falseBlock = block;
         }
+    }
+
+    @Override
+    public void execute() {
+        ConditionalContextsStack.getInstance().push(this);
+        conditionBlock.execute();
+        if (DataStack.getInstance().pop().equals(new BooleanPrimitive("true"))) {
+            trueBlock.execute();
+        } else {
+            falseBlock.execute();
+        }
+        ConditionalContextsStack.getInstance().pop();
     }
 
     public Block getConditionBlock() {

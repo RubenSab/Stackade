@@ -6,11 +6,7 @@ import java.util.Stack;
 
 public class DataStack {
     private static final DataStack INSTANCE = new DataStack();
-    private final Stack<DataElement> stack;
-
-    private DataStack() {
-        stack = new Stack<>();
-    }
+    private final Stack<DataElement> stack = new Stack<>();
 
     public static DataStack getInstance() {
         return INSTANCE;
@@ -45,7 +41,7 @@ public class DataStack {
         return stack.toString();
     }
 
-    public static class EmptyPopException extends Exception {
+    public static class EmptyPopException extends RuntimeException {
         public EmptyPopException() {
             super("Attempted to pop from empty stack.");
         }

@@ -8,5 +8,10 @@ public class BooleanPrimitive extends Primitive<Boolean> {
     public BooleanPrimitive(Boolean value) {
         super(value);
     }
+
+    @Override
+    public Boolean getValue() {
+        return super.getValue();
+    }
 }
 

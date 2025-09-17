@@ -1,5 +1,6 @@
 package Execution.Blocks;
 
+import Execution.Tokens.OperationRegistry;
 import Execution.Tokens.Token;
 
 public class SingleTokenBlock implements Block {
@@ -11,6 +12,11 @@ public class SingleTokenBlock implements Block {
 
     public Token getToken() {
         return token;
+    }
+
+    @Override
+    public void execute() {
+        OperationRegistry.execute(token);
     }
 
     @Override
