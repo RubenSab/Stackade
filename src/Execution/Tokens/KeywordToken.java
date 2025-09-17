@@ -8,8 +8,8 @@ public enum KeywordToken implements Token {
     ASSIGN, INCR, DECR, INCR1, DECR1, // Assignations in Namespaces
     ADD, SUB, MUL, DIV, MOD, // Num operations
     EQ, NEQ, LT, GT, LEQ, GEQ,
-    NOT, AND, OR, XOR, // Bool operations
-    GET, SIZE, PUT, REMOVE, CLEAR, CONTAINS, SET, // Arrays
+    NOT, AND, OR, XOR, // Boolean operations
+    GET, SIZE, PUT, REMOVE, CLEAR, CONTAINS, SET, // Lists
     PRINT, INPUT, // I/O
     OPEN_COND, OPEN_BLOCK, CLOSE_COND, CLOSE_BLOCK // Brackets (the only Tokens not transformed to Blocks)
     }

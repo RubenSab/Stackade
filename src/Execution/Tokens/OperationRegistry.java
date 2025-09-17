@@ -9,6 +9,7 @@ import Environment.LanguageElements.DataElements.Primitives.StringPrimitive;
 import Environment.LanguageElements.LanguageElement;
 import Environment.Namespaces.Namespaces;
 
+import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class OperationRegistry {
@@ -24,7 +25,7 @@ public class OperationRegistry {
             case NamespaceToken namespaceToken ->
                     stack.push((DataElement) namespaceToken.resolve());
             case KeywordToken keywordToken -> {
-                switch (keywordToken) { // TODO: add list
+                switch (keywordToken) { // TODO: add lists and list operations, add input
                     // Booleans
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));
@@ -81,28 +82,35 @@ public class OperationRegistry {
                                 oldValue.getValue() - 1
                         ));
                     }
-                    case ADD -> stack.push(((NumberPrimitive) stack.pop()).add((NumberPrimitive) stack.pop()));
-                    case SUB -> {
-                        NumberPrimitive op1 = (NumberPrimitive) stack.pop();
-                        NumberPrimitive op2 = (NumberPrimitive) stack.pop();
-                        stack.push(op1.sub(op2));
-                    }
-                    case MUL -> stack.push(((NumberPrimitive) stack.pop()).mul((NumberPrimitive) stack.pop()));
-                    case DIV -> {
-                        NumberPrimitive op1 = (NumberPrimitive) stack.pop();
-                        NumberPrimitive op2 = (NumberPrimitive) stack.pop();
-                        stack.push(op1.div(op2));
-                    }
-                    case MOD -> {
-                        NumberPrimitive op1 = (NumberPrimitive) stack.pop();
-                        NumberPrimitive op2 = (NumberPrimitive) stack.pop();
-                        stack.push(op1.mod(op2));
-                    }
-
+                    // Num operations
+                    case ADD -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).add((NumberPrimitive) y));
+                    case SUB -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).sub((NumberPrimitive) y));
+                    case MUL -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).mul((NumberPrimitive) y));
+                    case DIV -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).div((NumberPrimitive) y));
+                    case MOD -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).mod((NumberPrimitive) y));
+                    case EQ -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).eq((NumberPrimitive) y));
+                    case NEQ -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).neq((NumberPrimitive) y));
+                    case LT -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).lt((NumberPrimitive) y));
+                    case GT -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).gt((NumberPrimitive) y));
+                    case LEQ -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).leq((NumberPrimitive) y));
+                    case GEQ -> applyStackBinaryFunction((x, y) -> ((NumberPrimitive) x).geq((NumberPrimitive) y));
+                    // Boolean operations
+                    case NOT -> stack.push(((BooleanPrimitive) stack.pop()).not());
+                    case AND -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).and((BooleanPrimitive) y));
+                    case OR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).or((BooleanPrimitive) y));
+                    case XOR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).xor((BooleanPrimitive) y));
+                    // I/O
+                    case PRINT -> System.out.println(stack.pop());
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);
         }
+    }
+
+    private static void applyStackBinaryFunction(BiFunction<DataElement, DataElement, DataElement> biFunction) {
+        DataElement op1 = stack.pop();
+        DataElement op2 = stack.pop();
+        stack.push(biFunction.apply(op1, op2));
     }
 
 }
