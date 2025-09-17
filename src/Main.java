@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Token> tokens = Lexer.tokenize(
-                "{(3 2 % 1 != )(\"yes\" print)(\"no\" print)}"
+                "{(3 2 % 1 != )(\"yes\" print)(\"no\" print)} "
         );
         MultipleTokensBlock blocks = Parser.parse(tokens);
         Interpreter.execute(blocks);
