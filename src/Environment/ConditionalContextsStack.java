@@ -1,20 +1,19 @@
 package Environment;
 
-import Environment.LanguageElements.DataElements.DataElement;
 import Execution.Blocks.ConditionalBlock;
 
 import java.util.Stack;
 
 public class ConditionalContextsStack {
     private final static ConditionalContextsStack INSTANCE = new ConditionalContextsStack();
-    private final Stack<DataElement> stack = new Stack<>();
+    private final Stack<ConditionalBlock> stack = new Stack<>();
 
     public static ConditionalContextsStack getInstance() {
         return INSTANCE;
     }
 
     public void push(ConditionalBlock conditionalBlock) {
-        stack.push(stack.pop());
+        stack.push(conditionalBlock);
     }
 
     public void pop() {

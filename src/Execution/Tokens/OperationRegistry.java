@@ -25,7 +25,7 @@ public class OperationRegistry {
             case NamespaceToken namespaceToken ->
                     stack.push((DataElement) namespaceToken.resolve());
             case KeywordToken keywordToken -> {
-                switch (keywordToken) { // TODO: add lists and list operations, add input
+                switch (keywordToken) { // TODO: add lists and list operations, add input, add BLOCK
                     // Booleans
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));
@@ -108,8 +108,8 @@ public class OperationRegistry {
     }
 
     private static void applyStackBinaryFunction(BiFunction<DataElement, DataElement, DataElement> biFunction) {
-        DataElement op1 = stack.pop();
         DataElement op2 = stack.pop();
+        DataElement op1 = stack.pop();
         stack.push(biFunction.apply(op1, op2));
     }
 

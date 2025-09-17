@@ -19,5 +19,7 @@ public class BooleanPrimitive extends Primitive<Boolean> {
     public Boolean getValue() {
         return super.getValue();
     }
+
+
 }
 
