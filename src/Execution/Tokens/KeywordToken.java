@@ -4,7 +4,7 @@ public enum KeywordToken implements Token {
     TRUE, FALSE, // Booleans
     SELF,  // Self references
     DUP, POP, // Stack
-    DEL, NUM, STR, LIST, BLOCK, // Declarations in Namespaces
+    DEL, NUM, BOOL, STR, LIST, BLOCK, // Declarations in Namespaces
     ASSIGN, INCR, DECR, INCR1, DECR1, // Assignations in Namespaces
     ADD, SUB, MUL, DIV, MOD, // Num operations
     EQ, NEQ, LT, GT, LEQ, GEQ,

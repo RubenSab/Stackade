@@ -1,4 +1,4 @@
-package Execution.Tokens;
+package Execution;
 
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
@@ -8,15 +8,15 @@ import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
 import Environment.LanguageElements.DataElements.Primitives.StringPrimitive;
 import Environment.LanguageElements.LanguageElement;
 import Environment.Namespaces.Namespaces;
+import Execution.Tokens.*;
 
-import java.util.Stack;
 import java.util.function.BiFunction;
 
 public class OperationRegistry {
     private static final DataStack stack = DataStack.getInstance();
     private static final Namespaces namespaces = Namespaces.getInstance();
 
-    public static void execute(Token token) {
+    public static void executeToken(Token token) {
         switch (token) {
             case NumberToken numberToken ->  // is a primitive token
                     stack.push(new NumberPrimitive(numberToken.get()));
@@ -38,6 +38,11 @@ public class OperationRegistry {
                     case DEL -> namespaces.delete(((StringPrimitive) stack.pop()).getValue());
                     case NUM -> {
                         NumberPrimitive value = (NumberPrimitive) stack.pop();
+                        String name = ((StringPrimitive) stack.pop()).getValue();
+                        namespaces.define(name, value);
+                    }
+                    case BOOL -> {
+                        BooleanPrimitive value = (BooleanPrimitive) stack.pop();
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.define(name, value);
                     }
@@ -100,7 +105,7 @@ public class OperationRegistry {
                     case OR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).or((BooleanPrimitive) y));
                     case XOR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).xor((BooleanPrimitive) y));
                     // I/O
-                    case PRINT -> System.out.println(stack.pop());
+                    case PRINT -> System.out.print(stack.pop());
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);

@@ -23,4 +23,9 @@ public class ConditionalContextsStack {
     public void executeTop() {
         stack.peek().execute();
     }
+
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
 }

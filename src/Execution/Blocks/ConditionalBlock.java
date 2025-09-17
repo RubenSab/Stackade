@@ -3,6 +3,7 @@ package Execution.Blocks;
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
 import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
+import Environment.Namespaces.Namespaces;
 
 public class ConditionalBlock implements Block {
     private Block conditionBlock;
@@ -23,29 +24,23 @@ public class ConditionalBlock implements Block {
     @Override
     public void execute() {
         ConditionalContextsStack.getInstance().push(this);
-        conditionBlock.execute();
-        if (DataStack.getInstance().pop().equals(new BooleanPrimitive("true"))) {
-            trueBlock.execute();
-        } else {
-            falseBlock.execute();
+        Namespaces.getInstance().pushNamespace();
+        try {
+            conditionBlock.execute();
+            BooleanPrimitive conditionResult = (BooleanPrimitive) DataStack.getInstance().pop();
+            if (conditionResult.getValue()) {
+                trueBlock.execute();
+            } else {
+                falseBlock.execute();
+            }
+        } finally {
+            ConditionalContextsStack.getInstance().pop();
+            Namespaces.getInstance().popNamespace();
         }
-        ConditionalContextsStack.getInstance().pop();
-    }
-
-    public Block getConditionBlock() {
-        return conditionBlock;
-    }
-
-    public Block getTrueBlock() {
-        return trueBlock;
-    }
-
-    public Block getFalseBlock() {
-        return falseBlock;
     }
 
     @Override
     public String toString() {
-        return "{\n\t" + conditionBlock + "\n\t" + trueBlock + "\n\t" + falseBlock + "\n}";
+        return "{" + conditionBlock + " " + trueBlock + " " + falseBlock + "}";
     }
 }

@@ -6,30 +6,35 @@ import java.util.HashMap;
 public class Namespace {
     private final HashMap<String, LanguageElement> namespace;
 
-    protected Namespace() {
+    public Namespace() {
          namespace = new HashMap<>();
     }
 
-    protected void define(String name, LanguageElement entity) {
+    public void define(String name, LanguageElement entity) {
         if (!namespace.containsKey(name)) {
             namespace.put(name, entity);
         }
     }
 
-    protected void delete(String name) {
+    public void delete(String name) {
         namespace.remove(name);
     }
 
-    protected LanguageElement get(String name) {
+    public LanguageElement get(String name) {
         return namespace.getOrDefault(name, null);
     }
 
-    protected void assign(String name, LanguageElement value) {
+    public void assign(String name, LanguageElement value) {
         LanguageElement oldValue = namespace.get(name);
         if (oldValue != null && oldValue.getClass().equals(value.getClass())) {
             namespace.replace(name, value);
         } else {
             // TODO: throw exception
         }
+    }
+
+    @Override
+    public String toString() {
+        return namespace.toString();
     }
 }

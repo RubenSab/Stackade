@@ -1,9 +1,8 @@
 package Environment.Namespaces;
 import Environment.LanguageElements.LanguageElement;
 
-import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Objects;
+
 
 public class Namespaces extends Namespace{
     private final LinkedList<Namespace> namespaces = new LinkedList<>();
@@ -14,7 +13,7 @@ public class Namespaces extends Namespace{
     }
 
     public void pushNamespace() {
-        namespaces.push(new Namespace());
+        namespaces.addLast(new Namespace());
     }
 
     public void popNamespace() {
@@ -30,16 +29,15 @@ public class Namespaces extends Namespace{
     }
 
     public LanguageElement get(String name) {
-        Comparator<Namespace> reverseOrder = (a, b) -> namespaces.indexOf(b) - namespaces.indexOf(a);
-        return namespaces.stream()
-                .sorted(reverseOrder)
-                .map(ns -> ns.get(name))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElse(null); // TODO: throw exception
+        return namespaces.getLast().get(name); // TODO search downwards
     }
 
     public void assign(String name, LanguageElement value) {
         namespaces.getLast().assign(name, value);
+    }
+
+    @Override
+    public String toString() {
+        return namespaces.toString();
     }
 }

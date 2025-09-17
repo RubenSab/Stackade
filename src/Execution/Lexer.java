@@ -40,6 +40,7 @@ public class Lexer {
             case "pop" -> { return KeywordToken.POP; }
             case ":del" -> { return KeywordToken.DEL; }
             case ":num" -> { return KeywordToken.NUM; }
+            case ":bool" -> { return KeywordToken.BOOL; }
             case ":str" -> { return KeywordToken.STR; }
             case ":list" -> { return KeywordToken.LIST; }
             case ":block" -> { return KeywordToken.BLOCK; }
@@ -77,7 +78,8 @@ public class Lexer {
             case "input" -> { return KeywordToken.INPUT; }
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
-                    return new StringToken(representation);
+                    // build new token from substring from index 1 to -1 to remove double quotes
+                    return new StringToken(representation.substring(1, representation.length()-1));
                 } else if (isParsableAsDouble(representation)) {
                     return new NumberToken(representation);
                 } else if (representation.matches("[a-zA-Z_]+")) {
