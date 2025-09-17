@@ -1,7 +1,4 @@
 package Execution.Blocks;
-
-import Execution.Tokens.Token;
-
 import java.util.ArrayList;
 
 public class MultipleTokensBlock implements Block {
@@ -19,6 +16,6 @@ public class MultipleTokensBlock implements Block {
 
     @Override
     public String toString() {
-        return "(" + blocks.toString() + ")";
+        return "(" + blocks + ")";
     }
 }
