@@ -27,7 +27,7 @@ public class OperationRegistry {
                     if (invoked instanceof FrozenBlock) {
                         ((FrozenBlock) invoked).run();
                     } else {
-                        stack.push(namespaceToken.resolve());
+                        stack.push(namespaceToken.getName()); // TODO: manage namespace tokens instead of pushing strings
                     }
             }
             case KeywordToken keywordToken -> {
@@ -40,6 +40,7 @@ public class OperationRegistry {
                     // Stack
                     case DUP -> stack.push(stack.peek());
                     case POP -> stack.pop();
+                    case SWAP -> stack.swap();
                     // Declarations in Namespaces
                     case DEL -> namespaces.delete(((StringPrimitive) stack.pop()).getValue());
                     case DECLARE_NUM -> {
@@ -116,7 +117,7 @@ public class OperationRegistry {
                     case OR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).or((BooleanPrimitive) y));
                     case XOR -> applyStackBinaryFunction((x, y) -> ((BooleanPrimitive) x).xor((BooleanPrimitive) y));
                     // I/O
-                    case PRINT -> System.out.print(stack.pop());
+                    case PRINT -> System.out.print(stack.pop()); // TODO: resolve from namespace
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);
@@ -124,8 +125,20 @@ public class OperationRegistry {
     }
 
     private static void applyStackBinaryFunction(BiFunction<LanguageObject, LanguageObject, LanguageObject> biFunction) {
-        LanguageObject op2 = stack.pop();
-        LanguageObject op1 = stack.pop();
+        LanguageObject b = stack.pop();
+        LanguageObject a = stack.pop();
+        LanguageObject op2 = null;
+        LanguageObject op1 = null;
+        if (b instanceof NumberPrimitive) {
+            op2 = b;
+        } else if (a instanceof StringPrimitive) {
+            op2 = Namespaces.getInstance().get(((StringPrimitive) b).getValue());
+        }
+        if (a instanceof NumberPrimitive) {
+            op1 = a;
+        } else if (a instanceof StringPrimitive) {
+            op1 = Namespaces.getInstance().get(((StringPrimitive) a).getValue());
+        }
         stack.push(biFunction.apply(op1, op2));
     }
 

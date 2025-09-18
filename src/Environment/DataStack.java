@@ -32,6 +32,13 @@ public class DataStack {
         }
     }
 
+    public void swap() {
+        LanguageObject first = stack.pop();
+        LanguageObject second = stack.pop();
+        stack.push(first);
+        stack.push(second);
+    }
+
     public boolean isEmpty() {
         return stack.isEmpty();
     }

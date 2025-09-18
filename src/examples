@@ -1,0 +1,26 @@
+# count from 0 to 10
+
+0
+{
+    (dup 10 <=)
+    (dup print " " print (1 +) self) # true
+    ("done!" print)                  # false
+}
+
+
+# identity matrix
+
+{
+    (i n <)
+    (
+        {
+            (j n <)
+            ({(i j ==)(1)(0)} print j ++ self)
+            (j 0 =)
+        }
+        "\n" print
+        i ++
+        self
+    )
+    ()
+}

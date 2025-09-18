@@ -12,16 +12,17 @@ import java.util.regex.Pattern;
 
 public class Lexer {
 
-    public static ArrayList<Token> tokenize(String text) {
+    public static ArrayList<Token> tokenize(String source) {
         // Regular expression to match:
         // 1. Strings in double quotes: ".*?"
         // 2. Numbers (integers or decimals): \d+\.?\d*
         // 3. Single characters: [(){}]
         // 4. Names (letters and/or underscores): [a-zA-Z_]+
         // + others
+        String sourceNoComments = source.replaceAll("#.*", "");
         String regex = "\"[^\"]*\"|\\d*\\.\\d+|\\d+|\\+\\+|--|\\+=|-=|==|!=|<=|>=|:[a-zA-Z_]+|[+\\-*/%=<>(){}\\[\\]]|[a-zA-Z_]+";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = pattern.matcher(sourceNoComments);
 
         ArrayList<Token> tokens = new ArrayList<>();
         while (matcher.find()) {
@@ -40,6 +41,7 @@ public class Lexer {
             case "]" -> {return KeywordToken.CLOSE_FROZEN; }
             case "dup" -> { return KeywordToken.DUP; }
             case "pop" -> { return KeywordToken.POP; }
+            case "swap" -> { return KeywordToken.SWAP; }
             case ":del" -> { return KeywordToken.DEL; }
             case ":num" -> { return KeywordToken.DECLARE_NUM; }
             case ":bool" -> { return KeywordToken.DECLARE_BOOL; }

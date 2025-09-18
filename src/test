@@ -1,0 +1,18 @@
+"n" 4 :num
+"i" 0 :num
+"j" 0 :num
+
+{
+    (i n <)
+    (
+        {
+            (j n <)
+            ({(i j ==)(1)(0)} print j ++ self)
+            (j 0 =)
+        }
+        "\n" print
+        i ++
+        self
+    )
+    ()
+}
