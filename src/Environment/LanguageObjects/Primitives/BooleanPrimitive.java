@@ -1,4 +1,4 @@
-package Environment.LanguageElements.DataElements.Primitives;
+package Environment.LanguageObjects.Primitives;
 
 public class BooleanPrimitive extends Primitive<Boolean> {
 

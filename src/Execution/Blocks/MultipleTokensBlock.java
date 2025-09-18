@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class MultipleTokensBlock implements Block {
 
-    private final ArrayList<Block> blocks = new ArrayList<>();
+    protected final ArrayList<Block> blocks = new ArrayList<>();
 
     @Override
     public void add(Block block) {
@@ -13,10 +13,6 @@ public class MultipleTokensBlock implements Block {
     @Override
     public void execute() {
         blocks.forEach(Block::execute);
-    }
-
-    public ArrayList<Block> getBlocks() {
-        return blocks;
     }
 
     @Override

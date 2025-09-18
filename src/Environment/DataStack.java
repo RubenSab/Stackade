@@ -1,22 +1,22 @@
 package Environment;
 
-import Environment.LanguageElements.DataElements.DataElement;
+import Environment.LanguageObjects.LanguageObject;
 
 import java.util.Stack;
 
 public class DataStack {
     private static final DataStack INSTANCE = new DataStack();
-    private final Stack<DataElement> stack = new Stack<>();
+    private final Stack<LanguageObject> stack = new Stack<>();
 
     public static DataStack getInstance() {
         return INSTANCE;
     }
 
-    public void push(DataElement object) {
+    public void push(LanguageObject object) {
         stack.push(object);
     }
 
-    public DataElement pop() throws EmptyPopException {
+    public LanguageObject pop() throws EmptyPopException {
         if (!stack.isEmpty()) {
             return stack.pop();
         } else {
@@ -24,7 +24,7 @@ public class DataStack {
         }
     }
 
-    public DataElement peek() {
+    public LanguageObject peek() {
         if (!stack.isEmpty()) {
             return stack.peek();
         } else {

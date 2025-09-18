@@ -1,13 +1,13 @@
-package Environment.LanguageElements.DataElements.DataStructures;
+package Environment.LanguageObjects.DataStructures;
 
-import Environment.LanguageElements.DataElements.DataElement;
-import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
-import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
+import Environment.LanguageObjects.LanguageObject;
+import Environment.LanguageObjects.Primitives.BooleanPrimitive;
+import Environment.LanguageObjects.Primitives.NumberPrimitive;
 
 import java.util.ArrayList;
 
 public class ListStructure extends DataStructure{
-    private final ArrayList<DataElement> structure = new ArrayList<>();
+    private final ArrayList<LanguageObject> structure = new ArrayList<>();
 
     @Override
     public NumberPrimitive size() {
@@ -15,13 +15,13 @@ public class ListStructure extends DataStructure{
     }
 
     @Override
-    public void put(DataElement element) {
+    public void put(LanguageObject element) {
         structure.add(element);
     }
 
     @Override
-    public void remove(DataElement element) {
-        structure.remove(element);
+    public boolean remove(LanguageObject element) {
+        return structure.remove(element);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class ListStructure extends DataStructure{
     }
 
     @Override
-    public BooleanPrimitive contains(DataElement element) {
+    public BooleanPrimitive contains(LanguageObject element) {
         return new BooleanPrimitive(structure.contains(element));
     }
 
-    public DataElement get(NumberPrimitive index) {
+    public LanguageObject get(NumberPrimitive index) {
         int idx = index.getValue().intValue();
         if (idx < 0 || idx >= structure.size()) {
             return null; // TODO: maybe throwing an exception is better
@@ -42,7 +42,7 @@ public class ListStructure extends DataStructure{
         return structure.get(idx);
     }
 
-    public void set(NumberPrimitive index, DataElement value) {
+    public void set(NumberPrimitive index, LanguageObject value) {
         int idx = index.getValue().intValue();
 
         if (idx < 0 || idx >= structure.size()) {

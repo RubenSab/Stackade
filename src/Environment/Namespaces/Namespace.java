@@ -1,16 +1,16 @@
 package Environment.Namespaces;
-import Environment.LanguageElements.LanguageElement;
+import Environment.LanguageObjects.LanguageObject;
 
 import java.util.HashMap;
 
 public class Namespace {
-    private final HashMap<String, LanguageElement> namespace;
+    private final HashMap<String, LanguageObject> namespace;
 
     public Namespace() {
          namespace = new HashMap<>();
     }
 
-    public void define(String name, LanguageElement entity) {
+    public void define(String name, LanguageObject entity) {
         if (!namespace.containsKey(name)) {
             namespace.put(name, entity);
         }
@@ -20,12 +20,12 @@ public class Namespace {
         namespace.remove(name);
     }
 
-    public LanguageElement get(String name) {
+    public LanguageObject get(String name) {
         return namespace.getOrDefault(name, null);
     }
 
-    public void assign(String name, LanguageElement value) {
-        LanguageElement oldValue = namespace.get(name);
+    public void assign(String name, LanguageObject value) {
+        LanguageObject oldValue = namespace.get(name);
         if (oldValue != null && oldValue.getClass().equals(value.getClass())) {
             namespace.replace(name, value);
         } else {

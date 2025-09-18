@@ -1,9 +1,6 @@
 package Execution;
 
-import Execution.Blocks.Block;
-import Execution.Blocks.ConditionalBlock;
-import Execution.Blocks.MultipleTokensBlock;
-import Execution.Blocks.SingleTokenBlock;
+import Execution.Blocks.*;
 import Execution.Tokens.KeywordToken;
 import Execution.Tokens.Token;
 
@@ -19,12 +16,17 @@ public class Parser {
         for (Token t : tokens) {
             switch (t) {
                 case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock());
-                case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock());
                 case KeywordToken.CLOSE_BLOCK -> {
                     Block lastBlock = blockStack.pop();
                     blockStack.peek().add(lastBlock);
                 }
+                case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock());
                 case KeywordToken.CLOSE_COND -> {
+                    Block lastBlock = blockStack.pop();
+                    blockStack.peek().add(lastBlock);
+                }
+                case KeywordToken.OPEN_FROZEN -> blockStack.push(new FrozenMultipleTokensBlock());
+                case KeywordToken.CLOSE_FROZEN -> {
                     Block lastBlock = blockStack.pop();
                     blockStack.peek().add(lastBlock);
                 }

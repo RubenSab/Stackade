@@ -2,7 +2,7 @@ package Execution.Blocks;
 
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
-import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
+import Environment.LanguageObjects.Primitives.BooleanPrimitive;
 import Environment.Namespaces.Namespaces;
 
 public class ConditionalBlock implements Block {
@@ -24,7 +24,6 @@ public class ConditionalBlock implements Block {
     @Override
     public void execute() {
         ConditionalContextsStack.getInstance().push(this);
-        Namespaces.getInstance().pushNamespace();
         try {
             conditionBlock.execute();
             BooleanPrimitive conditionResult = (BooleanPrimitive) DataStack.getInstance().pop();
@@ -35,7 +34,6 @@ public class ConditionalBlock implements Block {
             }
         } finally {
             ConditionalContextsStack.getInstance().pop();
-            Namespaces.getInstance().popNamespace();
         }
     }
 

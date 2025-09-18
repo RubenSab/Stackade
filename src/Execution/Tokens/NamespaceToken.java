@@ -1,6 +1,6 @@
 package Execution.Tokens;
 
-import Environment.LanguageElements.LanguageElement;
+import Environment.LanguageObjects.LanguageObject;
 import Environment.Namespaces.Namespaces;
 
 public class NamespaceToken implements Token {
@@ -10,7 +10,7 @@ public class NamespaceToken implements Token {
         this.name = name;
     }
 
-    public LanguageElement resolve() {
+    public LanguageObject resolve() {
         return Namespaces.getInstance().get(name);
     }
 

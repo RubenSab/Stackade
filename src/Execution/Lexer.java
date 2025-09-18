@@ -19,7 +19,7 @@ public class Lexer {
         // 3. Single characters: [(){}]
         // 4. Names (letters and/or underscores): [a-zA-Z_]+
         // + others
-        String regex = "\"[^\"]*\"|\\d*\\.\\d+|\\d+|\\+\\+|--|\\+=|-=|==|!=|<=|>=|:[a-zA-Z_]+|[+\\-*/%=<>(){}]|[a-zA-Z_]+";
+        String regex = "\"[^\"]*\"|\\d*\\.\\d+|\\d+|\\+\\+|--|\\+=|-=|==|!=|<=|>=|:[a-zA-Z_]+|[+\\-*/%=<>(){}\\[\\]]|[a-zA-Z_]+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
 
@@ -36,14 +36,16 @@ public class Lexer {
             case "}" -> { return KeywordToken.CLOSE_COND; }
             case "(" -> { return KeywordToken.OPEN_BLOCK; }
             case ")" -> { return KeywordToken.CLOSE_BLOCK; }
+            case "[" -> {return KeywordToken.OPEN_FROZEN; }
+            case "]" -> {return KeywordToken.CLOSE_FROZEN; }
             case "dup" -> { return KeywordToken.DUP; }
             case "pop" -> { return KeywordToken.POP; }
             case ":del" -> { return KeywordToken.DEL; }
-            case ":num" -> { return KeywordToken.NUM; }
-            case ":bool" -> { return KeywordToken.BOOL; }
-            case ":str" -> { return KeywordToken.STR; }
-            case ":list" -> { return KeywordToken.LIST; }
-            case ":block" -> { return KeywordToken.BLOCK; }
+            case ":num" -> { return KeywordToken.DECLARE_NUM; }
+            case ":bool" -> { return KeywordToken.DECLARE_BOOL; }
+            case ":str" -> { return KeywordToken.DECLARE_STR; }
+            case ":list" -> { return KeywordToken.DECLARE_LIST; }
+            case ":fblock" -> { return KeywordToken.DECLARE_FROZEN_BLOCK; }
             case "=" -> { return KeywordToken.ASSIGN; }
             case "+=" -> { return KeywordToken.INCR; }
             case "-=" -> { return KeywordToken.DECR; }

@@ -2,11 +2,11 @@ package Execution;
 
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
-import Environment.LanguageElements.DataElements.DataElement;
-import Environment.LanguageElements.DataElements.Primitives.BooleanPrimitive;
-import Environment.LanguageElements.DataElements.Primitives.NumberPrimitive;
-import Environment.LanguageElements.DataElements.Primitives.StringPrimitive;
-import Environment.LanguageElements.LanguageElement;
+import Environment.LanguageObjects.FrozenBlock;
+import Environment.LanguageObjects.LanguageObject;
+import Environment.LanguageObjects.Primitives.BooleanPrimitive;
+import Environment.LanguageObjects.Primitives.NumberPrimitive;
+import Environment.LanguageObjects.Primitives.StringPrimitive;
 import Environment.Namespaces.Namespaces;
 import Execution.Tokens.*;
 
@@ -22,8 +22,14 @@ public class OperationRegistry {
                     stack.push(new NumberPrimitive(numberToken.get()));
             case StringToken stringToken ->
                     stack.push(new StringPrimitive(stringToken.get()));
-            case NamespaceToken namespaceToken ->
-                    stack.push((DataElement) namespaceToken.resolve());
+            case NamespaceToken namespaceToken -> {
+                    LanguageObject invoked = namespaceToken.resolve();
+                    if (invoked instanceof FrozenBlock) {
+                        ((FrozenBlock) invoked).run();
+                    } else {
+                        stack.push(namespaceToken.resolve());
+                    }
+            }
             case KeywordToken keywordToken -> {
                 switch (keywordToken) { // TODO: add lists and list operations, add input, add BLOCK
                     // Booleans
@@ -36,24 +42,29 @@ public class OperationRegistry {
                     case POP -> stack.pop();
                     // Declarations in Namespaces
                     case DEL -> namespaces.delete(((StringPrimitive) stack.pop()).getValue());
-                    case NUM -> {
+                    case DECLARE_NUM -> {
                         NumberPrimitive value = (NumberPrimitive) stack.pop();
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.define(name, value);
                     }
-                    case BOOL -> {
+                    case DECLARE_BOOL -> {
                         BooleanPrimitive value = (BooleanPrimitive) stack.pop();
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.define(name, value);
                     }
-                    case STR -> {
+                    case DECLARE_STR -> {
                         StringPrimitive value = (StringPrimitive) stack.pop();
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.define(name, value);
                     }
+                    case DECLARE_FROZEN_BLOCK -> {
+                        FrozenBlock block = (FrozenBlock) stack.pop();
+                        String name = ((StringPrimitive) stack.pop()).getValue();
+                        namespaces.define(name, block);
+                    }
                     // Assignations in Namespaces
                     case ASSIGN -> {
-                        LanguageElement value = stack.pop();
+                        LanguageObject value = stack.pop();
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.assign(name, value);
                     }
@@ -112,9 +123,9 @@ public class OperationRegistry {
         }
     }
 
-    private static void applyStackBinaryFunction(BiFunction<DataElement, DataElement, DataElement> biFunction) {
-        DataElement op2 = stack.pop();
-        DataElement op1 = stack.pop();
+    private static void applyStackBinaryFunction(BiFunction<LanguageObject, LanguageObject, LanguageObject> biFunction) {
+        LanguageObject op2 = stack.pop();
+        LanguageObject op1 = stack.pop();
         stack.push(biFunction.apply(op1, op2));
     }
 

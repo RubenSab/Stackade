@@ -1,5 +1,5 @@
 package Environment.Namespaces;
-import Environment.LanguageElements.LanguageElement;
+import Environment.LanguageObjects.LanguageObject;
 
 import java.util.LinkedList;
 
@@ -17,10 +17,10 @@ public class Namespaces extends Namespace{
     }
 
     public void popNamespace() {
-        namespaces.pop();
+        namespaces.removeLast();
     }
 
-    public void define(String name, LanguageElement entity) {
+    public void define(String name, LanguageObject entity) {
         namespaces.getLast().define(name, entity);
     }
 
@@ -28,11 +28,17 @@ public class Namespaces extends Namespace{
         namespaces.getLast().delete(name);
     }
 
-    public LanguageElement get(String name) {
-        return namespaces.getLast().get(name); // TODO search downwards
+    public LanguageObject get(String name) {
+        for (int i = namespaces.size() - 1; i >= 0; i--) {
+            LanguageObject result = namespaces.get(i).get(name);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
     }
 
-    public void assign(String name, LanguageElement value) {
+    public void assign(String name, LanguageObject value) {
         namespaces.getLast().assign(name, value);
     }
 

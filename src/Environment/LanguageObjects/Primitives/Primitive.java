@@ -1,10 +1,10 @@
-package Environment.LanguageElements.DataElements.Primitives;
+package Environment.LanguageObjects.Primitives;
 
-import Environment.LanguageElements.DataElements.DataElement;
+import Environment.LanguageObjects.LanguageObject;
 
 import java.util.Objects;
 
-public abstract class Primitive<T> extends DataElement {
+public abstract class Primitive<T> extends LanguageObject {
     private final T value;
 
     public Primitive(T value) {
