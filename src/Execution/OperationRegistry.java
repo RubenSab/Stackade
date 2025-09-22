@@ -94,21 +94,20 @@ public class OperationRegistry {
     // Helper functions
     private static <T extends LanguageObject> void declarationFunction(Class<T> classOfVariable) {
         T value = classOfVariable.cast(stack.pop().resolve());
-        String name = ((StringPrimitive) stack.pop().resolve()).getValue();
+        String name = ((NamespaceReference) stack.pop().resolve()).getName();
         namespaces.define(name, value);
     }
 
     private static void numericMutationFunction(BiFunction<NumberPrimitive, NumberPrimitive, NumberPrimitive> biFunction) {
         NumberPrimitive increment = (NumberPrimitive) stack.pop().resolve();
-        String name = ((StringPrimitive) stack.pop().resolve()).getValue();
+        String name = ((NamespaceReference) stack.pop().resolve()).getName();
         NumberPrimitive oldValue = ((NumberPrimitive) namespaces.get(name));
         NumberPrimitive newValue = biFunction.apply(oldValue, increment);
         namespaces.assign(name, newValue);
     }
 
     private static void numericMutationFunction(int fixedIncrement) {
-        NumberPrimitive increment = (NumberPrimitive) stack.pop().resolve();
-        String name = ((StringPrimitive) stack.pop().resolve()).getValue();
+        String name = ((NamespaceReference) stack.pop().resolve()).getName();
         NumberPrimitive oldValue = ((NumberPrimitive) namespaces.get(name));
         namespaces.assign(name, new NumberPrimitive(oldValue.getValue() + fixedIncrement));
     }

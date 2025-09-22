@@ -16,8 +16,8 @@ public class NamespaceReference extends LanguageObject {
         return Namespaces.getInstance().get(name);
     }
 
-    public StringPrimitive getName() {
-        return new StringPrimitive(name);
+    public String getName() {
+        return name;
     }
 
 }
