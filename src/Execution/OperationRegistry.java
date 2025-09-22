@@ -57,7 +57,7 @@ public class OperationRegistry {
                     // Assignations in Namespaces
                     case ASSIGN -> {
                         LanguageObject value = stack.pop();
-                        String name = ((StringPrimitive) stack.pop()).getValue();
+                        String name = ((NamespaceReference) stack.pop()).getName();
                         namespaces.assign(name, value);
                     }
                     case INCR -> numericMutationFunction(NumberPrimitive::add);
@@ -94,20 +94,20 @@ public class OperationRegistry {
     // Helper functions
     private static <T extends LanguageObject> void declarationFunction(Class<T> classOfVariable) {
         T value = classOfVariable.cast(stack.pop().resolve());
-        String name = ((NamespaceReference) stack.pop().resolve()).getName();
+        String name = ((StringPrimitive) stack.pop()).getValue();
         namespaces.define(name, value);
     }
 
     private static void numericMutationFunction(BiFunction<NumberPrimitive, NumberPrimitive, NumberPrimitive> biFunction) {
         NumberPrimitive increment = (NumberPrimitive) stack.pop().resolve();
-        String name = ((NamespaceReference) stack.pop().resolve()).getName();
+        String name = ((NamespaceReference) stack.pop()).getName();
         NumberPrimitive oldValue = ((NumberPrimitive) namespaces.get(name));
         NumberPrimitive newValue = biFunction.apply(oldValue, increment);
         namespaces.assign(name, newValue);
     }
 
     private static void numericMutationFunction(int fixedIncrement) {
-        String name = ((NamespaceReference) stack.pop().resolve()).getName();
+        String name = ((NamespaceReference) stack.pop()).getName();
         NumberPrimitive oldValue = ((NumberPrimitive) namespaces.get(name));
         namespaces.assign(name, new NumberPrimitive(oldValue.getValue() + fixedIncrement));
     }
