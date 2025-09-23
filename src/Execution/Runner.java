@@ -18,7 +18,7 @@ public class Runner {
         MultipleTokensBlock blocks = Parser.parse(tokens);
         Interpreter.execute(blocks);
         if (verbose) {
-            System.out.println("data stack = " + DataStack.getInstance());
+            System.out.println("\ndata stack = " + DataStack.getInstance());
             System.out.println("namespaces = " + Namespaces.getInstance());
         }
     }

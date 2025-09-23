@@ -9,4 +9,14 @@ public class StringPrimitive extends Primitive<String> {
     public String getValue() {
         return super.getValue();
     }
+
+    @Override
+    public String toString() {
+        return super.getValue()
+                .replace("\\n", "\n")
+                .replace("\\t", "\t")
+                .replace("\\r", "\r")
+                .replace("\\b", "\b")
+                .replace("\\f", "f");
+    }
 }

@@ -4,7 +4,7 @@ import Environment.LanguageObjects.LanguageObject;
 import java.util.LinkedList;
 
 
-public class Namespaces extends Namespace{
+public class Namespaces extends Namespace {
     private final LinkedList<Namespace> namespaces = new LinkedList<>();
     private final static Namespaces INSTANCE = new Namespaces();
 

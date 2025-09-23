@@ -84,7 +84,7 @@ public class OperationRegistry {
                     case XOR -> booleanArgsOperation(BooleanPrimitive::xor);
 
                     // I/O
-                    case PRINT -> System.out.print(stack.pop().resolve());
+                    case PRINT -> System.out.print((stack.pop().resolve()).toString());
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);
