@@ -30,7 +30,9 @@ public class ConditionalBlock implements Block {
             if (conditionResult.getValue()) {
                 trueBlock.execute();
             } else {
-                falseBlock.execute();
+                if (falseBlock != null) {
+                    falseBlock.execute();
+                }
             }
         } finally {
             ConditionalContextsStack.getInstance().pop();
