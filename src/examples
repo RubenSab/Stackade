@@ -10,7 +10,7 @@
 
 # identity matrix
 
-"printMatrix" [
+"printMatrix" (
 
     "n" swap :num
     "i" 0 :num
@@ -21,7 +21,7 @@
         (
             {
                 (j n <)
-                ({(i j ==)(1)(0)} print j ++ self)
+                ({(i j ==)(1)(0)} print " " print j ++ self)
                 (j 0 =)
             }
 
@@ -30,6 +30,6 @@
             self
         )
     }
-] :fblock
+) :seq
 
 10 printMatrix

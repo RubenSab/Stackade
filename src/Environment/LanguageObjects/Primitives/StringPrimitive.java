@@ -12,6 +12,11 @@ public class StringPrimitive extends Primitive<String> {
 
     @Override
     public String toString() {
+        return "string: " + getValue();
+    }
+
+    @Override
+    public String represent() {
         return super.getValue()
                 .replace("\\n", "\n")
                 .replace("\\t", "\t")

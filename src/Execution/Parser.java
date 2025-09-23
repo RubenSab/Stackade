@@ -25,11 +25,6 @@ public class Parser {
                     Block lastBlock = blockStack.pop();
                     blockStack.peek().add(lastBlock);
                 }
-                case KeywordToken.OPEN_FROZEN -> blockStack.push(new FrozenMultipleTokensBlock());
-                case KeywordToken.CLOSE_FROZEN -> {
-                    Block lastBlock = blockStack.pop();
-                    blockStack.peek().add(lastBlock);
-                }
                 default -> blockStack.peek().add(new SingleTokenBlock(t));
             }
         }

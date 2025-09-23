@@ -1,9 +1,16 @@
 package Execution.Blocks;
+import Environment.DataStack;
+import Environment.LanguageObjects.UnexecutedSequence;
+
 import java.util.ArrayList;
 
 public class MultipleTokensBlock implements Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
+
+    public void forceExecuteEveryBlockInside() {
+        blocks.forEach(Block::execute);
+    }
 
     @Override
     public void add(Block block) {
@@ -12,11 +19,11 @@ public class MultipleTokensBlock implements Block {
 
     @Override
     public void execute() {
-        blocks.forEach(Block::execute);
+        DataStack.getInstance().push(new UnexecutedSequence(blocks));
     }
 
     @Override
     public String toString() {
-        return "(" + blocks + ")";
+        return "multipleTokensBlock: " + blocks;
     }
 }

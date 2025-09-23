@@ -5,18 +5,18 @@ import Environment.DataStack;
 import Environment.LanguageObjects.Primitives.BooleanPrimitive;
 
 public class ConditionalBlock implements Block {
-    private Block conditionBlock;
-    private Block trueBlock;
-    private Block falseBlock;
+    private MultipleTokensBlock conditionBlock;
+    private MultipleTokensBlock trueBlock;
+    private MultipleTokensBlock falseBlock;
 
     @Override
     public void add(Block block) {
         if (conditionBlock == null) {
-            conditionBlock = block;
+            conditionBlock = (MultipleTokensBlock) block;
         } else if (trueBlock == null) {
-            trueBlock = block;
+            trueBlock = (MultipleTokensBlock) block;
         } else if (falseBlock == null) {
-            falseBlock = block;
+            falseBlock = (MultipleTokensBlock) block;
         }
     }
 
@@ -24,13 +24,13 @@ public class ConditionalBlock implements Block {
     public void execute() {
         ConditionalContextsStack.getInstance().push(this);
         try {
-            conditionBlock.execute();
+            conditionBlock.forceExecuteEveryBlockInside();
             BooleanPrimitive conditionResult = (BooleanPrimitive) DataStack.getInstance().pop();
             if (conditionResult.getValue()) {
-                trueBlock.execute();
+                trueBlock.forceExecuteEveryBlockInside();
             } else {
                 if (falseBlock != null) {
-                    falseBlock.execute();
+                    falseBlock.forceExecuteEveryBlockInside();
                 }
             }
         } finally {
@@ -40,6 +40,6 @@ public class ConditionalBlock implements Block {
 
     @Override
     public String toString() {
-        return "{" + conditionBlock + " " + trueBlock + " " + falseBlock + "}";
+        return "conditional block: " + conditionBlock + ", " + trueBlock + ", " + falseBlock;
     }
 }

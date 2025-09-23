@@ -13,6 +13,6 @@ public class NumberToken implements Token {
 
     @Override
     public String toString() {
-        return value.toString();
+        return "number token: " + value;
     }
 }

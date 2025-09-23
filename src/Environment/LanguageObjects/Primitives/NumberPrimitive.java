@@ -66,9 +66,13 @@ public class NumberPrimitive extends Primitive<Double> {
         return getValue().intValue();
     }
 
-    
     @Override
     public String toString() {
+        return "number: " + getValue();
+    }
+
+    @Override
+    public String represent() {
         if (getValue() - intValue() == 0) {
             return String.valueOf(intValue());
         }

@@ -37,8 +37,6 @@ public class Lexer {
             case "}" -> { return KeywordToken.CLOSE_COND; }
             case "(" -> { return KeywordToken.OPEN_BLOCK; }
             case ")" -> { return KeywordToken.CLOSE_BLOCK; }
-            case "[" -> {return KeywordToken.OPEN_FROZEN; }
-            case "]" -> {return KeywordToken.CLOSE_FROZEN; }
             case "dup" -> { return KeywordToken.DUP; }
             case "pop" -> { return KeywordToken.POP; }
             case "swap" -> { return KeywordToken.SWAP; }
@@ -47,7 +45,7 @@ public class Lexer {
             case ":bool" -> { return KeywordToken.DECLARE_BOOL; }
             case ":str" -> { return KeywordToken.DECLARE_STR; }
             case ":list" -> { return KeywordToken.DECLARE_LIST; }
-            case ":fblock" -> { return KeywordToken.DECLARE_FROZEN_BLOCK; }
+            case ":seq" -> { return KeywordToken.DECLARE_UNEXECUTED_SEQUENCE; }
             case "=" -> { return KeywordToken.ASSIGN; }
             case "+=" -> { return KeywordToken.INCR; }
             case "-=" -> { return KeywordToken.DECR; }

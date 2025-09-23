@@ -1,23 +1,23 @@
-"printMatrix" [
+"printMatrix" (
 
-    "size" swap :num
-    "y" 0 :num
-    "x" 0 :num
+    "n" swap :num
+    "i" 0 :num
+    "j" 0 :num
 
     {
-        (y size <)
+        (i n <)
         (
             {
-                (x size <)
-                ({(y x ==)(1)(0)} print x ++ self)
-                (x 0 =)
+                (j n <)
+                ({(i j ==)(1)(0)} print " " print j ++ self)
+                (j 0 =)
             }
 
             "\n" print
-            y ++
+            i ++
             self
         )
     }
-] :fblock
+) :seq
 
-5 printMatrix
+10 printMatrix

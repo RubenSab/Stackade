@@ -3,6 +3,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Runner.run(args[0], true);
+        Runner.run(args[0], false);
     }
 }

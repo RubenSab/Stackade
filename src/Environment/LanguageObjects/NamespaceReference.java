@@ -21,6 +21,11 @@ public class NamespaceReference extends LanguageObject {
 
     @Override
     public String toString() {
-        return "reference to " + name;
+        return "reference to: " + name;
+    }
+
+    @Override
+    public String represent() {
+        return resolve().represent();
     }
 }

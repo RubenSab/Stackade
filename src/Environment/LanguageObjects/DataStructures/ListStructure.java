@@ -6,7 +6,7 @@ import Environment.LanguageObjects.Primitives.NumberPrimitive;
 
 import java.util.ArrayList;
 
-public class ListStructure extends DataStructure{
+public class ListStructure extends DataStructure {
     private final ArrayList<LanguageObject> structure = new ArrayList<>();
 
     @Override
@@ -52,4 +52,8 @@ public class ListStructure extends DataStructure{
         }
     }
 
+    @Override
+    public String represent() {
+        return "";
+    }
 }

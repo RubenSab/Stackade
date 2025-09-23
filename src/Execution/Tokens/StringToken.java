@@ -13,6 +13,6 @@ public class StringToken implements Token {
 
     @Override
     public String toString() {
-        return "\"" + string + "\"";
+        return "string token:" + string;
     }
 }

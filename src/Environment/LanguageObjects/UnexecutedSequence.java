@@ -2,15 +2,19 @@ package Environment.LanguageObjects;
 
 import Environment.Namespaces.Namespaces;
 import Execution.Blocks.Block;
-import Execution.Blocks.FrozenMultipleTokensBlock;
 
 import java.util.ArrayList;
 
-public class FrozenBlock extends LanguageObject {
+public class UnexecutedSequence extends LanguageObject {
     private final ArrayList<Block> blocks;
+    private String name;
 
-    public FrozenBlock(ArrayList<Block> blocks) {
+    public UnexecutedSequence(ArrayList<Block> blocks) {
         this.blocks = blocks;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void run() {
@@ -20,7 +24,12 @@ public class FrozenBlock extends LanguageObject {
     }
 
     @Override
+    public String represent() {
+        return "sequence \"" + name + "\"";
+    }
+
+    @Override
     public String toString() {
-        return blocks.toString();
+        return "unexecuted sequence: " + blocks.toString();
     }
 }

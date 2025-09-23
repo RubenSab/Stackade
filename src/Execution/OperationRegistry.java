@@ -2,7 +2,7 @@ package Execution;
 
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
-import Environment.LanguageObjects.FrozenBlock;
+import Environment.LanguageObjects.UnexecutedSequence;
 import Environment.LanguageObjects.LanguageObject;
 import Environment.LanguageObjects.NamespaceReference;
 import Environment.LanguageObjects.Primitives.BooleanPrimitive;
@@ -24,9 +24,9 @@ public class OperationRegistry {
             case StringToken stringToken -> stack.push(new StringPrimitive(stringToken.get()));
             case NamespaceToken namespaceToken -> {
                     LanguageObject invoked = namespaceToken.resolve();
-                    if (invoked instanceof FrozenBlock) {
+                    if (invoked instanceof UnexecutedSequence) {
                         // One of the only two cases where nothing is pushed to the stack
-                        ((FrozenBlock) invoked).run();
+                        ((UnexecutedSequence) invoked).run();
                     } else {
                         stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
                     }
@@ -52,7 +52,7 @@ public class OperationRegistry {
                     case DECLARE_NUM -> declarationFunction(NumberPrimitive.class);
                     case DECLARE_BOOL -> declarationFunction(BooleanPrimitive.class);
                     case DECLARE_STR -> declarationFunction(StringPrimitive.class);
-                    case DECLARE_FROZEN_BLOCK -> declarationFunction(FrozenBlock.class);
+                    case DECLARE_UNEXECUTED_SEQUENCE -> declarationFunction(UnexecutedSequence.class);
 
                     // Assignations in Namespaces
                     case ASSIGN -> {
@@ -85,7 +85,7 @@ public class OperationRegistry {
                     case XOR -> booleanArgsOperation(BooleanPrimitive::xor);
 
                     // I/O
-                    case PRINT -> System.out.print((stack.pop().resolve()).toString());
+                    case PRINT -> System.out.print((stack.pop().resolve()).represent());
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);
@@ -97,6 +97,10 @@ public class OperationRegistry {
         T value = classOfVariable.cast(stack.pop().resolve());
         String name = ((StringPrimitive) stack.pop()).getValue();
         namespaces.define(name, value);
+
+        if (classOfVariable.equals(UnexecutedSequence.class)) {
+            ((UnexecutedSequence) value).setName(name);
+        }
     }
 
     private static void numericMutationFunction(BiFunction<NumberPrimitive, NumberPrimitive, NumberPrimitive> biFunction) {

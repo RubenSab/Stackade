@@ -2,10 +2,6 @@ package Environment.LanguageObjects.Primitives;
 
 public class BooleanPrimitive extends Primitive<Boolean> {
 
-    public BooleanPrimitive(String repr) {
-        super(Boolean.valueOf(repr));
-    }
-
     public BooleanPrimitive(Boolean value) {
         super(value);
     }
@@ -20,6 +16,14 @@ public class BooleanPrimitive extends Primitive<Boolean> {
         return super.getValue();
     }
 
+    @Override
+    public String toString() {
+        return "boolean: " + getValue();
+    }
 
+    @Override
+    public String represent() {
+        return getValue().toString();
+    }
 }
 
