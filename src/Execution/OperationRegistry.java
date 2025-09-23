@@ -66,6 +66,7 @@ public class OperationRegistry {
                     case DECR1 -> numericMutationFunction(-1);
 
                     // Num operations
+                    case ADD -> numericArgsOperation(NumberPrimitive::add);
                     case SUB -> numericArgsOperation(NumberPrimitive::sub);
                     case MUL -> numericArgsOperation(NumberPrimitive::mul);
                     case DIV -> numericArgsOperation(NumberPrimitive::div);

@@ -1,6 +1,5 @@
 package Environment.LanguageObjects;
 
-import Environment.LanguageObjects.Primitives.StringPrimitive;
 import Environment.Namespaces.Namespaces;
 
 public class NamespaceReference extends LanguageObject {
@@ -20,4 +19,8 @@ public class NamespaceReference extends LanguageObject {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return "reference to " + name;
+    }
 }

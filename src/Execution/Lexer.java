@@ -68,7 +68,7 @@ public class Lexer {
             case "and" -> { return KeywordToken.AND; }
             case "or" -> { return KeywordToken.OR; }
             case "xor" -> { return KeywordToken.XOR; }
-            case "size" -> { return KeywordToken.SIZE; }
+            case "len" -> { return KeywordToken.LEN; }
             case "get" -> { return KeywordToken.GET; }
             case "put" -> { return KeywordToken.PUT; }
             case "remove" -> { return KeywordToken.REMOVE; }

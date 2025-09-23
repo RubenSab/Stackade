@@ -9,7 +9,7 @@ public enum KeywordToken implements Token {
     ADD, SUB, MUL, DIV, MOD, // Num operations
     EQ, NEQ, LT, GT, LEQ, GEQ,
     NOT, AND, OR, XOR, // Boolean operations
-    GET, SIZE, PUT, REMOVE, CLEAR, CONTAINS, SET, // Lists
+    GET, LEN, PUT, REMOVE, CLEAR, CONTAINS, SET, // Lists
     PRINT, INPUT, // I/O
     OPEN_COND, CLOSE_COND, // Brackets (the only Tokens not transformed to Blocks)
     OPEN_BLOCK, CLOSE_BLOCK,

@@ -3,7 +3,6 @@ package Execution.Blocks;
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
 import Environment.LanguageObjects.Primitives.BooleanPrimitive;
-import Environment.Namespaces.Namespaces;
 
 public class ConditionalBlock implements Block {
     private Block conditionBlock;
