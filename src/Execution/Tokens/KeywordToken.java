@@ -13,4 +13,5 @@ public enum KeywordToken implements Token {
     PRINT, INPUT, // I/O
     OPEN_COND, CLOSE_COND, // Brackets (the only Tokens not transformed to Blocks)
     OPEN_BLOCK, CLOSE_BLOCK,
+    DEBUG, BREAKPOINT // Debugging
     }

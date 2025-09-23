@@ -40,6 +40,6 @@ public class ConditionalBlock implements Block {
 
     @Override
     public String toString() {
-        return "conditional block: " + conditionBlock + ", " + trueBlock + ", " + falseBlock;
+        return "conditional block(condition block(" + conditionBlock + "), true block(" + trueBlock + "), false block(" + falseBlock + ")";
     }
 }

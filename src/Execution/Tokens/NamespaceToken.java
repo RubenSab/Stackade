@@ -21,6 +21,6 @@ public class NamespaceToken implements Token {
 
     @Override
     public String toString() {
-        return "namespace token: " + name;
+        return "namespace token(" + name + ")";
     }
 }

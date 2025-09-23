@@ -86,6 +86,12 @@ public class OperationRegistry {
 
                     // I/O
                     case PRINT -> System.out.print((stack.pop().resolve()).represent());
+
+                    // Debugging
+                    case DEBUG -> {
+                        System.out.println("\ndata stack = " + DataStack.getInstance());
+                        System.out.println("namespaces = " + Namespaces.getInstance());
+                    }
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + token);

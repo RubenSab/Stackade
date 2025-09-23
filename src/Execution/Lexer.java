@@ -78,6 +78,8 @@ public class Lexer {
             case "self" -> { return KeywordToken.SELF; }
             case "print" -> { return KeywordToken.PRINT; }
             case "input" -> { return KeywordToken.INPUT; }
+            case "debug" -> { return KeywordToken.DEBUG; }
+            case "breakpoint" -> { return KeywordToken.BREAKPOINT; }
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes

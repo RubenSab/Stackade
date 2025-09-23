@@ -1,6 +1,7 @@
 package Execution.Blocks;
 import Environment.DataStack;
 import Environment.LanguageObjects.UnexecutedSequence;
+import Execution.Tokens.KeywordToken;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,12 @@ public class MultipleTokensBlock implements Block {
     protected final ArrayList<Block> blocks = new ArrayList<>();
 
     public void forceExecuteEveryBlockInside() {
-        blocks.forEach(Block::execute);
+        for (Block b : blocks) {
+            if (b instanceof SingleTokenBlock && ((SingleTokenBlock) b).getToken() == KeywordToken.BREAKPOINT) {
+                break;
+            }
+            b.execute();
+        }
     }
 
     @Override
@@ -24,6 +30,6 @@ public class MultipleTokensBlock implements Block {
 
     @Override
     public String toString() {
-        return "multipleTokensBlock: " + blocks;
+        return "multipleTokensBlock(" + blocks + ")";
     }
 }

@@ -10,6 +10,10 @@ public class SingleTokenBlock implements Block {
         this.token = token;
     }
 
+    public Token getToken() {
+        return token;
+    }
+
     @Override
     public void execute() {
         OperationRegistry.executeToken(token);
