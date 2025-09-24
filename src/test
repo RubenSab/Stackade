@@ -1,4 +1,5 @@
-"n" 1 :num // define n = 1
-"pointer" n :ref // define a pointer to n
-pointer get 2 + print // get the value of pointer and add 2
+"n" 1 :num              # define n = 1
+"pointer" n :ref        # define a pointer to n
+pointer get 2 + print   # get the value of pointer and add 2
+"pointer" :del          # just like any other variable, pointers can be deleted from namespace
 debug
