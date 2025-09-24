@@ -54,7 +54,18 @@ public class OperationRegistry {
                     case DECLARE_STR -> declarationFunction(StringPrimitive.class);
                     case DECLARE_UNEXECUTED_SEQUENCE -> declarationFunction(UnexecutedSequence.class);
                     case DECLARE_REFERENCE -> declarationFunction(NamespaceReference.class);
-                    case GET_REFERENCE_VALUE -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
+                    case TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
+                    // TODO: case TO_BOOL
+                    case TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
+                    case CONCATENATE -> {
+                        String second = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        String first = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        stack.push(new StringPrimitive(first + second));
+                    }
+                    case RAISE_VAR -> {}
+                    case RESOLVE_VARIABLE_IN_STR -> stack.push(namespaces.get(((StringPrimitive) stack.pop()).getValue()));
+
+                    case RESOLVE_REFERENCE_VALUE -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
 
                     // Assignations in Namespaces
                     case ASSIGN -> {

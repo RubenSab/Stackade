@@ -5,7 +5,11 @@ public class NumberPrimitive extends Primitive<Double> {
     public NumberPrimitive(Number value) {
         super((double) value);
     }
-    
+
+    public static NumberPrimitive parseNumber(String string) {
+        return new NumberPrimitive(Double.parseDouble(string));
+    }
+
     public NumberPrimitive add(NumberPrimitive o) {
         return new NumberPrimitive(getValue() + o.getValue());
     }
@@ -64,6 +68,10 @@ public class NumberPrimitive extends Primitive<Double> {
 
     public int intValue() {
         return getValue().intValue();
+    }
+
+    public StringPrimitive toStringPrimitive() {
+        return new StringPrimitive(represent());
     }
 
     @Override

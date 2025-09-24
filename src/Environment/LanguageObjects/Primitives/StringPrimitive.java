@@ -5,6 +5,10 @@ public class StringPrimitive extends Primitive<String> {
         super(value);
     }
 
+    public NumberPrimitive toNumberPrimitive() {
+        return NumberPrimitive.parseNumber(getValue());
+    }
+
     @Override
     public String getValue() {
         return super.getValue();

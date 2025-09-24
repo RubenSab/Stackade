@@ -47,7 +47,13 @@ public class Lexer {
             case ":list" -> { return KeywordToken.DECLARE_LIST; }
             case ":seq" -> { return KeywordToken.DECLARE_UNEXECUTED_SEQUENCE; }
             case ":ref" -> { return KeywordToken.DECLARE_REFERENCE; }
-            case "get" -> {return KeywordToken.GET_REFERENCE_VALUE; }
+            case ":raiseVar" -> { return KeywordToken.RAISE_VAR; }
+            case "cat" -> { return KeywordToken.CONCATENATE; }
+            case "toNum" -> { return KeywordToken.TO_NUM; }
+            case "toBool" -> { return KeywordToken.TO_BOOL; }
+            case "toStr" -> { return KeywordToken.TO_STR; }
+            case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; } //TODO: fix behaviour with pointers
+            case "refGet" -> { return KeywordToken.RESOLVE_REFERENCE_VALUE; }
             case "=" -> { return KeywordToken.ASSIGN; }
             case "+=" -> { return KeywordToken.INCR; }
             case "-=" -> { return KeywordToken.DECR; }
@@ -68,7 +74,7 @@ public class Lexer {
             case "and" -> { return KeywordToken.AND; }
             case "or" -> { return KeywordToken.OR; }
             case "xor" -> { return KeywordToken.XOR; }
-            case "len" -> { return KeywordToken.LEN; }
+            // case "len" -> { return KeywordToken.LEN; }
             // case "get" -> { return KeywordToken.GET; }
             // case "put" -> { return KeywordToken.PUT; }
             // case "remove" -> { return KeywordToken.REMOVE; }

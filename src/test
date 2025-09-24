@@ -1,5 +1,14 @@
-"n" 1 :num              # define n = 1
-"pointer" n :ref        # define a pointer to n
-pointer get 2 + print   # get the value of pointer and add 2
-"pointer" :del          # just like any other variable, pointers can be deleted from namespace
-debug
+"addNum" (
+    "value" swap :num
+    "index" swap :num
+    "listName" swap :str
+
+    "elementName" listName "." cat index toStr cat :str   # assemble element name (example: newList.0)
+    elementName refGet value refGet :num   # assign value to element name
+
+    elementName refGet   # get elementName's content
+    strGet :raise   # get the content of the variable which name is elementName's content, then raise it to caller's namespace
+
+) :seq
+
+"listTest" 0 42 addNum

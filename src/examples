@@ -67,4 +67,23 @@
 "pointer" n :ref        # define a pointer to n
 pointer get 2 + print   # get the value of pointer and add 2
 "pointer" :del          # just like any other variable, pointers can be deleted from namespace
-debug
+debug halt
+
+
+# Circular reference
+
+"B" A :ref   # define a reference B to a yet unexisting A variable
+"A" B :ref   # define a reference A to B
+
+debug halt
+
+
+# Casting
+
+"A" 3 :num
+A toStr print
+
+"\n" print
+
+"B" "5.2" :str
+B toNum print

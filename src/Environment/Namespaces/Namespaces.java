@@ -42,6 +42,10 @@ public class Namespaces extends Namespace {
         namespaces.getLast().assign(name, value);
     }
 
+    public void raise(String name) {
+        // TODO: get variable and move it to the namespace before
+    }
+
     @Override
     public String toString() {
         return namespaces.toString();
