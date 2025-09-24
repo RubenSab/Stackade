@@ -53,6 +53,8 @@ public class OperationRegistry {
                     case DECLARE_BOOL -> declarationFunction(BooleanPrimitive.class);
                     case DECLARE_STR -> declarationFunction(StringPrimitive.class);
                     case DECLARE_UNEXECUTED_SEQUENCE -> declarationFunction(UnexecutedSequence.class);
+                    case DECLARE_REFERENCE -> declarationFunction(NamespaceReference.class);
+                    case GET_REFERENCE_VALUE -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
 
                     // Assignations in Namespaces
                     case ASSIGN -> {
@@ -100,7 +102,7 @@ public class OperationRegistry {
 
     // Helper functions
     private static <T extends LanguageObject> void declarationFunction(Class<T> classOfVariable) {
-        T value = classOfVariable.cast(stack.pop().resolve());
+        T value = classOfVariable.cast(stack.pop()); // not doing stack.pop().resolve() allows declaring pointer variables (NamespaceReference)
         String name = ((StringPrimitive) stack.pop()).getValue();
         namespaces.define(name, value);
 

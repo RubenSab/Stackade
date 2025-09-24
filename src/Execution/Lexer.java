@@ -46,6 +46,8 @@ public class Lexer {
             case ":str" -> { return KeywordToken.DECLARE_STR; }
             case ":list" -> { return KeywordToken.DECLARE_LIST; }
             case ":seq" -> { return KeywordToken.DECLARE_UNEXECUTED_SEQUENCE; }
+            case ":ref" -> { return KeywordToken.DECLARE_REFERENCE; }
+            case "get" -> {return KeywordToken.GET_REFERENCE_VALUE; }
             case "=" -> { return KeywordToken.ASSIGN; }
             case "+=" -> { return KeywordToken.INCR; }
             case "-=" -> { return KeywordToken.DECR; }
@@ -67,19 +69,19 @@ public class Lexer {
             case "or" -> { return KeywordToken.OR; }
             case "xor" -> { return KeywordToken.XOR; }
             case "len" -> { return KeywordToken.LEN; }
-            case "get" -> { return KeywordToken.GET; }
-            case "put" -> { return KeywordToken.PUT; }
-            case "remove" -> { return KeywordToken.REMOVE; }
-            case "clear" -> { return KeywordToken.CLEAR; }
-            case "contains" -> { return KeywordToken.CONTAINS; }
-            case "set" -> { return KeywordToken.SET; }
+            // case "get" -> { return KeywordToken.GET; }
+            // case "put" -> { return KeywordToken.PUT; }
+            // case "remove" -> { return KeywordToken.REMOVE; }
+            // case "clear" -> { return KeywordToken.CLEAR; }
+            // case "contains" -> { return KeywordToken.CONTAINS; }
+            // case "set" -> { return KeywordToken.SET; }
             case "true" -> { return KeywordToken.TRUE; }
             case "false" -> { return KeywordToken.FALSE; }
             case "self" -> { return KeywordToken.SELF; }
             case "print" -> { return KeywordToken.PRINT; }
             case "input" -> { return KeywordToken.INPUT; }
             case "debug" -> { return KeywordToken.DEBUG; }
-            case "breakpoint" -> { return KeywordToken.BREAKPOINT; }
+            case "halt" -> { return KeywordToken.HALT; }
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes

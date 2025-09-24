@@ -11,7 +11,7 @@ public class MultipleTokensBlock implements Block {
 
     public void forceExecuteEveryBlockInside() {
         for (Block b : blocks) {
-            if (b instanceof SingleTokenBlock && ((SingleTokenBlock) b).getToken() == KeywordToken.BREAKPOINT) {
+            if (b instanceof SingleTokenBlock && ((SingleTokenBlock) b).getToken() == KeywordToken.HALT) {
                 break;
             }
             b.execute();

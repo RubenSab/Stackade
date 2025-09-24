@@ -33,3 +33,36 @@
 ) :seq
 
 10 printMatrix
+
+"diagonalsMatrix" (
+
+    "size" swap :num
+    "i" 0 :num
+    "j" 0 :num
+
+    {
+        (i size <)
+        (
+            {(j size <)
+                ({(i j == i    j + size 1 - ==    or)
+                    ({(i j == i    j + size 1 - ==    and)
+                        ("o")
+                        (size)
+                    })
+                    (" ")}
+                print " " print j ++ self)
+                (j 0 =)}
+
+            "\n" print
+            i ++
+            self
+        )
+    }
+) :seq
+
+7 diagonalsMatrix
+
+"n" 1 :num // define n = 1
+"pointer" n :ref // define a pointer to n
+pointer get 2 + print // get the value of pointer and add 2
+debug
