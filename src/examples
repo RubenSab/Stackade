@@ -96,7 +96,7 @@ B toNum print
     "index" swap :num
     "listName" swap :str
 
-    "elementName" listName   index toStr   cat :str   # assemble element name (example: newList.0)
+    "elementName" listName   index numToStr   cat :str   # assemble element name (example: newList.0)
     elementName refGet value refGet :num              # assign value to the new list element name
 
     elementName refGet   # get elementName's content (so the name of the new list element)
@@ -109,7 +109,7 @@ B toNum print
     "index" swap :num
     "name" swap :str
 
-    name   index toStr   cat strGet
+    name   index numToStr   cat strGet
 ) :seq
 
 "println" (
@@ -125,4 +125,17 @@ B toNum print
 "listTest" 0 getFrom println
 
 "listTest0" exists println
+debug
+
+
+# Boxes
+
+# this works
+"test" 2 :box
+test "hello" =
+
+# this doesn't
+"a" 2 :num
+a "hello" =
+
 debug

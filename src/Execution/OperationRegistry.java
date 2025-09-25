@@ -2,6 +2,7 @@ package Execution;
 
 import Environment.ConditionalContextsStack;
 import Environment.DataStack;
+import Environment.LanguageObjects.Box;
 import Environment.LanguageObjects.UnexecutedSequence;
 import Environment.LanguageObjects.LanguageObject;
 import Environment.LanguageObjects.NamespaceReference;
@@ -54,12 +55,16 @@ public class OperationRegistry {
                     case DECLARE_STR -> declarationFunction(StringPrimitive.class);
                     case DECLARE_UNEXECUTED_SEQUENCE -> declarationFunction(UnexecutedSequence.class);
                     case DECLARE_REFERENCE -> declarationFunction(NamespaceReference.class);
+                    case DECLARE_BOX -> {
+                        LanguageObject wrappedValue = stack.pop();
+                        String name = ((StringPrimitive) stack.pop()).getValue();
+                        namespaces.define(name, new Box(wrappedValue));
+                    }
                     case CHECK_DEFINED -> stack.push(new BooleanPrimitive(
                             namespaces.contains(((StringPrimitive) stack.pop()).getValue())
                     ));
-                    case TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
-                    // TODO: case TO_BOOL
-                    case TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
+                    case STR_TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
+                    case NUM_TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
                     case CONCATENATE -> {
                         String second = ((StringPrimitive) stack.pop().resolve()).getValue();
                         String first = ((StringPrimitive) stack.pop().resolve()).getValue();

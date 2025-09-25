@@ -1,4 +1,5 @@
 package Environment.Namespaces;
+import Environment.LanguageObjects.Box;
 import Environment.LanguageObjects.LanguageObject;
 import java.util.HashMap;
 
@@ -33,7 +34,7 @@ public class Namespace {
 
     public void assign(String name, LanguageObject value) {
         LanguageObject oldValue = namespace.get(name);
-        if (oldValue != null && oldValue.getClass().equals(value.getClass())) {
+        if (oldValue != null && (oldValue.getClass().equals(value.getClass()) || oldValue.getClass().equals(Box.class))) {
             namespace.replace(name, value);
         } else {
             // TODO: throw exception
