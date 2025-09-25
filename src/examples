@@ -91,13 +91,13 @@ B toNum print
 
 # Array implementation
 
-"addNum" (
+"listPut" (
     "value" swap :num    # the arguments are taken in reverse order because of how they get pushed on the stack
     "index" swap :num
     "listName" swap :str
 
-    "elementName" listName   index numToStr   cat :str   # assemble element name (example: newList.0)
-    elementName refGet value refGet :num              # assign value to the new list element name
+    "elementName"   listName "-" cat index numToStr cat   :str   # assemble element name (example: newList.0)
+    elementName refGet value refGet :box                         # assign value to the new list element name
 
     elementName refGet   # get elementName's content (so the name of the new list element)
     :raiseName           # raise it to caller's namespace before this sequence's namespace collapses
@@ -105,37 +105,15 @@ B toNum print
 ) :seq
 
 
-"getFrom" (
+"geti" (
     "index" swap :num
     "name" swap :str
 
-    name   index numToStr   cat strGet
-) :seq
-
-"println" (
-    print "\n" print
+    name "-" cat  index numToStr   cat strGet unbox
 ) :seq
 
 # test
 
-"listTest" 0 42 addNum
-"listTest" 0 getFrom println
-
-"listTest" 0 41 addNum
-"listTest" 0 getFrom println
-
-"listTest0" exists println
-debug
-
-
-# Boxes
-
-# this works
-"test" 2 :box
-test "hello" =
-
-# this doesn't
-"a" 2 :num
-a "hello" =
-
+"listTest" 0 42 listPut
+"listTest" 0 geti print
 debug

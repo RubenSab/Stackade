@@ -13,6 +13,7 @@ import Environment.LanguageObjects.Primitives.StringPrimitive;
 import Environment.Namespaces.Namespaces;
 import Execution.Tokens.*;
 
+import java.io.Console;
 import java.util.function.BiFunction;
 
 public class OperationRegistry {
@@ -33,7 +34,7 @@ public class OperationRegistry {
                     }
             }
             case KeywordToken keywordToken -> {
-                switch (keywordToken) { // TODO: add lists and list operations, add input, add BLOCK
+                switch (keywordToken) { // TODO: add string character extraction
 
                     // Booleans
                     case TRUE -> stack.push(new BooleanPrimitive(true));
@@ -60,6 +61,8 @@ public class OperationRegistry {
                         String name = ((StringPrimitive) stack.pop()).getValue();
                         namespaces.define(name, new Box(wrappedValue));
                     }
+                    case GET_BOX_CONTENT -> stack.push(((Box) stack.pop()).getContent());
+                    case BOX -> stack.push(new Box(stack.pop()));
                     case CHECK_DEFINED -> stack.push(new BooleanPrimitive(
                             namespaces.contains(((StringPrimitive) stack.pop()).getValue())
                     ));
@@ -107,7 +110,10 @@ public class OperationRegistry {
 
                     // I/O
                     case PRINT -> System.out.print((stack.pop().resolve()).represent());
-
+                    case INPUT -> {
+                        Console console = System.console();
+                        stack.push(new StringPrimitive(console.readLine()));
+                    }
                     // Debugging
                     case DEBUG -> {
                         System.out.println("\ndata stack = " + DataStack.getInstance());

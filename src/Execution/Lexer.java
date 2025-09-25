@@ -50,11 +50,12 @@ public class Lexer {
             case ":box" -> { return KeywordToken.DECLARE_BOX; }
             case ":raiseName" -> { return KeywordToken.RAISE_VAR; }
             case "exists" -> { return KeywordToken.CHECK_DEFINED; }
-            case "getContent" -> { return KeywordToken.GET_BOX_CONTENT; }
+            case "unbox" -> { return KeywordToken.GET_BOX_CONTENT; }
+            case "box" -> { return KeywordToken.BOX; }
             case "cat" -> { return KeywordToken.CONCATENATE; }
             case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
             case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
-            case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; } //TODO: fix behaviour with pointers
+            case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; }
             case "refGet" -> { return KeywordToken.RESOLVE_REFERENCE_VALUE; }
             case "=" -> { return KeywordToken.ASSIGN; }
             case "+=" -> { return KeywordToken.INCR; }

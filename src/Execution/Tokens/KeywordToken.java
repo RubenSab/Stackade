@@ -7,7 +7,7 @@ public enum KeywordToken implements Token {
     DEL, DECLARE_NUM, DECLARE_BOOL, DECLARE_STR, DECLARE_LIST, DECLARE_UNEXECUTED_SEQUENCE, DECLARE_REFERENCE, DECLARE_BOX, // Declarations in Namespaces
     STR_TO_NUM, NUM_TO_STR, // Casting
     CHECK_DEFINED,
-    GET_BOX_CONTENT, REPLACE_BOX_CONTENT,
+    BOX, GET_BOX_CONTENT, // Box operations
     CONCATENATE, RESOLVE_VARIABLE_IN_STR, // String operations
     RAISE_VAR,
     RESOLVE_REFERENCE_VALUE, // NamespaceReference operations

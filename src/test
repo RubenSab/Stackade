@@ -1,11 +1,26 @@
-# Boxes
+"listPut" (
+    "value" swap :num    # the arguments are taken in reverse order because of how they get pushed on the stack
+    "index" swap :num
+    "listName" swap :str
 
-# this works
-"test" 2 :box
-test "hello" =
+    "elementName" listName "-" cat   index numToStr cat   :str   # assemble element name (example: newList.0)
+    elementName refGet value refGet :box                 # assign value to the new list element name
 
-# this doesn't
-"a" 2 :num
-a "hello" =
+    elementName refGet   # get elementName's content (so the name of the new list element)
+    :raiseName           # raise it to caller's namespace before this sequence's namespace collapses
 
+) :seq
+
+
+"geti" (
+    "index" swap :num
+    "name" swap :str
+
+    name "-" cat  index numToStr   cat strGet unbox
+) :seq
+
+# test
+
+"listTest" 0 42 listPut
+"listTest" 0 geti print
 debug
