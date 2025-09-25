@@ -87,3 +87,42 @@ A toStr print
 
 "B" "5.2" :str
 B toNum print
+
+
+# Array implementation
+
+"addNum" (
+    "value" swap :num    # the arguments are taken in reverse order because of how they get pushed on the stack
+    "index" swap :num
+    "listName" swap :str
+
+    "elementName" listName   index toStr   cat :str   # assemble element name (example: newList.0)
+    elementName refGet value refGet :num              # assign value to the new list element name
+
+    elementName refGet   # get elementName's content (so the name of the new list element)
+    :raiseName           # raise it to caller's namespace before this sequence's namespace collapses
+
+) :seq
+
+
+"getFrom" (
+    "index" swap :num
+    "name" swap :str
+
+    name   index toStr   cat strGet
+) :seq
+
+"println" (
+    print "\n" print
+) :seq
+
+# test
+
+"listTest" 0 42 addNum
+"listTest" 0 getFrom println
+
+"listTest" 0 41 addNum
+"listTest" 0 getFrom println
+
+"listTest0" exists println
+debug

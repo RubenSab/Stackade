@@ -1,6 +1,5 @@
 package Environment.Namespaces;
 import Environment.LanguageObjects.LanguageObject;
-
 import java.util.HashMap;
 
 public class Namespace {
@@ -13,7 +12,15 @@ public class Namespace {
     public void define(String name, LanguageObject entity) {
         if (!namespace.containsKey(name)) {
             namespace.put(name, entity);
+        } else if (namespace.get(name).getClass().equals(entity.getClass())) {
+            namespace.replace(name, entity);
+        } else {
+            // TODO: throw exception
         }
+    }
+
+    public boolean contains (String name) {
+        return namespace.containsKey(name);
     }
 
     public void delete(String name) {

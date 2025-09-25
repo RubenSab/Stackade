@@ -6,6 +6,7 @@ public enum KeywordToken implements Token {
     DUP, POP, SWAP, // Stack
     DEL, DECLARE_NUM, DECLARE_BOOL, DECLARE_STR, DECLARE_LIST, DECLARE_UNEXECUTED_SEQUENCE, DECLARE_REFERENCE, // Declarations in Namespaces
     TO_NUM, TO_BOOL, TO_STR, // Casting
+    CHECK_DEFINED,
     CONCATENATE, RESOLVE_VARIABLE_IN_STR, // String operations
     RAISE_VAR,
     RESOLVE_REFERENCE_VALUE, // NamespaceReference operations

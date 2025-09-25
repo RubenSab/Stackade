@@ -47,7 +47,8 @@ public class Lexer {
             case ":list" -> { return KeywordToken.DECLARE_LIST; }
             case ":seq" -> { return KeywordToken.DECLARE_UNEXECUTED_SEQUENCE; }
             case ":ref" -> { return KeywordToken.DECLARE_REFERENCE; }
-            case ":raiseVar" -> { return KeywordToken.RAISE_VAR; }
+            case ":raiseName" -> { return KeywordToken.RAISE_VAR; }
+            case "exists" -> { return KeywordToken.CHECK_DEFINED; }
             case "cat" -> { return KeywordToken.CONCATENATE; }
             case "toNum" -> { return KeywordToken.TO_NUM; }
             case "toBool" -> { return KeywordToken.TO_BOOL; }

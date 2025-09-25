@@ -30,6 +30,6 @@ public class UnexecutedSequence extends LanguageObject {
 
     @Override
     public String toString() {
-        return "unexecuted sequence(" + blocks.toString() + ")";
+        return "unexecuted sequence(" + name + ")";
     }
 }
