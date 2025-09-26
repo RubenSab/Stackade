@@ -8,9 +8,8 @@ public enum KeywordToken implements Token {
     STR_TO_NUM, NUM_TO_STR, // Casting
     CHECK_DEFINED,
     BOX, GET_BOX_CONTENT, // Box operations
-    CONCATENATE, RESOLVE_VARIABLE_IN_STR, // String operations
-    RAISE_VAR,
-    RESOLVE_REFERENCE_VALUE, // NamespaceReference operations
+    CONCATENATE, CHAR_AT, STR_LENGTH, // String operations
+    RESOLVE_VARIABLE_IN_STR, RESOLVE_REFERENCE_VALUE, RAISE_VAR, // NamespaceReference operations
     ASSIGN, INCR, DECR, INCR1, DECR1, // Assignations in Namespaces
     ADD, SUB, MUL, DIV, MOD, // Num operations
     EQ, NEQ, LT, GT, LEQ, GEQ,

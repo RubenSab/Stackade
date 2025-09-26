@@ -2,6 +2,8 @@ package Environment.LanguageObjects;
 
 import Environment.Namespaces.Namespaces;
 
+import java.util.Objects;
+
 public class NamespaceReference extends LanguageObject {
 
     private final String name;
@@ -27,5 +29,17 @@ public class NamespaceReference extends LanguageObject {
     @Override
     public String represent() {
         return "reference(" + name + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null || getClass()!=o.getClass()) return false;
+        NamespaceReference that = (NamespaceReference) o;
+        return Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getName());
     }
 }

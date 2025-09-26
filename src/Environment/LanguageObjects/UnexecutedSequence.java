@@ -4,6 +4,7 @@ import Environment.Namespaces.Namespaces;
 import Execution.Blocks.Block;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UnexecutedSequence extends LanguageObject {
     private final ArrayList<Block> blocks;
@@ -31,5 +32,17 @@ public class UnexecutedSequence extends LanguageObject {
     @Override
     public String toString() {
         return "unexecuted sequence(" + name + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null || getClass()!=o.getClass()) return false;
+        UnexecutedSequence that = (UnexecutedSequence) o;
+        return Objects.equals(blocks, that.blocks) && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(blocks, name);
     }
 }

@@ -1,5 +1,7 @@
 package Environment.LanguageObjects;
 
+import java.util.Objects;
+
 public class Box extends LanguageObject {
     private LanguageObject content;
 
@@ -23,5 +25,17 @@ public class Box extends LanguageObject {
     @Override
     public String toString() {
         return "box: " + content;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null || getClass()!=o.getClass()) return false;
+        Box box = (Box) o;
+        return Objects.equals(getContent(), box.getContent());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getContent());
     }
 }

@@ -73,9 +73,14 @@ public class OperationRegistry {
                         String first = ((StringPrimitive) stack.pop().resolve()).getValue();
                         stack.push(new StringPrimitive(first + second));
                     }
+                    case CHAR_AT -> {
+                        int index = ((NumberPrimitive) stack.pop()).intValue();
+                        String string = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
+                    }
+                    case STR_LENGTH -> stack.push(new NumberPrimitive((double) (((StringPrimitive) stack.pop().resolve()).getValue().length())));
                     case RAISE_VAR -> { namespaces.raise(((StringPrimitive) stack.pop()).getValue());}
                     case RESOLVE_VARIABLE_IN_STR -> stack.push(namespaces.get(((StringPrimitive) stack.pop()).getValue()));
-
                     case RESOLVE_REFERENCE_VALUE -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
 
                     // Assignations in Namespaces
@@ -95,7 +100,7 @@ public class OperationRegistry {
                     case MUL -> numericArgsOperation(NumberPrimitive::mul);
                     case DIV -> numericArgsOperation(NumberPrimitive::div);
                     case MOD -> numericArgsOperation(NumberPrimitive::mod);
-                    case EQ  -> numericArgsOperation(NumberPrimitive::eq);
+                    case EQ  -> stack.push(new BooleanPrimitive(stack.pop().equals(stack.pop())));
                     case NEQ -> numericArgsOperation(NumberPrimitive::neq);
                     case LT  -> numericArgsOperation(NumberPrimitive::lt);
                     case GT  -> numericArgsOperation(NumberPrimitive::gt);

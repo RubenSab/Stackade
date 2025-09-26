@@ -52,7 +52,9 @@ public class Lexer {
             case "exists" -> { return KeywordToken.CHECK_DEFINED; }
             case "unbox" -> { return KeywordToken.GET_BOX_CONTENT; }
             case "box" -> { return KeywordToken.BOX; }
-            case "cat" -> { return KeywordToken.CONCATENATE; }
+            case "strCat" -> { return KeywordToken.CONCATENATE; }
+            case "strAt" -> { return KeywordToken.CHAR_AT; }
+            case "strLen" -> { return KeywordToken.STR_LENGTH; }
             case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
             case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
             case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; }

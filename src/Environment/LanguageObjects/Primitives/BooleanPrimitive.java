@@ -22,6 +22,14 @@ public class BooleanPrimitive extends Primitive<Boolean> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BooleanPrimitive)) {
+            return false;
+        }
+        return getValue().equals(((BooleanPrimitive) o).getValue());
+    }
+
+    @Override
     public String represent() {
         return getValue().toString();
     }
