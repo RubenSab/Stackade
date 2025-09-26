@@ -24,13 +24,13 @@ public class ConditionalBlock implements Block {
     public void execute() {
         ConditionalContextsStack.getInstance().push(this);
         try {
-            conditionBlock.forceExecuteEveryBlockInside();
-            BooleanPrimitive conditionResult = (BooleanPrimitive) DataStack.getInstance().pop();
-            if (conditionResult.getValue()) {
-                trueBlock.forceExecuteEveryBlockInside();
+            conditionBlock.executeEveryBlockInside();
+            boolean conditionResult = ((BooleanPrimitive) DataStack.getInstance().pop()).getValue();
+            if (conditionResult) {
+                trueBlock.executeEveryBlockInside();
             } else {
                 if (falseBlock != null) {
-                    falseBlock.forceExecuteEveryBlockInside();
+                    falseBlock.executeEveryBlockInside();
                 }
             }
         } finally {

@@ -9,7 +9,7 @@ public class MultipleTokensBlock implements Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
 
-    public void forceExecuteEveryBlockInside() {
+    public void executeEveryBlockInside() {
         for (Block b : blocks) {
             if (b instanceof SingleTokenBlock && ((SingleTokenBlock) b).getToken() == KeywordToken.HALT) {
                 break;
