@@ -39,6 +39,7 @@ public class Lexer {
             case ")" -> { return KeywordToken.CLOSE_BLOCK; }
             case "dup" -> { return KeywordToken.DUP; }
             case "pop" -> { return KeywordToken.POP; }
+            case "rot" -> { return KeywordToken.ROT; }
             case "swap" -> { return KeywordToken.SWAP; }
             case ":del" -> { return KeywordToken.DEL; }
             case ":num" -> { return KeywordToken.DECLARE_NUM; }

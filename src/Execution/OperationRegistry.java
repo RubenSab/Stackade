@@ -48,7 +48,14 @@ public class OperationRegistry {
                     case DUP -> stack.push(stack.peek());
                     case POP -> stack.pop();
                     case SWAP -> stack.swap();
-
+                    case ROT -> {
+                        LanguageObject a = stack.pop();
+                        LanguageObject b = stack.pop();
+                        LanguageObject c = stack.pop();
+                        stack.push(a);
+                        stack.push(b);
+                        stack.push(c);
+                    }
                     // Declarations in Namespaces
                     case DEL -> namespaces.delete(((StringPrimitive) stack.pop().resolve()).getValue());
                     case DECLARE_NUM -> declarationFunction(NumberPrimitive.class);
@@ -74,7 +81,7 @@ public class OperationRegistry {
                         stack.push(new StringPrimitive(first + second));
                     }
                     case CHAR_AT -> {
-                        int index = ((NumberPrimitive) stack.pop()).intValue();
+                        int index = ((NumberPrimitive) stack.pop().resolve()).intValue();
                         String string = ((StringPrimitive) stack.pop().resolve()).getValue();
                         stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
                     }

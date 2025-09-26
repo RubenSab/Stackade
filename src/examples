@@ -115,3 +115,57 @@ B toNum print
 "listTest" 0 42 listPut
 "listTest" 0 geti print
 debug
+
+
+# input
+
+input strToNum {(0 >)("y")("n")} print
+
+
+# reverse string and Sdoc
+
+# reverseStr: reverses a string
+# args:
+# 0: (str) input string
+# returns:
+# 0: (str) reversed string
+
+"reverseStr" (
+    "originalStr" swap :str   # take s(0) as input
+
+    ""   # add an empty string to the stack
+
+    "i" originalStr strLen 1 - :num    # initialize a counter at input string's length - 1
+    {
+        (i 0 >=)
+        (
+            originalStr i strAt strCat   # get input string's character at i
+            i--   # decrease counter by one
+            self
+        )
+    }
+) :seq
+
+input reverseStr print
+
+
+# fibonacci
+
+"f" (dup rot +) :seq
+
+"fibonacci" (
+    "n" swap :num
+    {
+        (n 2 <)
+        (1 dup print "\n" print)
+        (
+            "i" 0 :num
+            1 1
+            {
+                (i n 2 - <=)(f i ++ dup print "\n" print self)
+            }
+        )
+    }
+) :seq
+
+500 fibonacci debug

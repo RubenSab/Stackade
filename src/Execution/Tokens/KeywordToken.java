@@ -3,7 +3,7 @@ package Execution.Tokens;
 public enum KeywordToken implements Token {
     TRUE, FALSE, // Booleans
     SELF,  // Self references
-    DUP, POP, SWAP, // Stack
+    DUP, POP, SWAP, ROT, // Stack
     DEL, DECLARE_NUM, DECLARE_BOOL, DECLARE_STR, DECLARE_LIST, DECLARE_UNEXECUTED_SEQUENCE, DECLARE_REFERENCE, DECLARE_BOX, // Declarations in Namespaces
     STR_TO_NUM, NUM_TO_STR, // Casting
     CHECK_DEFINED,

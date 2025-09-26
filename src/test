@@ -1,1 +1,18 @@
-"ab" "ab" == debug
+"f" (dup rot +) :seq
+
+"fibonacci" (
+    "n" swap :num
+    {
+        (n 2 <)
+        (1 dup print "\n" print)
+        (
+            "i" 0 :num
+            1 1
+            {
+                (i n 2 - <=)(f i ++ dup print "\n" print self)
+            }
+        )
+    }
+) :seq
+
+500 fibonacci debug
