@@ -116,6 +116,9 @@ public class Lexer {
                     return new NamespaceToken(representation);
                 }
             }
+
+            // Source files inclusion
+            case "run" -> { return KeywordToken.RUN; }
         }
     }
 

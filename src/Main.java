@@ -7,6 +7,6 @@ public class Main {
             System.err.println("Usage: stackade <program name>");
             System.exit(2);
         }
-        Runner.run(args[0]);
+        Runner.getInstance().run(args[0]);
     }
 }

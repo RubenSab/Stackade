@@ -38,5 +38,8 @@ public enum KeywordToken implements Token {
     // Other
     TRUE, FALSE, // Booleans
     OPEN_COND, CLOSE_COND, // Brackets (the only Tokens not transformed to Blocks)
-    OPEN_BLOCK, CLOSE_BLOCK
+    OPEN_BLOCK, CLOSE_BLOCK,
+
+    // Source files inclusion
+    RUN
 }

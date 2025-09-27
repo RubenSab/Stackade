@@ -9,7 +9,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Runner {
-    public static void run(String filePath) throws IOException {
+    private static final Runner INSTANCE = new Runner();
+
+    public static Runner getInstance() {
+        return INSTANCE;
+    }
+
+    public void run(String filePath) throws IOException {
         String source = Files.readString(Paths.get(filePath));
         ArrayList<Token> tokens = Lexer.tokenize(source);
         MultipleTokensBlock blocks = Parser.parse(tokens);

@@ -14,6 +14,7 @@ import Environment.Namespaces.Namespaces;
 import Execution.Tokens.*;
 
 import java.io.Console;
+import java.io.IOException;
 import java.util.function.BiFunction;
 
 public class OperationRegistry {
@@ -130,6 +131,15 @@ public class OperationRegistry {
                         System.out.println("namespaces = " + Namespaces.getInstance());
                     }
                     case HALT -> Interpreter.getInstance().halt();
+
+                    // Source files inclusion
+                    case RUN -> {
+                        try {
+                            Runner.getInstance().run(((StringPrimitive) stack.pop()).getValue());
+                        } catch (IOException e) {
+                            throw new RuntimeException("fileNotFound");
+                        }
+                    }
                     // Other
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));
