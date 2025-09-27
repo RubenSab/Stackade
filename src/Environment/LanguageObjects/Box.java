@@ -23,6 +23,11 @@ public class Box extends LanguageObject {
     }
 
     @Override
+    public String typeName() {
+        return "box";
+    }
+
+    @Override
     public String toString() {
         return "box: " + content;
     }

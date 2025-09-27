@@ -58,6 +58,7 @@ public class Lexer {
             case "strLen" -> { return KeywordToken.STR_LENGTH; }
             case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
             case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
+            case "type" -> { return KeywordToken.TYPE; }
             case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; }
             case "refGet" -> { return KeywordToken.RESOLVE_REFERENCE_VALUE; }
             case "=" -> { return KeywordToken.ASSIGN; }

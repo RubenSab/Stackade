@@ -33,5 +33,10 @@ public class BooleanPrimitive extends Primitive<Boolean> {
     public String represent() {
         return getValue().toString();
     }
+
+    @Override
+    public String typeName() {
+        return "bool";
+    }
 }
 

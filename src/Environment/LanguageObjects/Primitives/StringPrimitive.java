@@ -28,4 +28,9 @@ public class StringPrimitive extends Primitive<String> {
                 .replace("\\b", "\b")
                 .replace("\\f", "f");
     }
+
+    @Override
+    public String typeName() {
+        return "str";
+    }
 }

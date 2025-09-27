@@ -13,6 +13,7 @@ import Environment.LanguageObjects.Primitives.StringPrimitive;
 import Environment.Namespaces.Namespaces;
 import Execution.Tokens.*;
 
+import javax.xml.crypto.dsig.Reference;
 import java.io.Console;
 import java.util.function.BiFunction;
 
@@ -75,6 +76,7 @@ public class OperationRegistry {
                     ));
                     case STR_TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
                     case NUM_TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
+                    case TYPE -> stack.push(new StringPrimitive(stack.pop().typeName()));
                     case CONCATENATE -> {
                         String second = ((StringPrimitive) stack.pop().resolve()).getValue();
                         String first = ((StringPrimitive) stack.pop().resolve()).getValue();

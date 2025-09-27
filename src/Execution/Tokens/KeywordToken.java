@@ -5,7 +5,7 @@ public enum KeywordToken implements Token {
     SELF,  // Self references
     DUP, POP, SWAP, ROT, // Stack
     DEL, DECLARE_NUM, DECLARE_BOOL, DECLARE_STR, DECLARE_LIST, DECLARE_UNEXECUTED_SEQUENCE, DECLARE_REFERENCE, DECLARE_BOX, // Declarations in Namespaces
-    STR_TO_NUM, NUM_TO_STR, // Casting
+    STR_TO_NUM, NUM_TO_STR, TYPE, // Casting
     CHECK_DEFINED,
     BOX, GET_BOX_CONTENT, // Box operations
     CONCATENATE, CHAR_AT, STR_LENGTH, // String operations

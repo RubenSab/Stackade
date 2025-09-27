@@ -151,7 +151,7 @@ input reverseStr print
 
 # fibonacci
 
-"f" (dup rot +) :seq
+"nextFibo" (dup rot +) :seq
 
 "fibonacci" (
     "n" swap :num
@@ -162,10 +162,14 @@ input reverseStr print
             "i" 0 :num
             1 1
             {
-                (i n 2 - <=)(f i ++ dup print "\n" print self)
+                (i n 2 - <=)
+                (nextFibo i ++
+                dup print "\n" print
+                self)
             }
         )
     }
 ) :seq
 
-500 fibonacci debug
+500 fibonacci
+debug

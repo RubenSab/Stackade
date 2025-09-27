@@ -32,6 +32,11 @@ public class NamespaceReference extends LanguageObject {
     }
 
     @Override
+    public String typeName() {
+        return "ref";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o==null || getClass()!=o.getClass()) return false;
         NamespaceReference that = (NamespaceReference) o;

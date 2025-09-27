@@ -86,5 +86,10 @@ public class NumberPrimitive extends Primitive<Double> {
         }
         return super.toString();
     }
+
+    @Override
+    public String typeName() {
+        return "num";
+    }
 }
 
