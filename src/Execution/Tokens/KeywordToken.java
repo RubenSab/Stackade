@@ -2,11 +2,11 @@ package Execution.Tokens;
 
 public enum KeywordToken implements Token {
     // Stack operations
-    DUP, POP, SWAP, ROT,
+    DUP, POP, SWAP, ROT, EQ,
 
     // Numeric args operations
     ADD, SUB, MUL, DIV, MOD, // With Number return
-    EQ, NEQ, LT, GT, LEQ, GEQ, // With Boolean return
+    NEQ, LT, GT, LEQ, GEQ, // With Boolean return
 
     // Boolean operations
     NOT, AND, OR, XOR,
