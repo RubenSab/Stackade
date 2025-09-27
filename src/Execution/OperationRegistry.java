@@ -5,7 +5,7 @@ import Environment.DataStack;
 import Environment.LanguageObjects.Box;
 import Environment.LanguageObjects.UnexecutedSequence;
 import Environment.LanguageObjects.LanguageObject;
-import Environment.LanguageObjects.NamespaceReference;
+import Environment.LanguageObjects.Primitives.NamespaceReference;
 import Environment.LanguageObjects.Primitives.BooleanPrimitive;
 import Environment.LanguageObjects.Primitives.NumberPrimitive;
 import Environment.LanguageObjects.Primitives.Primitive;
@@ -13,7 +13,6 @@ import Environment.LanguageObjects.Primitives.StringPrimitive;
 import Environment.Namespaces.Namespaces;
 import Execution.Tokens.*;
 
-import javax.xml.crypto.dsig.Reference;
 import java.io.Console;
 import java.util.function.BiFunction;
 
@@ -45,7 +44,7 @@ public class OperationRegistry {
                     // One of the only two cases where nothing is pushed to the stack
                     case SELF -> ConditionalContextsStack.getInstance().executeTop();
 
-                    // Stack
+                    // Stack operations
                     case DUP -> stack.push(stack.peek());
                     case POP -> stack.pop();
                     case SWAP -> stack.swap();
@@ -57,64 +56,66 @@ public class OperationRegistry {
                         stack.push(b);
                         stack.push(c);
                     }
-                    // Declarations in Namespaces
-                    case DEL -> namespaces.delete(((StringPrimitive) stack.pop().resolve()).getValue());
-                    case DECLARE_NUM -> declarationFunction(NumberPrimitive.class);
-                    case DECLARE_BOOL -> declarationFunction(BooleanPrimitive.class);
-                    case DECLARE_STR -> declarationFunction(StringPrimitive.class);
-                    case DECLARE_UNEXECUTED_SEQUENCE -> declarationFunction(UnexecutedSequence.class);
-                    case DECLARE_REFERENCE -> declarationFunction(NamespaceReference.class);
-                    case DECLARE_BOX -> {
-                        LanguageObject wrappedValue = stack.pop();
-                        String name = ((StringPrimitive) stack.pop()).getValue();
-                        namespaces.define(name, new Box(wrappedValue));
-                    }
-                    case GET_BOX_CONTENT -> stack.push(((Box) stack.pop()).getContent());
-                    case BOX -> stack.push(new Box(stack.pop()));
-                    case CHECK_DEFINED -> stack.push(new BooleanPrimitive(
-                            namespaces.contains(((StringPrimitive) stack.pop()).getValue())
-                    ));
-                    case STR_TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
-                    case NUM_TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
-                    case TYPE -> stack.push(new StringPrimitive(stack.pop().typeName()));
-                    case CONCATENATE -> {
-                        String second = ((StringPrimitive) stack.pop().resolve()).getValue();
-                        String first = ((StringPrimitive) stack.pop().resolve()).getValue();
-                        stack.push(new StringPrimitive(first + second));
-                    }
-                    case CHAR_AT -> {
-                        int index = ((NumberPrimitive) stack.pop().resolve()).intValue();
-                        String string = ((StringPrimitive) stack.pop().resolve()).getValue();
-                        stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
-                    }
-                    case STR_LENGTH -> stack.push(new NumberPrimitive((double) (((StringPrimitive) stack.pop().resolve()).getValue().length())));
-                    case RAISE_VAR -> { namespaces.raise(((StringPrimitive) stack.pop()).getValue());}
-                    case RESOLVE_VARIABLE_IN_STR -> stack.push(namespaces.get(((StringPrimitive) stack.pop()).getValue()));
-                    case RESOLVE_REFERENCE_VALUE -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
+                    case EQ  -> stack.push(new BooleanPrimitive(stack.pop().equals(stack.pop())));
 
-                    // Assignations in Namespaces
-                    case ASSIGN -> {
-                        LanguageObject value = stack.pop();
-                        String name = ((NamespaceReference) stack.pop()).getName();
-                        namespaces.assign(name, value);
-                    }
-                    case INCR -> numericMutationFunction(NumberPrimitive::add);
-                    case DECR -> numericMutationFunction(NumberPrimitive::sub);
-                    case INCR1 -> numericMutationFunction(1);
-                    case DECR1 -> numericMutationFunction(-1);
-
-                    // Num operations
+                    // Numeric args operations
+                    // with Number return
                     case ADD -> numericArgsOperation(NumberPrimitive::add);
                     case SUB -> numericArgsOperation(NumberPrimitive::sub);
                     case MUL -> numericArgsOperation(NumberPrimitive::mul);
                     case DIV -> numericArgsOperation(NumberPrimitive::div);
                     case MOD -> numericArgsOperation(NumberPrimitive::mod);
-                    case EQ  -> stack.push(new BooleanPrimitive(stack.pop().equals(stack.pop())));
+                    // with Boolean return
                     case NEQ -> numericArgsOperation(NumberPrimitive::neq);
                     case LT  -> numericArgsOperation(NumberPrimitive::lt);
                     case GT  -> numericArgsOperation(NumberPrimitive::gt);
                     case LEQ -> numericArgsOperation(NumberPrimitive::leq);
                     case GEQ -> numericArgsOperation(NumberPrimitive::geq);
+
+                    // Namespaces operations
+                    case EXISTS -> stack.push(new BooleanPrimitive(
+                            namespaces.contains(((StringPrimitive) stack.pop()).getValue())
+                    ));
+                    case REF_GET -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
+                    // TODO: remove
+                    // Mutations in Namespaces
+                    case DEL -> namespaces.delete(((StringPrimitive) stack.pop().resolve()).getValue());
+                    case RAISE_NAME -> { namespaces.raise(((StringPrimitive) stack.pop()).getValue());}
+                    // Assignations
+                    case ASSIGN -> {
+                        LanguageObject value = stack.pop();
+                        String name = ((NamespaceReference) stack.pop()).getName();
+                        namespaces.assign(name, value);
+                    }
+                    // Definitions
+                    case DEFINE_NUM -> definitionFunction(NumberPrimitive.class);
+                    case DEFINE_BOOL -> definitionFunction(BooleanPrimitive.class);
+                    case DEFINE_STR -> definitionFunction(StringPrimitive.class);
+                    case DEFINE_SEQ -> definitionFunction(UnexecutedSequence.class);
+                    case DEFINE_REF -> definitionFunction(NamespaceReference.class);
+                    case DEFINE_BOX -> {
+                        LanguageObject wrappedValue = stack.pop();
+                        String name = ((StringPrimitive) stack.pop()).getValue();
+                        namespaces.define(name, new Box(wrappedValue));
+                    }
+                    case UNBOX -> stack.push(((Box) stack.pop()).getContent());
+                    case BOX -> stack.push(new Box(stack.pop()));
+                    case STR_TO_NUM -> stack.push(((StringPrimitive) stack.pop().resolve()).toNumberPrimitive());
+                    case STR_TO_REF -> stack.push(new NamespaceReference(((StringPrimitive) stack.pop()).getValue()));
+                    case NUM_TO_STR -> stack.push(((NumberPrimitive) stack.pop().resolve()).toStringPrimitive());
+                    case TYPE -> stack.push(new StringPrimitive(stack.pop().typeName()));
+                    case STR_CAT -> {
+                        String second = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        String first = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        stack.push(new StringPrimitive(first + second));
+                    }
+                    case STR_AT -> {
+                        int index = ((NumberPrimitive) stack.pop().resolve()).intValue();
+                        String string = ((StringPrimitive) stack.pop().resolve()).getValue();
+                        stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
+                    }
+                    case STR_LEN -> stack.push(new NumberPrimitive((double) (((StringPrimitive) stack.pop().resolve()).getValue().length())));
+
 
                     // Boolean operations
                     case NOT -> stack.push(((BooleanPrimitive) stack.pop().resolve()).not());
@@ -140,7 +141,7 @@ public class OperationRegistry {
     }
 
     // Helper functions
-    private static <T extends LanguageObject> void declarationFunction(Class<T> classOfVariable) {
+    private static <T extends LanguageObject> void definitionFunction(Class<T> classOfVariable) {
         T value = classOfVariable.cast(stack.pop()); // not doing stack.pop().resolve() allows declaring pointer variables (NamespaceReference)
         String name = ((StringPrimitive) stack.pop()).getValue();
         namespaces.define(name, value);
@@ -148,14 +149,6 @@ public class OperationRegistry {
         if (classOfVariable.equals(UnexecutedSequence.class)) {
             ((UnexecutedSequence) value).setName(name);
         }
-    }
-
-    private static void numericMutationFunction(BiFunction<NumberPrimitive, NumberPrimitive, NumberPrimitive> biFunction) {
-        NumberPrimitive increment = (NumberPrimitive) stack.pop().resolve();
-        String name = ((NamespaceReference) stack.pop()).getName();
-        NumberPrimitive oldValue = ((NumberPrimitive) namespaces.get(name));
-        NumberPrimitive newValue = biFunction.apply(oldValue, increment);
-        namespaces.assign(name, newValue);
     }
 
     private static void numericMutationFunction(int fixedIncrement) {

@@ -159,8 +159,8 @@ input reverseStr print
         (n 2 <)
         (1 dup print "\n" print)
         (
-            "i" 0 :num
             1 1
+            "i" 0 :num
             {
                 (i n 2 - <=)
                 (nextFibo i ++

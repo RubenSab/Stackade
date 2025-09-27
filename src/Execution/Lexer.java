@@ -37,35 +37,16 @@ public class Lexer {
             case "}" -> { return KeywordToken.CLOSE_COND; }
             case "(" -> { return KeywordToken.OPEN_BLOCK; }
             case ")" -> { return KeywordToken.CLOSE_BLOCK; }
+            case "true" -> { return KeywordToken.TRUE; }
+            case "false" -> { return KeywordToken.FALSE; }
+
+            // Stack operations
             case "dup" -> { return KeywordToken.DUP; }
             case "pop" -> { return KeywordToken.POP; }
             case "rot" -> { return KeywordToken.ROT; }
             case "swap" -> { return KeywordToken.SWAP; }
-            case ":del" -> { return KeywordToken.DEL; }
-            case ":num" -> { return KeywordToken.DECLARE_NUM; }
-            case ":bool" -> { return KeywordToken.DECLARE_BOOL; }
-            case ":str" -> { return KeywordToken.DECLARE_STR; }
-            case ":list" -> { return KeywordToken.DECLARE_LIST; }
-            case ":seq" -> { return KeywordToken.DECLARE_UNEXECUTED_SEQUENCE; }
-            case ":ref" -> { return KeywordToken.DECLARE_REFERENCE; }
-            case ":box" -> { return KeywordToken.DECLARE_BOX; }
-            case ":raiseName" -> { return KeywordToken.RAISE_VAR; }
-            case "exists" -> { return KeywordToken.CHECK_DEFINED; }
-            case "unbox" -> { return KeywordToken.GET_BOX_CONTENT; }
-            case "box" -> { return KeywordToken.BOX; }
-            case "strCat" -> { return KeywordToken.CONCATENATE; }
-            case "strAt" -> { return KeywordToken.CHAR_AT; }
-            case "strLen" -> { return KeywordToken.STR_LENGTH; }
-            case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
-            case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
-            case "type" -> { return KeywordToken.TYPE; }
-            case "strGet" -> { return KeywordToken.RESOLVE_VARIABLE_IN_STR; }
-            case "refGet" -> { return KeywordToken.RESOLVE_REFERENCE_VALUE; }
-            case "=" -> { return KeywordToken.ASSIGN; }
-            case "+=" -> { return KeywordToken.INCR; }
-            case "-=" -> { return KeywordToken.DECR; }
-            case "++" -> { return KeywordToken.INCR1; }
-            case "--" -> { return KeywordToken.DECR1; }
+
+            // Numeric args operations
             case "+" -> { return KeywordToken.ADD; }
             case "-" -> { return KeywordToken.SUB; }
             case "*" -> { return KeywordToken.MUL; }
@@ -77,15 +58,49 @@ public class Lexer {
             case ">" -> { return KeywordToken.GT; }
             case "<=" -> { return KeywordToken.LEQ; }
             case ">=" -> { return KeywordToken.GEQ; }
+
+            // Boolean args operations
             case "not" -> { return KeywordToken.NOT; }
             case "and" -> { return KeywordToken.AND; }
             case "or" -> { return KeywordToken.OR; }
             case "xor" -> { return KeywordToken.XOR; }
-            case "true" -> { return KeywordToken.TRUE; }
-            case "false" -> { return KeywordToken.FALSE; }
+
+            // String operations
+            case "strAt" -> { return KeywordToken.STR_AT; }
+            case "strCat" -> { return KeywordToken.STR_CAT; }
+            case "strLen" -> { return KeywordToken.STR_LEN; }
+
+            // Namespaces operations
+            case "exists" -> { return KeywordToken.EXISTS; }
+            case "refGet" -> { return KeywordToken.REF_GET; }
+            // Mutations in Namespaces
+            case "=" -> { return KeywordToken.ASSIGN; }
+            case ":del" -> { return KeywordToken.DEL; }
+            case ":raiseName" -> { return KeywordToken.RAISE_NAME; }
+            // Definitions
+            case ":num" -> { return KeywordToken.DEFINE_NUM; }
+            case ":str" -> { return KeywordToken.DEFINE_STR; }
+            case ":bool" -> { return KeywordToken.DEFINE_BOOL; }
+            case ":ref" -> { return KeywordToken.DEFINE_REF; }
+            case ":box" -> { return KeywordToken.DEFINE_BOX; }
+            case ":seq" -> { return KeywordToken.DEFINE_SEQ; }
+
+            // Casting
+            case "type" -> { return KeywordToken.TYPE; }
+            case "box" -> { return KeywordToken.BOX; }
+            case "unbox" -> { return KeywordToken.UNBOX; }
+            case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
+            case "strToRef" -> { return KeywordToken.STR_TO_REF; } // TODO
+            case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
+
+            // self referencing
             case "self" -> { return KeywordToken.SELF; }
+
+            // I/O
             case "print" -> { return KeywordToken.PRINT; }
             case "input" -> { return KeywordToken.INPUT; }
+
+            // debugging
             case "debug" -> { return KeywordToken.DEBUG; }
             case "halt" -> { return KeywordToken.HALT; }
             default -> {

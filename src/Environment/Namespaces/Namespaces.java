@@ -1,13 +1,11 @@
 package Environment.Namespaces;
 import Environment.LanguageObjects.LanguageObject;
-import Environment.LanguageObjects.Primitives.BooleanPrimitive;
-import Environment.LanguageObjects.Primitives.StringPrimitive;
-
 import java.util.LinkedList;
+import java.util.Stack;
 
 
 public class Namespaces extends Namespace {
-    private final LinkedList<Namespace> namespaces = new LinkedList<>();
+    private final Stack<Namespace> namespaces = new Stack<>();
     private final static Namespaces INSTANCE = new Namespaces();
 
     public static Namespaces getInstance() {
@@ -15,24 +13,24 @@ public class Namespaces extends Namespace {
     }
 
     public void pushNamespace() {
-        namespaces.addLast(new Namespace());
+        namespaces.push(new Namespace());
     }
 
     public void popNamespace() {
-        namespaces.removeLast();
+        namespaces.pop();
     }
 
     public void define(String name, LanguageObject entity) {
-        namespaces.getLast().define(name, entity);
+        namespaces.peek().define(name, entity);
     }
 
     @Override
     public boolean contains(String name) {
-        return namespaces.getLast().contains(name);
+        return namespaces.peek().contains(name);
     }
 
     public void delete(String name) {
-        namespaces.getLast().delete(name);
+        namespaces.peek().delete(name);
     }
 
     public LanguageObject get(String name) {
@@ -46,7 +44,7 @@ public class Namespaces extends Namespace {
     }
 
     public void assign(String name, LanguageObject value) {
-        namespaces.getLast().assign(name, value);
+        namespaces.peek().assign(name, value);
     }
 
     public void raise(String name) {

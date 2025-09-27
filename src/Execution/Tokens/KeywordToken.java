@@ -1,21 +1,39 @@
 package Execution.Tokens;
 
 public enum KeywordToken implements Token {
+    // Stack operations
+    DUP, POP, SWAP, ROT,
+
+    // Numeric args operations
+    ADD, SUB, MUL, DIV, MOD, // With Number return
+    EQ, NEQ, LT, GT, LEQ, GEQ, // With Boolean return
+
+    // Boolean operations
+    NOT, AND, OR, XOR,
+
+    // String operations
+    STR_AT, STR_CAT, STR_LEN,
+
+    // Namespaces operations
+    EXISTS, REF_GET,
+    // Mutations in Namespaces
+    ASSIGN, DEL, RAISE_NAME,
+    DEFINE_NUM, DEFINE_STR, DEFINE_BOOL, DEFINE_REF, DEFINE_BOX, DEFINE_SEQ,
+
+    // Casting
+    TYPE, BOX, UNBOX, STR_TO_NUM, STR_TO_REF, NUM_TO_STR,
+
+    // Self referencing
+    SELF,
+
+    // I/O
+    PRINT, INPUT,
+
+    // Debugging
+    DEBUG, HALT,
+
+    // Other
     TRUE, FALSE, // Booleans
-    SELF,  // Self references
-    DUP, POP, SWAP, ROT, // Stack
-    DEL, DECLARE_NUM, DECLARE_BOOL, DECLARE_STR, DECLARE_LIST, DECLARE_UNEXECUTED_SEQUENCE, DECLARE_REFERENCE, DECLARE_BOX, // Declarations in Namespaces
-    STR_TO_NUM, NUM_TO_STR, TYPE, // Casting
-    CHECK_DEFINED,
-    BOX, GET_BOX_CONTENT, // Box operations
-    CONCATENATE, CHAR_AT, STR_LENGTH, // String operations
-    RESOLVE_VARIABLE_IN_STR, RESOLVE_REFERENCE_VALUE, RAISE_VAR, // NamespaceReference operations
-    ASSIGN, INCR, DECR, INCR1, DECR1, // Assignations in Namespaces
-    ADD, SUB, MUL, DIV, MOD, // Num operations
-    EQ, NEQ, LT, GT, LEQ, GEQ,
-    NOT, AND, OR, XOR, // Boolean operations
-    PRINT, INPUT, // I/O
     OPEN_COND, CLOSE_COND, // Brackets (the only Tokens not transformed to Blocks)
-    OPEN_BLOCK, CLOSE_BLOCK,
-    DEBUG, HALT // Debugging
-    }
+    OPEN_BLOCK, CLOSE_BLOCK
+}

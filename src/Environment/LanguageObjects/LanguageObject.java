@@ -1,5 +1,7 @@
 package Environment.LanguageObjects;
 
+import Environment.LanguageObjects.Primitives.NamespaceReference;
+
 public abstract class LanguageObject {
 
     public LanguageObject resolve() {
