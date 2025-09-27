@@ -2,6 +2,8 @@
 
 Stackade is a high-level, stack based, interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
+> IMPORTANT: tecnically every language element is a stack operator or it's made from stack operators, as *even data types* get executed by pushing themselves to the stack.
+
 ## 1.1. Stack and Namespaces
 
 The **Stack** and **Namespaces** are central to Stackade:
