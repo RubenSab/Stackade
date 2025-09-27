@@ -135,7 +135,7 @@ public class OperationRegistry {
                     // Source files inclusion
                     case RUN -> {
                         try {
-                            Runner.getInstance().run(((StringPrimitive) stack.pop()).getValue());
+                            Runner.getInstance().run(((StringPrimitive) stack.pop()).getValue(), false);
                         } catch (IOException e) {
                             throw new RuntimeException("fileNotFound");
                         }
