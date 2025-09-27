@@ -301,6 +301,7 @@ The interpreter is always aware of the current block in execution, so the cycle 
 For example, this program counts from 0 to 10:
 
 ```
+0
 {
     (dup 10 <=)
     (dup print " " print 1 + self) # true
