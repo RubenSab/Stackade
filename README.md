@@ -2,7 +2,7 @@
 
 Stackade is a high-level, stack based, interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
-## Stack and Namespaces
+## 1.1. Stack and Namespaces
 
 The **Stack** and **Namespaces** are central to Stackade:
 
@@ -290,7 +290,7 @@ Its syntax is as follows (but it can be indented on multiple lines to enhance cl
 
 The interpreter executes `conditionSequence`; if the top of the stack is `true`, it executes the `trueSequence`, otherwise it executes the `falseSequence`.
 
-## The `self` keyword
+## 3.1. The `self` keyword
 
 The interpreter is always aware of the current block in execution, so the cycle can reference itself from one of its branches using `self` as a simple syntactic substitution.
 
