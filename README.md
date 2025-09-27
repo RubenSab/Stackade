@@ -8,9 +8,9 @@ The **Stack** and **Namespaces** are central to Stackade:
 
 - the **Stack** is a data structure that only supports knowing the top element (peeking), removing it (popping) and adding a new element on top (pushing). Almost everything in Stackade interacts with it: operators and sequences *(read 2.1.6.)* take **arguments** by popping elements and pushing the **results** to return them.
   
-  For example, the operator `+` pops the lasts two element from the stack and pushes their sum.
+  For example, the operator `+` pops the lasts two elements from the stack and pushes their sum.
 
-- the **Namespaces** are a linked list of maps, each linking the variable name to it's content. Having multiple namespaces in a hierarchy allows **local scoping** and cleansing un-needed local variables after a **sequence** is executed.
+- the **Namespaces** are a linked list of maps, each linking the variable name to its content. Having multiple namespaces in a hierarchy allows cleansing un-needed local variables after a **sequence** is executed.
 
 > Note: Variables names (so the names of everything stored in namespaces) allow every printable Unicode character, besides `#`, rounded brackets and curly brackets.
 
