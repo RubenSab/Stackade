@@ -64,8 +64,10 @@ Boxes can contain one element of any data type and their content can be changed 
 **Definition example**:
 
 ```
-"box" 1 :box
+"box" 1 box :box
 ```
+
+> Note: a variable needs to be *boxed (see 2.2.7)* before being defined in the local namespace as a box
 
 #### 2.1.6. Sequence
 
