@@ -20,7 +20,7 @@ public class Lexer {
         // 4. Names (letters and/or underscores): [a-zA-Z_]+
         // + others
         String sourceNoComments = source.replaceAll("#.*", "");
-        String regex = "\"[^\"]*\"|\\d*\\.\\d+|\\d+|\\+\\+|--|\\+=|-=|==|!=|<=|>=|:[a-zA-Z_]+|[+\\-*/%=<>(){}\\[\\]]|[a-zA-Z_]+";
+        String regex = "\"(?:\\\\[^(){}]|[^\"\\\\(){}])*\"|\\d*\\.\\d+|\\d+|[(){}]|[^\\s\"(){}]+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(sourceNoComments);
 
@@ -70,13 +70,16 @@ public class Lexer {
             case "strCat" -> { return KeywordToken.STR_CAT; }
             case "strLen" -> { return KeywordToken.STR_LEN; }
 
+            // Reference operations
+            case "refName" -> { return KeywordToken.REF_NAME; }
+            case "refGet" -> { return KeywordToken.REF_GET; }
+
             // Namespaces operations
             case "exists" -> { return KeywordToken.EXISTS; }
-            case "refGet" -> { return KeywordToken.REF_GET; }
             // Mutations in Namespaces
             case "=" -> { return KeywordToken.ASSIGN; }
             case ":del" -> { return KeywordToken.DEL; }
-            case ":raiseName" -> { return KeywordToken.RAISE_NAME; }
+            case ":raise" -> { return KeywordToken.RAISE_NAME; }
             // Definitions
             case ":num" -> { return KeywordToken.DEFINE_NUM; }
             case ":str" -> { return KeywordToken.DEFINE_STR; }
@@ -109,10 +112,8 @@ public class Lexer {
                     return new StringToken(representation.substring(1, representation.length()-1));
                 } else if (isParsableAsDouble(representation)) {
                     return new NumberToken(representation);
-                } else if (representation.matches("[a-zA-Z_]+")) {
-                    return new NamespaceToken(representation);
                 } else {
-                    throw new IllegalArgumentException("Unknown token: " + representation);
+                    return new NamespaceToken(representation);
                 }
             }
         }

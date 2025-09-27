@@ -1,6 +1,7 @@
 package Execution.Blocks;
 import Environment.DataStack;
 import Environment.LanguageObjects.UnexecutedSequence;
+import Execution.Interpreter;
 import Execution.Tokens.KeywordToken;
 
 import java.util.ArrayList;
@@ -11,10 +12,7 @@ public class MultipleTokensBlock implements Block {
 
     public void executeEveryBlockInside() {
         for (Block b : blocks) {
-            if (b instanceof SingleTokenBlock && ((SingleTokenBlock) b).getToken() == KeywordToken.HALT) {
-                break;
-            }
-            b.execute();
+            if (!Interpreter.getInstance().isHalted()) b.execute();
         }
     }
 

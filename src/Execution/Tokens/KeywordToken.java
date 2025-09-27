@@ -14,8 +14,11 @@ public enum KeywordToken implements Token {
     // String operations
     STR_AT, STR_CAT, STR_LEN,
 
+    // Reference operations
+    REF_NAME, REF_GET,
+
     // Namespaces operations
-    EXISTS, REF_GET,
+    EXISTS,
     // Mutations in Namespaces
     ASSIGN, DEL, RAISE_NAME,
     DEFINE_NUM, DEFINE_STR, DEFINE_BOOL, DEFINE_REF, DEFINE_BOX, DEFINE_SEQ,

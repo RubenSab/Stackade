@@ -149,7 +149,9 @@ input strToNum {(0 >)("y")("n")} print
 input reverseStr print
 
 
-# fibonacci
+"++" (
+    dup dup refName swap 1 + :num :raise
+) :seq
 
 "nextFibo" (dup rot +) :seq
 
@@ -173,3 +175,25 @@ input reverseStr print
 
 500 fibonacci
 debug
+
+
+"circularRef" (
+    "bName" swap :str  # get 2nd variable name and store it into bName
+    "aName" swap :str  # get 1st variable name and store it into aName
+
+    aName refGet            # get the content of aName
+    bName refGet strToRef   # get the content of bName and transform it into a reference to an undefined variable named as the content of bName
+    :ref                    # define a reference named as the content of aName (from line 5), referencing to the reference from line 6
+
+    bName refGet            # get the content of bName
+    aName refGet strToRef   # get the content of aName and transform it into a reference to an undefined variable named as the content of aName
+    :ref                    # define a reference named as the content of bName (from line 9), referencing to the reference from line 10
+
+    aName strToRef :raise   # raise the variable named as the content of aName to caller's namespace
+    bName strToRef :raise   # raise the variable named as the content of bName to caller's namespace
+
+) :seq
+
+"a" "b" circularRef
+"a = " print a print "\n" print
+"b = " print b print "\n" print

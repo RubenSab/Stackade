@@ -81,11 +81,14 @@ public class OperationRegistry {
                     }
                     case STR_LEN -> stack.push(new NumberPrimitive((double) (((StringPrimitive) stack.pop().resolve()).getValue().length())));
 
+                    // References operations
+                    case REF_GET -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
+                    case REF_NAME -> stack.push(new StringPrimitive(((NamespaceReference) stack.pop()).getName()));
+
                     // Namespaces operations
                     case EXISTS -> stack.push(new BooleanPrimitive(
                             namespaces.contains(((NamespaceReference) stack.pop()).getName())
                     ));
-                    case REF_GET -> stack.push(namespaces.get(((NamespaceReference) stack.pop()).getName()));
 
                     // Mutations in Namespaces
                     case ASSIGN -> {
@@ -126,10 +129,7 @@ public class OperationRegistry {
                         System.out.println("\ndata stack = " + DataStack.getInstance());
                         System.out.println("namespaces = " + Namespaces.getInstance());
                     }
-                    case HALT -> {
-                        // TODO: implement HALT behaviour (stop execution / set flag / throw)
-                    }
-
+                    case HALT -> Interpreter.getInstance().halt();
                     // Other
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));

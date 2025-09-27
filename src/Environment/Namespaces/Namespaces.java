@@ -13,11 +13,11 @@ public class Namespaces extends Namespace {
     }
 
     public void pushNamespace() {
-        namespaces.push(new Namespace());
+        namespaces.addLast(new Namespace());
     }
 
     public void popNamespace() {
-        namespaces.pop();
+        namespaces.removeLast();
     }
 
     public void define(String name, LanguageObject entity) {
@@ -48,18 +48,24 @@ public class Namespaces extends Namespace {
     }
 
     public void raise(String name) {
-        int i;
-        for (i = namespaces.size() - 1; i >= 0; i--) {
-            LanguageObject variable = namespaces.get(i).get(name);
+        for (int i = namespaces.size() - 1; i >= 0; i--) {
+            Namespace current = namespaces.get(i);
+            LanguageObject variable = current.get(name);
             if (variable != null) {
-                namespaces.get(i-1).define(name, namespaces.get(i).get(name));
-                namespaces.get(i).delete(name);
-                break;
-            } else {
-                throw new UndefinedVariableException(name);
+                if (i == 0) {
+                    // Already at the outermost scope — choose desired behavior.
+                    throw new IllegalStateException("Cannot raise variable '" + name + "' from the outermost namespace");
+                }
+                Namespace outer = namespaces.get(i - 1);
+                outer.define(name, variable);
+                current.delete(name);
+                return;
             }
         }
+        // Not found in any namespace
+        throw new UndefinedVariableException(name);
     }
+
 
     @Override
     public String toString() {
