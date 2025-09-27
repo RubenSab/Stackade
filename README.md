@@ -67,7 +67,7 @@ Boxes can contain one element of any data type and their content can be changed 
 "box" 1 box :box
 ```
 
-> Note: a variable needs to be *boxed (see 2.2.7)* before being defined in the local namespace as a box
+> Note: a variable needs to be *boxed (read 2.2.7.)* before being defined in the local namespace as a box
 
 #### 2.1.6. Sequence
 
@@ -207,6 +207,8 @@ All fit the description:
 ##### Definitions
 
 They define a variable of name `B` and value `A` of the specified (immutable) type. 
+
+> Note: variables can be redefined as values of the same type, as if they were assigned to a different value. This helps in writing sequences that can't know if the variable was already assigned.
 
 - `:num`
 	- pops: `B(str)`, `A(num/ref)`
