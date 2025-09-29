@@ -2,8 +2,6 @@
 
 Stackade is a high-level, stack based, interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
-> IMPORTANT: tecnically every language element is a stack operator or it's made from stack operators, as *even data types* get executed by pushing themselves to the stack.
-
 ## 1.1. Stack and Namespaces
 
 The **Stack** and **Namespaces** are central to Stackade:
@@ -12,10 +10,18 @@ The **Stack** and **Namespaces** are central to Stackade:
   
   For example, the operator `+` pops the lasts two elements from the stack and pushes their sum.
 
+> IMPORTANT: almost every language element is a stack operator or it's made from stack operators, as *even data types* execute by pushing themselves to the stack.
+
 - the **Namespaces** are a linked list of maps, each linking the variable name to its content. Having multiple namespaces in a hierarchy allows cleansing un-needed local variables after a **sequence** is executed.
 
 > Note: Variables names (so the names of everything stored in namespaces) allow every printable Unicode character, besides `#`, rounded brackets and curly brackets.
 
+## 1.2. Naming
+
+- variables are named following snakeCase;
+- comments are preceded by '#';
+- lines are completely irrelevant for the interpreter, but they can be broken down arbitrarily and commented to enhance legibility;
+- Branches of Conditional Blocks (read 3.) should be indented if they consist of a sufficient number of elements.
 
 ---
 # 2. Data types and operators
