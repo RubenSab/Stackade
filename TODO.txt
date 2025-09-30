@@ -1,2 +1,4 @@
-- add looping example in docs
-- allow launching from terminal
+- add help
+- add isEmpty
+- add exception handling
+- omptimize looping
