@@ -43,7 +43,7 @@ stackade <program name>
 
 # 1. Introduction
 
-Stackade is a high-level, stack based, interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
+Stackade is a high-level, stack based, concatenative interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
 ## 1.1. Stack and Namespaces
 
