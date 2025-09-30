@@ -1,4 +1,47 @@
-# 1. Introduction and usage
+# Installation and usage of the interpreter
+
+Download the desired jar file from Releases (on the right pane), then you'll be able to run the interpreter from the command line using this command:
+
+```
+java -jar stackade.jar <program name>
+```
+
+If you are on Linux, you can run it with a single command from every directory following these steps:
+
+1. Go to Releases and download the desired jar file.
+2. Create a file named just `stackade` in the same directory.
+
+Write this script inside the new file `stackade`:
+
+```bash
+#!/bin/sh
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+java -jar "$SCRIPT_DIR/stackade.jar" "$@"
+```
+
+3. Run this to move `stackade` to a directory in PATH:
+
+```
+sudo mv stackade /usr/local/bin/
+```
+
+4. Make it executable:
+
+```
+chmod +x /usr/local/bin/stackade
+```
+
+5. Now every user in the system can run the interpreter with:
+
+```
+stackade <program name>
+```
+
+---
+
+# Language Documentation
+
+# 1. Introduction
 
 Stackade is a high-level, stack based, interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
