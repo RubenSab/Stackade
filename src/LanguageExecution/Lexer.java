@@ -22,7 +22,7 @@ public class Lexer {
 
         ArrayList<TokenAndLineWrapper> tokens = new ArrayList<>();
         while (matcher.find()) {
-            tokens.add(new TokenAndLineWrapper(buildToken(matcher.group()), line));
+            tokens.add(new TokenAndLineWrapper(buildToken(matcher.group()), matcher.group(), line));
         }
         return tokens;
     }
@@ -89,7 +89,7 @@ public class Lexer {
             case "box" -> { return KeywordToken.BOX; }
             case "unbox" -> { return KeywordToken.UNBOX; }
             case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
-            case "strToRef" -> { return KeywordToken.STR_TO_REF; } // TODO
+            case "strToRef" -> { return KeywordToken.STR_TO_REF; }
             case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
 
             // self referencing

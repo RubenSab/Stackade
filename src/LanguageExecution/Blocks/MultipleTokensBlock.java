@@ -1,7 +1,7 @@
 package LanguageExecution.Blocks;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
-import LanguageExecution.Interpreter;
+import LanguageExecution.Interpreter.Interpreter;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package LanguageExecution;
+package LanguageExecution.Interpreter;
 
 import LanguageExecution.Blocks.MultipleTokensBlock;
 

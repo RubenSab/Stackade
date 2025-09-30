@@ -1,18 +1,10 @@
 package LanguageExecution.Tokens;
 
-public record TokenAndLineWrapper(Token token, int line) {
-    @Override
-    public Token token() {
-        return token;
-    }
+public record TokenAndLineWrapper(Token token, String symbol, int line) {
 
-    @Override
-    public int line() {
-        return line;
-    }
 
     @Override
     public String toString() {
-        return "token: " + token + " in line " + line;
+        return "\"" + symbol + "\" in line " + line;
     }
 }

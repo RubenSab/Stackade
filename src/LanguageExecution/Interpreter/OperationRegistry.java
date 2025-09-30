@@ -1,4 +1,4 @@
-package LanguageExecution;
+package LanguageExecution.Interpreter;
 
 import LanguageEnvironment.ConditionalContextsStack;
 import LanguageEnvironment.DataStack;
@@ -11,6 +11,7 @@ import LanguageEnvironment.LanguageObjects.Primitives.NumberPrimitive;
 import LanguageEnvironment.LanguageObjects.Primitives.Primitive;
 import LanguageEnvironment.LanguageObjects.Primitives.StringPrimitive;
 import LanguageEnvironment.Namespaces.Namespaces;
+import LanguageExecution.Runner;
 import LanguageExecution.Tokens.*;
 
 import java.io.Console;
@@ -18,20 +19,33 @@ import java.io.IOException;
 import java.util.function.BiFunction;
 
 public class OperationRegistry {
+    private static final OperationRegistry INSTANCE = new OperationRegistry();
     private static final DataStack stack = DataStack.getInstance();
     private static final Namespaces namespaces = Namespaces.getInstance();
+    private TokenAndLineWrapper tokenWrapper;
 
-    public static void executeToken(TokenAndLineWrapper tokenWrapper) {
+    public static OperationRegistry getInstance() {
+        return INSTANCE;
+    }
+
+    public void executeToken(TokenAndLineWrapper tokenWrapper) { // TODO: add exceptions to every operation
+        this.tokenWrapper = tokenWrapper;
+
         switch (tokenWrapper.token()) {
             case NumberToken numberToken -> stack.push(new NumberPrimitive(numberToken.get()));
             case StringToken stringToken -> stack.push(new StringPrimitive(stringToken.get()));
             case NamespaceToken namespaceToken -> {
-                    LanguageObject invoked = namespaceToken.resolve();
-                    if (invoked instanceof UnexecutedSequence) {
-                        ((UnexecutedSequence) invoked).run();
-                    } else {
-                        stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
+                    try {
+                        LanguageObject invoked = namespaceToken.resolve();
+                        if (invoked instanceof UnexecutedSequence) {
+                            ((UnexecutedSequence) invoked).run();
+                        } else {
+                            stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
+                        }
+                    } catch (Namespaces.UndefinedVariableException e) {
+                        ErrorsLogger.triggerError(tokenWrapper, Error.UNDEFINED_VARIABLE);
                     }
+
             }
             case KeywordToken keywordToken -> {
                 switch (keywordToken) {
@@ -55,8 +69,18 @@ public class OperationRegistry {
                     case ADD -> numericArgsOperation(NumberPrimitive::add);
                     case SUB -> numericArgsOperation(NumberPrimitive::sub);
                     case MUL -> numericArgsOperation(NumberPrimitive::mul);
-                    case DIV -> numericArgsOperation(NumberPrimitive::div);
-                    case MOD -> numericArgsOperation(NumberPrimitive::mod);
+                    case DIV -> {
+                        if (stack.peek().resolve().equals(new NumberPrimitive(0D))) {
+                            ErrorsLogger.triggerError(tokenWrapper, Error.DIVISION_BY_ZERO);
+                        }
+                        numericArgsOperation(NumberPrimitive::div);
+                    }
+                    case MOD -> {
+                        if (stack.peek().resolve().equals(new NumberPrimitive(0D))) {
+                            ErrorsLogger.triggerError(tokenWrapper, Error.DIVISION_BY_ZERO);
+                        }
+                        numericArgsOperation(NumberPrimitive::mod);
+                    }
                     // With Boolean return
                     case LT  -> numericArgsOperation(NumberPrimitive::lt);
                     case GT  -> numericArgsOperation(NumberPrimitive::gt);
@@ -98,7 +122,13 @@ public class OperationRegistry {
                         namespaces.assign(name, value);
                     }
                     case DEL -> namespaces.delete(((NamespaceReference) stack.pop()).getName());
-                    case RAISE_NAME -> namespaces.raise(((NamespaceReference) stack.pop()).getName());
+                    case RAISE_NAME -> {
+                        try {
+                            namespaces.raise(((NamespaceReference) stack.pop()).getName());
+                        } catch (IllegalStateException e) {
+                            ErrorsLogger.triggerError(tokenWrapper, Error.RAISE_VARIABLE_ERROR);
+                        }
+                    }
 
                     case DEFINE_NUM -> definitionFunction(NumberPrimitive.class);
                     case DEFINE_STR -> definitionFunction(StringPrimitive.class);
@@ -137,7 +167,7 @@ public class OperationRegistry {
                         try {
                             Runner.getInstance().run(((StringPrimitive) stack.pop()).getValue(), false);
                         } catch (IOException e) {
-                            throw new RuntimeException("fileNotFound");
+                            ErrorsLogger.triggerError(tokenWrapper, Error.FILE_NOT_FOUND);
                         }
                     }
                     // Other
@@ -147,30 +177,44 @@ public class OperationRegistry {
                 }
             }
 
-            default -> throw new IllegalStateException("Unexpected value: " + tokenWrapper);
+            default -> ErrorsLogger.triggerError(tokenWrapper, Error.UNKNOWN_TOKEN);
         }
     }
 
     // Helper functions
-    private static <T extends LanguageObject> void definitionFunction(Class<T> classOfVariable) {
-        T value = classOfVariable.cast(stack.pop()); // not doing stack.pop().resolve() allows declaring pointer variables (NamespaceReference)
-        String name = ((StringPrimitive) stack.pop()).getValue();
-        namespaces.define(name, value);
+    private <T extends LanguageObject> void definitionFunction(Class<T> classOfVariable) {
+        try {
+            T value = classOfVariable.cast(stack.pop()); // not doing stack.pop().resolve() allows declaring pointer variables (NamespaceReference)
+            String name = ((StringPrimitive) stack.pop()).getValue();
+            namespaces.define(name, value);
 
-        if (classOfVariable.equals(UnexecutedSequence.class)) {
-            ((UnexecutedSequence) value).setName(name);
+            if (classOfVariable.equals(UnexecutedSequence.class)) {
+                ((UnexecutedSequence) value).setName(name);
+            }
+        } catch (ClassCastException e) {
+            ErrorsLogger.triggerError(tokenWrapper, Error.WRONG_DEFINITION_TYPE);
         }
+
     }
 
-    private static void numericArgsOperation(BiFunction<NumberPrimitive, NumberPrimitive, Primitive<?>> biFunction) {
-        NumberPrimitive op2 = (NumberPrimitive) stack.pop().resolve();
-        NumberPrimitive op1 = (NumberPrimitive) stack.pop().resolve();
-        stack.push(biFunction.apply(op1, op2));
+    private void numericArgsOperation(BiFunction<NumberPrimitive, NumberPrimitive, Primitive<?>> biFunction) {
+        try {
+            NumberPrimitive op2 = (NumberPrimitive) stack.pop().resolve();
+            NumberPrimitive op1 = (NumberPrimitive) stack.pop().resolve();
+            stack.push(biFunction.apply(op1, op2));
+        } catch (ClassCastException e) {
+            ErrorsLogger.triggerError(tokenWrapper, Error.WRONG_OPERANDS_TYPE);
+        }
+
     }
-    private static void booleanArgsOperation(BiFunction<BooleanPrimitive, BooleanPrimitive, BooleanPrimitive> biFunction) {
-        BooleanPrimitive op2 = (BooleanPrimitive) stack.pop().resolve();
-        BooleanPrimitive op1 = (BooleanPrimitive) stack.pop().resolve();
-        stack.push(biFunction.apply(op1, op2));
+    private void booleanArgsOperation(BiFunction<BooleanPrimitive, BooleanPrimitive, BooleanPrimitive> biFunction) {
+        try {
+            BooleanPrimitive op2 = (BooleanPrimitive) stack.pop().resolve();
+            BooleanPrimitive op1 = (BooleanPrimitive) stack.pop().resolve();
+            stack.push(biFunction.apply(op1, op2));
+        } catch (ClassCastException e) {
+            ErrorsLogger.triggerError(tokenWrapper, Error.WRONG_OPERANDS_TYPE);
+        }
     }
 
 }

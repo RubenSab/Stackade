@@ -53,8 +53,7 @@ public class Namespaces extends Namespace {
             LanguageObject variable = current.get(name);
             if (variable != null) {
                 if (i == 0) {
-                    // Already at the outermost scope — choose desired behavior.
-                    throw new IllegalStateException("Cannot raise variable '" + name + "' from the outermost namespace");
+                    throw new IllegalStateException();
                 }
                 Namespace outer = namespaces.get(i - 1);
                 outer.define(name, variable);
@@ -72,7 +71,7 @@ public class Namespaces extends Namespace {
         return namespaces.toString();
     }
 
-    protected static class UndefinedVariableException extends RuntimeException {
+    public static class UndefinedVariableException extends RuntimeException {
         protected UndefinedVariableException(String variableName) {
             super("Undefined variable: " + variableName);
         }

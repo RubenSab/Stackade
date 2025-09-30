@@ -1,13 +1,13 @@
 package LanguageExecution.Blocks;
 
-import LanguageExecution.OperationRegistry;
+import LanguageExecution.Interpreter.OperationRegistry;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 public record SingleTokenBlock(TokenAndLineWrapper tokenWrapper) implements Block {
 
     @Override
     public void execute() {
-        OperationRegistry.executeToken(tokenWrapper);
+        OperationRegistry.getInstance().executeToken(tokenWrapper);
     }
 
     @Override
