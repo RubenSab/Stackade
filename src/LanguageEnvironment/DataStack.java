@@ -44,8 +44,8 @@ public class DataStack {
         stack.push(second);
     }
 
-    public boolean isEmpty() {
-        return stack.isEmpty();
+    public Integer size() {
+        return stack.size();
     }
 
     @Override
@@ -53,9 +53,4 @@ public class DataStack {
         return stack.toString();
     }
 
-    public static class EmptyPopException extends RuntimeException {
-        public EmptyPopException() {
-            super("Attempted to pop from empty stack.");
-        }
-    }
 }

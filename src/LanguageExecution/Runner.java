@@ -34,6 +34,6 @@ public class Runner {
         if (mainFile) {
             Namespaces.getInstance().pushNamespace();
         }
-        Interpreter.execute(blocks);
+        Interpreter.getInstance().run(blocks);
     }
 }

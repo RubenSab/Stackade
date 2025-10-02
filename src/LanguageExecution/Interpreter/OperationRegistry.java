@@ -58,6 +58,7 @@ public class OperationRegistry {
                         stack.push(b);
                         stack.push(c);
                     }
+                    case SIZE -> stack.push(new NumberPrimitive(stack.size().doubleValue()));
                     case EQ ->
                             stack.push(new BooleanPrimitive(stack.pop(tokenWrapper).equals(stack.pop(tokenWrapper))));
                     case NEQ ->
@@ -150,9 +151,6 @@ public class OperationRegistry {
                             stack.push(new NamespaceReference(stack.pop(tokenWrapper).resolve().tryCast(StringPrimitive.class, tokenWrapper).getValue()));
                     case NUM_TO_STR ->
                             stack.push(stack.pop(tokenWrapper).resolve().tryCast(NumberPrimitive.class, tokenWrapper).toStringPrimitive());
-
-                    // Self referencing
-                    case SELF -> ConditionalContextsStack.getInstance().executeTop();
 
                     // I/O
                     case PRINT -> System.out.print((stack.pop(tokenWrapper).resolve()).represent());

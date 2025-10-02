@@ -16,8 +16,8 @@ public class ConditionalContextsStack {
         stack.push(conditionalBlock);
     }
 
-    public void pop() {
-        stack.pop();
+    public ConditionalBlock pop() {
+        return stack.pop();
     }
 
     public void executeTop() {
