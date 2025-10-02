@@ -3,19 +3,29 @@ package LanguageExecution.Blocks;
 import LanguageEnvironment.ConditionalContextsStack;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 public class ConditionalBlock implements Block {
+    private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
     private MultipleTokensBlock trueBlock;
     private MultipleTokensBlock falseBlock;
 
+    public ConditionalBlock() {
+        this.beginTokenWrapper = null;
+    }
+
+    public ConditionalBlock(TokenAndLineWrapper beginTokenWrapper) {
+        this.beginTokenWrapper = beginTokenWrapper;
+    }
+
     @Override
     public void add(Block block) {
-        if (conditionBlock == null) {
+        if (conditionBlock==null) {
             conditionBlock = (MultipleTokensBlock) block;
-        } else if (trueBlock == null) {
+        } else if (trueBlock==null) {
             trueBlock = (MultipleTokensBlock) block;
-        } else if (falseBlock == null) {
+        } else if (falseBlock==null) {
             falseBlock = (MultipleTokensBlock) block;
         }
     }
@@ -25,11 +35,11 @@ public class ConditionalBlock implements Block {
         ConditionalContextsStack.getInstance().push(this);
         try {
             conditionBlock.executeEveryBlockInside();
-            boolean conditionResult = ((BooleanPrimitive) DataStack.getInstance().pop()).getValue();
+            boolean conditionResult = (DataStack.getInstance().pop(beginTokenWrapper).tryCast(BooleanPrimitive.class, beginTokenWrapper)).getValue();
             if (conditionResult) {
                 trueBlock.executeEveryBlockInside();
             } else {
-                if (falseBlock != null) {
+                if (falseBlock!=null) {
                     falseBlock.executeEveryBlockInside();
                 }
             }

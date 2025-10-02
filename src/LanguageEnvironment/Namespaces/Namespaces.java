@@ -1,12 +1,13 @@
 package LanguageEnvironment.Namespaces;
+
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 
 import java.util.Stack;
 
 
 public class Namespaces extends Namespace {
-    private final Stack<Namespace> namespaces = new Stack<>();
     private final static Namespaces INSTANCE = new Namespaces();
+    private final Stack<Namespace> namespaces = new Stack<>();
 
     public static Namespaces getInstance() {
         return INSTANCE;
@@ -36,7 +37,7 @@ public class Namespaces extends Namespace {
     public LanguageObject get(String name) {
         for (int i = namespaces.size() - 1; i >= 0; i--) {
             LanguageObject variable = namespaces.get(i).get(name);
-            if (variable != null) {
+            if (variable!=null) {
                 return variable;
             }
         }
@@ -51,8 +52,8 @@ public class Namespaces extends Namespace {
         for (int i = namespaces.size() - 1; i >= 0; i--) {
             Namespace current = namespaces.get(i);
             LanguageObject variable = current.get(name);
-            if (variable != null) {
-                if (i == 0) {
+            if (variable!=null) {
+                if (i==0) {
                     throw new IllegalStateException();
                 }
                 Namespace outer = namespaces.get(i - 1);

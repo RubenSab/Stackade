@@ -1,6 +1,9 @@
 package LanguageEnvironment;
 
 import LanguageEnvironment.LanguageObjects.LanguageObject;
+import LanguageExecution.Interpreter.ErrorsLogger;
+import LanguageExecution.Interpreter.StackadeError;
+import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.Stack;
 
@@ -16,18 +19,20 @@ public class DataStack {
         stack.push(object);
     }
 
-    public LanguageObject pop() throws EmptyPopException {
+    public LanguageObject pop(TokenAndLineWrapper possibleErrorSource) {
         if (!stack.isEmpty()) {
             return stack.pop();
         } else {
-            throw new EmptyPopException();
+            ErrorsLogger.triggerInterpreterError(possibleErrorSource, StackadeError.EMPTY_STACK);
+            return null;
         }
     }
 
-    public LanguageObject peek() {
+    public LanguageObject peek(TokenAndLineWrapper possibleErrorSource) {
         if (!stack.isEmpty()) {
             return stack.peek();
         } else {
+            ErrorsLogger.triggerInterpreterError(possibleErrorSource, StackadeError.EMPTY_STACK);
             return null;
         }
     }

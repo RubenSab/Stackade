@@ -29,87 +29,191 @@ public class Lexer {
 
     private static Token buildToken(String representation) {
         switch (representation) {
-            case "{" -> { return KeywordToken.OPEN_COND; }
-            case "}" -> { return KeywordToken.CLOSE_COND; }
-            case "(" -> { return KeywordToken.OPEN_BLOCK; }
-            case ")" -> { return KeywordToken.CLOSE_BLOCK; }
-            case "true" -> { return KeywordToken.TRUE; }
-            case "false" -> { return KeywordToken.FALSE; }
+            case "{" -> {
+                return KeywordToken.OPEN_COND;
+            }
+            case "}" -> {
+                return KeywordToken.CLOSE_COND;
+            }
+            case "(" -> {
+                return KeywordToken.OPEN_BLOCK;
+            }
+            case ")" -> {
+                return KeywordToken.CLOSE_BLOCK;
+            }
+            case "true" -> {
+                return KeywordToken.TRUE;
+            }
+            case "false" -> {
+                return KeywordToken.FALSE;
+            }
 
             // Stack operations
-            case "dup" -> { return KeywordToken.DUP; }
-            case "pop" -> { return KeywordToken.POP; }
-            case "rot" -> { return KeywordToken.ROT; }
-            case "swap" -> { return KeywordToken.SWAP; }
+            case "dup" -> {
+                return KeywordToken.DUP;
+            }
+            case "pop" -> {
+                return KeywordToken.POP;
+            }
+            case "rot" -> {
+                return KeywordToken.ROT;
+            }
+            case "swap" -> {
+                return KeywordToken.SWAP;
+            }
 
             // Numeric args operations
-            case "+" -> { return KeywordToken.ADD; }
-            case "-" -> { return KeywordToken.SUB; }
-            case "*" -> { return KeywordToken.MUL; }
-            case "/" -> { return KeywordToken.DIV; }
-            case "%" -> { return KeywordToken.MOD; }
-            case "==" -> { return KeywordToken.EQ; }
-            case "!=" -> { return KeywordToken.NEQ; }
-            case "<" -> { return KeywordToken.LT; }
-            case ">" -> { return KeywordToken.GT; }
-            case "<=" -> { return KeywordToken.LEQ; }
-            case ">=" -> { return KeywordToken.GEQ; }
+            case "+" -> {
+                return KeywordToken.ADD;
+            }
+            case "-" -> {
+                return KeywordToken.SUB;
+            }
+            case "*" -> {
+                return KeywordToken.MUL;
+            }
+            case "/" -> {
+                return KeywordToken.DIV;
+            }
+            case "%" -> {
+                return KeywordToken.MOD;
+            }
+            case "==" -> {
+                return KeywordToken.EQ;
+            }
+            case "!=" -> {
+                return KeywordToken.NEQ;
+            }
+            case "<" -> {
+                return KeywordToken.LT;
+            }
+            case ">" -> {
+                return KeywordToken.GT;
+            }
+            case "<=" -> {
+                return KeywordToken.LEQ;
+            }
+            case ">=" -> {
+                return KeywordToken.GEQ;
+            }
 
             // Boolean args operations
-            case "not" -> { return KeywordToken.NOT; }
-            case "and" -> { return KeywordToken.AND; }
-            case "or" -> { return KeywordToken.OR; }
-            case "xor" -> { return KeywordToken.XOR; }
+            case "not" -> {
+                return KeywordToken.NOT;
+            }
+            case "and" -> {
+                return KeywordToken.AND;
+            }
+            case "or" -> {
+                return KeywordToken.OR;
+            }
+            case "xor" -> {
+                return KeywordToken.XOR;
+            }
 
             // String operations
-            case "strAt" -> { return KeywordToken.STR_AT; }
-            case "strCat" -> { return KeywordToken.STR_CAT; }
-            case "strLen" -> { return KeywordToken.STR_LEN; }
+            case "strAt" -> {
+                return KeywordToken.STR_AT;
+            }
+            case "strCat" -> {
+                return KeywordToken.STR_CAT;
+            }
+            case "strLen" -> {
+                return KeywordToken.STR_LEN;
+            }
 
             // Reference operations
-            case "refName" -> { return KeywordToken.REF_NAME; }
-            case "refGet" -> { return KeywordToken.REF_GET; }
+            case "refName" -> {
+                return KeywordToken.REF_NAME;
+            }
+            case "refGet" -> {
+                return KeywordToken.REF_GET;
+            }
 
             // Namespaces operations
-            case "exists" -> { return KeywordToken.EXISTS; }
+            case "exists" -> {
+                return KeywordToken.EXISTS;
+            }
             // Mutations in Namespaces
-            case "=" -> { return KeywordToken.ASSIGN; }
-            case ":del" -> { return KeywordToken.DEL; }
-            case ":raise" -> { return KeywordToken.RAISE_NAME; }
+            case "=" -> {
+                return KeywordToken.ASSIGN;
+            }
+            case ":del" -> {
+                return KeywordToken.DEL;
+            }
+            case ":raise" -> {
+                return KeywordToken.RAISE_NAME;
+            }
             // Definitions
-            case ":num" -> { return KeywordToken.DEFINE_NUM; }
-            case ":str" -> { return KeywordToken.DEFINE_STR; }
-            case ":bool" -> { return KeywordToken.DEFINE_BOOL; }
-            case ":ref" -> { return KeywordToken.DEFINE_REF; }
-            case ":box" -> { return KeywordToken.DEFINE_BOX; }
-            case ":seq" -> { return KeywordToken.DEFINE_SEQ; }
+            case ":num" -> {
+                return KeywordToken.DEFINE_NUM;
+            }
+            case ":str" -> {
+                return KeywordToken.DEFINE_STR;
+            }
+            case ":bool" -> {
+                return KeywordToken.DEFINE_BOOL;
+            }
+            case ":ref" -> {
+                return KeywordToken.DEFINE_REF;
+            }
+            case ":box" -> {
+                return KeywordToken.DEFINE_BOX;
+            }
+            case ":seq" -> {
+                return KeywordToken.DEFINE_SEQ;
+            }
 
             // Casting
-            case "type" -> { return KeywordToken.TYPE; }
-            case "box" -> { return KeywordToken.BOX; }
-            case "unbox" -> { return KeywordToken.UNBOX; }
-            case "strToNum" -> { return KeywordToken.STR_TO_NUM; }
-            case "strToRef" -> { return KeywordToken.STR_TO_REF; }
-            case "numToStr" -> { return KeywordToken.NUM_TO_STR; }
+            case "type" -> {
+                return KeywordToken.TYPE;
+            }
+            case "box" -> {
+                return KeywordToken.BOX;
+            }
+            case "unbox" -> {
+                return KeywordToken.UNBOX;
+            }
+            case "strToNum" -> {
+                return KeywordToken.STR_TO_NUM;
+            }
+            case "strToRef" -> {
+                return KeywordToken.STR_TO_REF;
+            }
+            case "numToStr" -> {
+                return KeywordToken.NUM_TO_STR;
+            }
 
             // self referencing
-            case "self" -> { return KeywordToken.SELF; }
+            case "self" -> {
+                return KeywordToken.SELF;
+            }
 
             // I/O
-            case "print" -> { return KeywordToken.PRINT; }
-            case "input" -> { return KeywordToken.INPUT; }
+            case "print" -> {
+                return KeywordToken.PRINT;
+            }
+            case "input" -> {
+                return KeywordToken.INPUT;
+            }
 
             // debugging
-            case "debug" -> { return KeywordToken.DEBUG; }
-            case "halt" -> { return KeywordToken.HALT; }
+            case "debug" -> {
+                return KeywordToken.DEBUG;
+            }
+            case "halt" -> {
+                return KeywordToken.HALT;
+            }
 
             // Source files inclusion
-            case "run" -> { return KeywordToken.RUN; }
+            case "run" -> {
+                return KeywordToken.RUN;
+            }
 
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes
-                    return new StringToken(representation.substring(1, representation.length()-1));
+                    return new StringToken(representation.substring(1, representation.length() - 1));
                 } else if (isParsableAsDouble(representation)) {
                     return new NumberToken(representation);
                 } else {

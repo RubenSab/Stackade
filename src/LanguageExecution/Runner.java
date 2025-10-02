@@ -26,7 +26,7 @@ public class Runner {
         // tokenize lines and append each Token and line number wrapped together inside TokenAndLineWrapper
         List<TokenAndLineWrapper> tokens = new ArrayList<>();
         for (int i = 0; i < source.size(); i++) {
-            tokens.addAll(Lexer.tokenize(source.get(i), i+1));
+            tokens.addAll(Lexer.tokenize(source.get(i), i + 1));
         }
 
         // Parse (wrapped) tokens into a single nested MultipleTokensBlock

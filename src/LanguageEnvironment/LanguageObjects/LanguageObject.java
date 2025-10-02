@@ -1,8 +1,8 @@
 package LanguageEnvironment.LanguageObjects;
 
 import LanguageEnvironment.LanguageObjects.Primitives.NamespaceReference;
-import LanguageExecution.Interpreter.Error;
 import LanguageExecution.Interpreter.ErrorsLogger;
+import LanguageExecution.Interpreter.StackadeError;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 public abstract class LanguageObject {
@@ -19,11 +19,10 @@ public abstract class LanguageObject {
         try {
             return targetClass.cast(this);
         } catch (ClassCastException e) {
-            ErrorsLogger.triggerError(tokenWrapper, Error.WRONG_OPERANDS_TYPE);
+            ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.WRONG_OPERANDS_TYPE);
             throw new RuntimeException("placeholder exception");
         }
     }
-
 
 
     public abstract String represent();

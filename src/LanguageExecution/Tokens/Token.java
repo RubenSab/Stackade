@@ -1,3 +1,4 @@
 package LanguageExecution.Tokens;
 
-public interface Token {}
+public interface Token {
+}

@@ -81,7 +81,7 @@ public class NumberPrimitive extends Primitive<Double> {
 
     @Override
     public String represent() {
-        if (getValue() - intValue() == 0) {
+        if (getValue() - intValue()==0) {
             return String.valueOf(intValue());
         }
         return super.toString();
