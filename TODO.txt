@@ -1,4 +1,2 @@
-- add help
 - add isEmpty
-- add exception handling
 - omptimize looping

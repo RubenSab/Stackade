@@ -10,9 +10,7 @@ public class MultipleTokensBlock implements Block {
     protected final ArrayList<Block> blocks = new ArrayList<>();
 
     public void executeEveryBlockInside() {
-        for (Block b : blocks) {
-            if (!Interpreter.getInstance().isHalted()) b.execute();
-        }
+        blocks.forEach(Block::execute);
     }
 
     @Override

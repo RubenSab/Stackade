@@ -1,6 +1,7 @@
 package LanguageExecution.Interpreter;
 
 public enum Error {
+    HALTED_BY_OPERATOR("Execution halted by operator"),
     UNDEFINED_VARIABLE("Undefined variable"),
     UNKNOWN_TOKEN("Unknown token"),
     DIVISION_BY_ZERO("Division by zero"),
