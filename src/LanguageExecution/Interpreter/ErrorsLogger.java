@@ -14,8 +14,8 @@ public class ErrorsLogger {
         halt();
     }
 
-    public static void triggerInterpreterError(StackadeError error) {
-        System.out.println("Interpreter error from an unknown source: " + error);
+    public static void triggerInterpreterError(StackadeError stackadeError) {
+        System.out.println("Interpreter error: " + stackadeError);
         halt();
     }
 

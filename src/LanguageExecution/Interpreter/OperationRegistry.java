@@ -34,7 +34,7 @@ public class OperationRegistry {
                 try {
                     LanguageObject invoked = namespaceToken.resolve();
                     if (invoked instanceof UnexecutedSequence) {
-                        ((UnexecutedSequence) invoked).run();
+                        ((UnexecutedSequence) invoked).execute();
                     } else {
                         stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
                     }

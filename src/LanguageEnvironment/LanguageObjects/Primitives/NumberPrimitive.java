@@ -1,5 +1,8 @@
 package LanguageEnvironment.LanguageObjects.Primitives;
 
+import LanguageExecution.Interpreter.ErrorsLogger;
+import LanguageExecution.Interpreter.StackadeError;
+
 public class NumberPrimitive extends Primitive<Double> {
 
     public NumberPrimitive(Number value) {
@@ -7,7 +10,12 @@ public class NumberPrimitive extends Primitive<Double> {
     }
 
     public static NumberPrimitive parseNumber(String string) {
-        return new NumberPrimitive(Double.parseDouble(string));
+        try {
+            return new NumberPrimitive(Double.parseDouble(string));
+        } catch (NumberFormatException e) {
+            ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_OPERANDS_TYPE);
+            return null;
+        }
     }
 
     public NumberPrimitive add(NumberPrimitive o) {

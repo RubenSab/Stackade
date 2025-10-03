@@ -19,7 +19,7 @@ public class MultipleTokensBlock implements Block {
         this.beginTokenWrapper = beginTokenWrapper;
     }
 
-    public void executeEveryBlockInside() {
+    public void executeEveryBlockInside() { // TODO: push to exec
         blocks.forEach(Block::execute);
     }
 

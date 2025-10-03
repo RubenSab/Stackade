@@ -18,9 +18,9 @@ public class UnexecutedSequence extends LanguageObject {
         this.name = name;
     }
 
-    public void run() {
+    public void execute() {
         Namespaces.getInstance().pushNamespace();
-        blocks.forEach(Block::execute);
+        blocks.forEach(Block::execute); // TODO: push to exec
         Namespaces.getInstance().popNamespace();
     }
 
