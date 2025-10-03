@@ -51,22 +51,6 @@ public class ConditionalBlock implements Block {
         }
     }
 
-    public MultipleTokensBlock getConditionBlock() {
-        return conditionBlock;
-    }
-
-    public MultipleTokensBlock getTrueBlock() {
-        return trueBlock;
-    }
-
-    public MultipleTokensBlock getFalseBlock() {
-        return falseBlock;
-    }
-
-    public TokenAndLineWrapper getBeginTokenWrapper() {
-        return beginTokenWrapper;
-    }
-
     @Override
     public String toString() {
         return "conditional block(condition block(" + conditionBlock + "), true block(" + trueBlock + "), false block(" + falseBlock + ")";

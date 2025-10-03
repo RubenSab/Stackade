@@ -61,9 +61,6 @@ public class Lexer {
             case "swap" -> {
                 return KeywordToken.SWAP;
             }
-            case "stackSize" -> {
-                return KeywordToken.SIZE;
-            }
 
             // Numeric args operations
             case "+" -> {

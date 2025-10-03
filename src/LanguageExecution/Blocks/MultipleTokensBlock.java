@@ -5,7 +5,6 @@ import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MultipleTokensBlock implements Block {
 
@@ -22,10 +21,6 @@ public class MultipleTokensBlock implements Block {
 
     public void executeEveryBlockInside() {
         blocks.forEach(Block::execute);
-    }
-
-    public ArrayList<Block> getBlocks() {
-        return blocks;
     }
 
     @Override
