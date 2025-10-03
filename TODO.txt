@@ -1,2 +1,1 @@
-- add isEmpty
-- omptimize looping
+- optimize looping

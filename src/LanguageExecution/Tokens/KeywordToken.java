@@ -2,7 +2,7 @@ package LanguageExecution.Tokens;
 
 public enum KeywordToken implements Token {
     // Stack operations
-    DUP, POP, SWAP, ROT, EQ,
+    DUP, POP, SWAP, ROT, EQ, SIZE,
 
     // Numeric args operations
     ADD, SUB, MUL, DIV, MOD, // With Number return
