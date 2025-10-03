@@ -5,6 +5,8 @@ import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
+import javax.xml.crypto.Data;
+
 public class ConditionalBlock implements Block {
     private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
@@ -35,6 +37,7 @@ public class ConditionalBlock implements Block {
         ConditionalContextsStack.getInstance().push(this);
         try {
             conditionBlock.executeEveryBlockInside();
+
             boolean conditionResult = (DataStack.getInstance().pop(beginTokenWrapper).tryCast(BooleanPrimitive.class, beginTokenWrapper)).getValue();
             if (conditionResult) {
                 trueBlock.executeEveryBlockInside();

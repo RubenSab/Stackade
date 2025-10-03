@@ -58,10 +58,16 @@ public class OperationRegistry {
                         stack.push(b);
                         stack.push(c);
                     }
-                    case EQ ->
-                            stack.push(new BooleanPrimitive(stack.pop(tokenWrapper).equals(stack.pop(tokenWrapper))));
-                    case NEQ ->
-                            stack.push(new BooleanPrimitive(!stack.pop(tokenWrapper).equals(stack.pop(tokenWrapper))));
+                    case EQ -> {
+                        Primitive<?> op2 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);
+                        Primitive<?> op1 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);
+                        stack.push(new BooleanPrimitive(op1.equals(op2)));
+                    }
+                    case NEQ -> {
+                        Primitive<?> op2 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);
+                        Primitive<?> op1 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);
+                        stack.push(new BooleanPrimitive(!op1.equals(op2)));
+                    }
 
                     // Numeric args operations
                     case ADD -> numericArgsOperation(NumberPrimitive::add);
@@ -152,7 +158,9 @@ public class OperationRegistry {
                             stack.push(stack.pop(tokenWrapper).resolve().tryCast(NumberPrimitive.class, tokenWrapper).toStringPrimitive());
 
                     // Self referencing
-                    case SELF -> ConditionalContextsStack.getInstance().executeTop();
+                    case SELF -> {
+                        ConditionalContextsStack.getInstance().executeTop();
+                    }
 
                     // I/O
                     case PRINT -> System.out.print((stack.pop(tokenWrapper).resolve()).represent());
