@@ -10,6 +10,7 @@ public class Interpreter {
     }
 
     public static void execute(MultipleTokensBlock multipleTokensBlock) {
-        multipleTokensBlock.executeEveryBlockInside();
+        ExecutionStack.getInstance().standardRunBlock(multipleTokensBlock);
+        ExecutionStack.getInstance().run();
     }
 }

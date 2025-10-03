@@ -32,7 +32,7 @@ public class Runner {
         // Parse (wrapped) tokens into a single nested MultipleTokensBlock
         MultipleTokensBlock blocks = Parser.parse(tokens);
         if (mainFile) {
-            Namespaces.getInstance().pushNamespace();
+            Namespaces.getInstance().pushNamespace(); // TODO: check namespaces mutation
         }
         Interpreter.execute(blocks);
     }

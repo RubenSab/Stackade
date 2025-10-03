@@ -160,6 +160,7 @@ public class OperationRegistry {
                     // Self referencing
                     case SELF -> {
                         ConditionalContextsStack.getInstance().executeTop();
+                        ConditionalContextsStack.getInstance().pop();
                     }
 
                     // I/O
@@ -173,6 +174,7 @@ public class OperationRegistry {
                     case DEBUG -> {
                         System.out.println("\ndata stack = " + DataStack.getInstance());
                         System.out.println("namespaces = " + Namespaces.getInstance());
+                        System.out.println("conditional contexts = " + ConditionalContextsStack.getInstance());
                     }
                     case HALT -> ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.HALTED_BY_OPERATOR);
 

@@ -2,6 +2,7 @@ package LanguageExecution.Blocks;
 
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
+import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class MultipleTokensBlock implements Block {
         this.beginTokenWrapper = beginTokenWrapper;
     }
 
-    public void executeEveryBlockInside() { // TODO: push to exec
+    public void executeEveryBlockInside() {
         blocks.forEach(Block::execute);
     }
 
@@ -34,7 +35,8 @@ public class MultipleTokensBlock implements Block {
 
     @Override
     public void execute() {
-        DataStack.getInstance().push(new UnexecutedSequence(blocks));
+        Namespaces.getInstance().pushNamespace(); // TODO: check namespaces mutation
+        DataStack.getInstance().push(new UnexecutedSequence(this));
     }
 
     @Override

@@ -6,7 +6,7 @@ import LanguageExecution.Tokens.TokenAndLineWrapper;
 public record SingleTokenBlock(TokenAndLineWrapper tokenWrapper) implements Block {
 
     @Override
-    public void execute() { // TODO: push to exec
+    public void execute() {
         OperationRegistry.getInstance().executeToken(tokenWrapper);
     }
 

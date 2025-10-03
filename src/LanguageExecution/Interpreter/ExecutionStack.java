@@ -3,6 +3,7 @@ package LanguageExecution.Interpreter;
 import LanguageEnvironment.ConditionalContextsStack;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Blocks.Block;
 import LanguageExecution.Blocks.ConditionalBlock;
 import LanguageExecution.Blocks.MultipleTokensBlock;
@@ -11,23 +12,35 @@ import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.Stack;
 
-public class BlocksExecutionStack {
-    private static final BlocksExecutionStack INSTANCE = new BlocksExecutionStack();
+public class ExecutionStack {
+    private static final ExecutionStack INSTANCE = new ExecutionStack();
     private final Stack<Block> executionStack = new Stack<>();
 
-    public static BlocksExecutionStack getInstance() {
+    public static ExecutionStack getInstance() {
         return INSTANCE;
     }
 
-    private void runBlock(SingleTokenBlock block) {
+    public void run() {
+        while (!executionStack.isEmpty()) {
+            Block current = executionStack.pop();
+            switch (current) {
+                case SingleTokenBlock single -> standardRunBlock(single);
+                case MultipleTokensBlock multiple -> multiple.execute();
+                case ConditionalBlock conditional -> standardRunBlock(conditional);
+                default -> System.out.println("unknown block");
+            }
+        }
+    }
+
+    public void standardRunBlock(SingleTokenBlock block) {
         block.execute();
     }
 
-    private void runBlock(MultipleTokensBlock block) {
+    public void standardRunBlock(MultipleTokensBlock block) {
         executionStack.addAll(block.getBlocks().reversed());
     }
 
-    private void runBlock(ConditionalBlock block) {
+    public void standardRunBlock(ConditionalBlock block) {
         MultipleTokensBlock conditionBlock = block.getConditionBlock();
         MultipleTokensBlock trueBlock = block.getTrueBlock();
         MultipleTokensBlock falseBlock = block.getFalseBlock();
@@ -39,26 +52,14 @@ public class BlocksExecutionStack {
 
             boolean conditionResult = (DataStack.getInstance().pop(beginTokenWrapper).tryCast(BooleanPrimitive.class, beginTokenWrapper)).getValue();
             if (conditionResult) {
-                runBlock(trueBlock);
+                standardRunBlock(trueBlock);
             } else {
                 if (falseBlock!=null) {
-                    runBlock(falseBlock);
+                    standardRunBlock(falseBlock);
                 }
             }
         } finally {
-            ConditionalContextsStack.getInstance().pop();
-        }
-    }
-
-    public void run() {
-        while (!executionStack.isEmpty()) {
-            Block current = executionStack.pop();
-            switch (current) {
-                case SingleTokenBlock single -> runBlock(single);
-                case MultipleTokensBlock multiple -> runBlock(multiple);
-                case ConditionalBlock conditional -> runBlock(conditional);
-                default -> System.out.println("unknown block");
-            }
+            // ConditionalContextsStack.getInstance().pop();
         }
     }
 

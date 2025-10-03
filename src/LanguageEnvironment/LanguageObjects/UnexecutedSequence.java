@@ -1,17 +1,17 @@
 package LanguageEnvironment.LanguageObjects;
 
 import LanguageEnvironment.Namespaces.Namespaces;
-import LanguageExecution.Blocks.Block;
+import LanguageExecution.Blocks.MultipleTokensBlock;
+import LanguageExecution.Interpreter.ExecutionStack;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class UnexecutedSequence extends LanguageObject {
-    private final ArrayList<Block> blocks;
+    private final MultipleTokensBlock blocks;
     private String name;
 
-    public UnexecutedSequence(ArrayList<Block> blocks) {
-        this.blocks = blocks;
+    public UnexecutedSequence(MultipleTokensBlock block) {
+        this.blocks = block;
     }
 
     public void setName(String name) {
@@ -19,9 +19,9 @@ public class UnexecutedSequence extends LanguageObject {
     }
 
     public void execute() {
-        Namespaces.getInstance().pushNamespace();
-        blocks.forEach(Block::execute); // TODO: push to exec
-        Namespaces.getInstance().popNamespace();
+        Namespaces.getInstance().pushNamespace(); // TODO: check namespaces mutation
+        ExecutionStack.getInstance().standardRunBlock(blocks);
+        Namespaces.getInstance().popNamespace(); // TODO: check namespaces mutation
     }
 
     @Override

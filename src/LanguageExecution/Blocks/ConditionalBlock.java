@@ -1,11 +1,7 @@
 package LanguageExecution.Blocks;
 
-import LanguageEnvironment.ConditionalContextsStack;
-import LanguageEnvironment.DataStack;
-import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageExecution.Interpreter.ExecutionStack;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
-
-import javax.xml.crypto.Data;
 
 public class ConditionalBlock implements Block {
     private final TokenAndLineWrapper beginTokenWrapper;
@@ -33,22 +29,8 @@ public class ConditionalBlock implements Block {
     }
 
     @Override
-    public void execute() { // TODO: push to exec
-        ConditionalContextsStack.getInstance().push(this);
-        try {
-            conditionBlock.executeEveryBlockInside();
-
-            boolean conditionResult = (DataStack.getInstance().pop(beginTokenWrapper).tryCast(BooleanPrimitive.class, beginTokenWrapper)).getValue();
-            if (conditionResult) {
-                trueBlock.executeEveryBlockInside();
-            } else {
-                if (falseBlock!=null) {
-                    falseBlock.executeEveryBlockInside();
-                }
-            }
-        } finally {
-            ConditionalContextsStack.getInstance().pop();
-        }
+    public void execute() {
+        ExecutionStack.getInstance().standardRunBlock(this);
     }
 
     public MultipleTokensBlock getConditionBlock() {
