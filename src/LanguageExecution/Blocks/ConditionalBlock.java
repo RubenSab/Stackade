@@ -7,7 +7,7 @@ import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import javax.xml.crypto.Data;
 
-public class ConditionalBlock implements Block {
+public class ConditionalBlock extends Block {
     private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
     private MultipleTokensBlock trueBlock;

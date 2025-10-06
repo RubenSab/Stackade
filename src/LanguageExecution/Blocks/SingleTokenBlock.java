@@ -3,7 +3,16 @@ package LanguageExecution.Blocks;
 import LanguageExecution.Interpreter.OperationRegistry;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-public record SingleTokenBlock(TokenAndLineWrapper tokenWrapper) implements Block {
+public class SingleTokenBlock extends Block {
+    private final TokenAndLineWrapper tokenWrapper;
+
+    public SingleTokenBlock(TokenAndLineWrapper tokenWrapper) {
+        this.tokenWrapper = tokenWrapper;
+    }
+
+    public TokenAndLineWrapper getTokenWrapper() {
+        return tokenWrapper;
+    }
 
     @Override
     public void execute() { // TODO: push to exec

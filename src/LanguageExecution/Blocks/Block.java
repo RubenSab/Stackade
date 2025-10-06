@@ -2,8 +2,8 @@ package LanguageExecution.Blocks;
 
 import LanguageEnvironment.DataStack;
 
-public interface Block {
-    void add(Block block);
+public abstract class Block {
 
-    void execute() throws DataStack.EmptyPopException;
+    public abstract void add(Block block);
+    public abstract void execute() throws DataStack.EmptyPopException;
 }

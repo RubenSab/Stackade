@@ -6,7 +6,7 @@ import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
 
-public class MultipleTokensBlock implements Block {
+public class MultipleTokensBlock extends Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
     private final TokenAndLineWrapper beginTokenWrapper;
