@@ -1,6 +1,7 @@
 package LanguageEnvironment.Namespaces;
 
 import LanguageEnvironment.LanguageObjects.LanguageObject;
+import LanguageEnvironment.LanguageObjects.Primitives.StringPrimitive;
 
 import java.util.Stack;
 

@@ -248,12 +248,12 @@ All fit the description:
 	- assigns the variable `B` to `A`
 
 - `:del`
-	- pops: `A(ref)`
-	- deletes the variable `A`
+	- pops: `A(str)`
+	- deletes the variable named `A`
 
 - `:raise`
-	- pops: `A(ref)`
-	- deletes the variable `A` from the local namespace and adds it to the caller's one, eventually replacing the old definition
+	- pops: `A(str)`
+	- deletes the variable named `A` from the local namespace and adds it to the caller's one, eventually replacing the old definition
 
 ##### Definitions
 

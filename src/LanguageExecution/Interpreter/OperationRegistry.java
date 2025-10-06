@@ -130,10 +130,10 @@ public class OperationRegistry {
                         namespaces.assign(name, value);
                     }
                     case DEL ->
-                            namespaces.delete(stack.pop(tokenWrapper).tryCast(NamespaceReference.class, tokenWrapper).getName());
+                            namespaces.delete(stack.pop(tokenWrapper).tryCast(StringPrimitive.class, tokenWrapper).getValue());
                     case RAISE_NAME -> {
                         try {
-                            namespaces.raise(stack.pop(tokenWrapper).tryCast(NamespaceReference.class, tokenWrapper).getName());
+                            namespaces.raise(stack.pop(tokenWrapper).tryCast(StringPrimitive.class, tokenWrapper).getValue());
                         } catch (IllegalStateException e) {
                             ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.RAISE_VARIABLE_ERROR);
                         }

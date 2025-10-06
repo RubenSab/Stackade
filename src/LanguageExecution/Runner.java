@@ -13,12 +13,15 @@ import java.util.List;
 
 public class Runner {
     private static final Runner INSTANCE = new Runner();
-
     public static Runner getInstance() {
         return INSTANCE;
     }
 
+    private String currentFile;
+
     public void run(String filePath, boolean mainFile) throws IOException {
+
+        currentFile = filePath;
 
         // get the source code lines
         List<String> source = Files.readAllLines(Paths.get(filePath));
@@ -35,5 +38,9 @@ public class Runner {
             Namespaces.getInstance().pushNamespace();
         }
         Interpreter.execute(blocks);
+    }
+
+    public String getCurrentFile() {
+        return currentFile;
     }
 }
