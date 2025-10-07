@@ -3,11 +3,25 @@ package LanguageExecution.Blocks;
 import LanguageExecution.Interpreter.OperationRegistry;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-public record SingleTokenBlock(TokenAndLineWrapper tokenWrapper) implements Block {
+import java.util.List;
+
+public class SingleTokenBlock extends Block {
+
+    private final TokenAndLineWrapper tokenWrapper;
+
+    public SingleTokenBlock(TokenAndLineWrapper tokenWrapper, Block parent) {
+        super(parent);
+        this.tokenWrapper = tokenWrapper;
+    }
 
     @Override
     public void execute() { // TODO: push to exec
         OperationRegistry.getInstance().executeToken(tokenWrapper);
+    }
+
+    @Override
+    public List<Block> getChildren() {
+        return null;
     }
 
     @Override

@@ -5,19 +5,21 @@ import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-import javax.xml.crypto.Data;
+import java.util.List;
 
-public class ConditionalBlock implements Block {
+public class ConditionalBlock extends Block {
     private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
     private MultipleTokensBlock trueBlock;
     private MultipleTokensBlock falseBlock;
 
-    public ConditionalBlock() {
+    public ConditionalBlock(Block parent) {
+        super(parent);
         this.beginTokenWrapper = null;
     }
 
-    public ConditionalBlock(TokenAndLineWrapper beginTokenWrapper) {
+    public ConditionalBlock(TokenAndLineWrapper beginTokenWrapper, Block parent) {
+        super(parent);
         this.beginTokenWrapper = beginTokenWrapper;
     }
 
@@ -49,6 +51,11 @@ public class ConditionalBlock implements Block {
         } finally {
             ConditionalContextsStack.getInstance().pop();
         }
+    }
+
+    @Override
+    public List<Block> getChildren() {
+        return List.of(conditionBlock, trueBlock, falseBlock);
     }
 
     @Override

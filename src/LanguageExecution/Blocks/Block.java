@@ -2,8 +2,29 @@ package LanguageExecution.Blocks;
 
 import LanguageEnvironment.DataStack;
 
-public interface Block {
-    void add(Block block);
+import java.util.List;
 
-    void execute() throws DataStack.EmptyPopException;
+public abstract class Block {
+    private final Block parent;
+    private boolean traversed;
+
+    public Block(Block parent) {
+        this.parent = parent;
+    }
+
+    public Block getParent() {
+        return parent;
+    }
+
+    public boolean isTraversed() {
+        return traversed;
+    }
+
+    public void setTraversed(boolean traversed) {
+        this.traversed = traversed;
+    }
+
+    public abstract void add(Block block);
+    public abstract void execute() throws DataStack.EmptyPopException;
+    public abstract List<Block> getChildren();
 }

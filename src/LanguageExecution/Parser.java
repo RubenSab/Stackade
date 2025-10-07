@@ -17,17 +17,19 @@ public class Parser {
     public static MultipleTokensBlock parse(List<TokenAndLineWrapper> tokens) {
         try {
             Stack<Block> blockStack = new Stack<>();
-            blockStack.push(new MultipleTokensBlock());
+            blockStack.push(new MultipleTokensBlock(null));
 
             for (TokenAndLineWrapper tokenAndLineWrapper : tokens) {
                 switch (tokenAndLineWrapper.token()) {
-                    case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock(tokenAndLineWrapper));
+                    case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock(tokenAndLineWrapper, blockStack.peek()));
                     case KeywordToken.CLOSE_BLOCK, KeywordToken.CLOSE_COND -> {
                         Block lastBlock = blockStack.pop();
                         blockStack.peek().add(lastBlock);
                     }
-                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenAndLineWrapper));
-                    default -> blockStack.peek().add(new SingleTokenBlock(tokenAndLineWrapper));
+                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenAndLineWrapper, blockStack.peek()));
+                    default -> {
+                        blockStack.peek().add(new SingleTokenBlock(tokenAndLineWrapper, blockStack.peek()));
+                    }
                 }
             }
 

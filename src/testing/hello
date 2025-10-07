@@ -1,3 +1,0 @@
-"hello" ("hi" print) :seq
-
-"hello" :raise

@@ -5,17 +5,20 @@ import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MultipleTokensBlock implements Block {
+public class MultipleTokensBlock extends Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
     private final TokenAndLineWrapper beginTokenWrapper;
 
-    public MultipleTokensBlock() {
+    public MultipleTokensBlock(Block parent) {
+        super(parent);
         this.beginTokenWrapper = null;
     }
 
-    public MultipleTokensBlock(TokenAndLineWrapper beginTokenWrapper) {
+    public MultipleTokensBlock(TokenAndLineWrapper beginTokenWrapper, Block parent) {
+        super(parent);
         this.beginTokenWrapper = beginTokenWrapper;
     }
 
@@ -31,6 +34,11 @@ public class MultipleTokensBlock implements Block {
     @Override
     public void execute() {
         DataStack.getInstance().push(new UnexecutedSequence(blocks));
+    }
+
+    @Override
+    public List<Block> getChildren() {
+        return blocks;
     }
 
     @Override
