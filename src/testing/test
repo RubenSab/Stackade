@@ -1,4 +1,6 @@
-# branch test
-
-"src/testing/printMatrix" run
-10 printMatrix debug
+0
+{
+    (dup 10 <=)
+    (dup print " " print 1 + self)   # true
+    ("done!" print)                  # false
+}

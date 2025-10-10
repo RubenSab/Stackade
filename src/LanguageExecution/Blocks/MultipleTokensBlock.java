@@ -22,6 +22,10 @@ public class MultipleTokensBlock extends Block {
         this.beginTokenWrapper = beginTokenWrapper;
     }
 
+    public Block getFirstBlock() {
+        return blocks.getFirst();
+    }
+
     public void executeEveryBlockInside() { // TODO: push to exec
         blocks.forEach(Block::execute);
     }
