@@ -37,7 +37,9 @@ public class ConditionalBlock extends Block {
         setUsed(false);
         conditionBlock.setUnusedRecursive();
         trueBlock.setUnusedRecursive();
-        falseBlock.setUnusedRecursive();
+        if (falseBlock != null) {
+            falseBlock.setUnusedRecursive();
+        }
     }
 
     @Override

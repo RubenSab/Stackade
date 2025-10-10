@@ -20,7 +20,7 @@ public class Interpreter {
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
         while (true) {
-            System.out.println(">> " + currentBlock);
+            // System.out.println(">> " + currentBlock);
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
                     if (singleTokenBlock.getTokenWrapper().token().equals(KeywordToken.SELF)) {
