@@ -157,10 +157,7 @@ public class OperationRegistry {
                     case NUM_TO_STR ->
                             stack.push(stack.pop(tokenWrapper).resolve().tryCast(NumberPrimitive.class, tokenWrapper).toStringPrimitive());
 
-                    // Self referencing
-                    case SELF -> {
-                        ConditionalContextsStack.getInstance().executeTop();
-                    }
+                    // Self referencing (handled by interpreter)
 
                     // I/O
                     case PRINT -> System.out.print((stack.pop(tokenWrapper).resolve()).represent());

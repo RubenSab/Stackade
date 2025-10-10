@@ -14,14 +14,13 @@ public class SingleTokenBlock extends Block {
         this.tokenWrapper = tokenWrapper;
     }
 
-    @Override
-    public void execute() { // TODO: push to exec
-        OperationRegistry.getInstance().executeToken(tokenWrapper);
+    public TokenAndLineWrapper getTokenWrapper() {
+        return tokenWrapper;
     }
 
     @Override
-    public List<Block> getChildren() {
-        return null;
+    public void execute() { // TODO: push to exec
+        OperationRegistry.getInstance().executeToken(tokenWrapper);
     }
 
     @Override
@@ -32,5 +31,10 @@ public class SingleTokenBlock extends Block {
     @Override
     public void add(Block block) {
         throw new RuntimeException("SingleTokenBlock doesn't support adding blocks");
+    }
+
+    @Override
+    public void setChildrenUnused() {
+        this.setUsed(false);
     }
 }

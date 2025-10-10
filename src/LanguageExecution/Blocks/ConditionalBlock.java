@@ -35,6 +35,13 @@ public class ConditionalBlock extends Block {
     }
 
     @Override
+    public void setChildrenUnused() {
+        conditionBlock.setChildrenUnused();
+        trueBlock.setChildrenUnused();
+        falseBlock.setChildrenUnused();
+    }
+
+    @Override
     public void execute() { // TODO: push to exec
         ConditionalContextsStack.getInstance().push(this);
         try {
@@ -53,9 +60,16 @@ public class ConditionalBlock extends Block {
         }
     }
 
-    @Override
-    public List<Block> getChildren() {
-        return List.of(conditionBlock, trueBlock, falseBlock);
+    public MultipleTokensBlock getConditionBlock() {
+        return conditionBlock;
+    }
+
+    public MultipleTokensBlock getTrueBlock() {
+        return trueBlock;
+    }
+
+    public MultipleTokensBlock getFalseBlock() {
+        return falseBlock;
     }
 
     @Override

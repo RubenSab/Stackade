@@ -24,6 +24,16 @@ public abstract class LanguageObject {
         }
     }
 
+    public <T extends LanguageObject> T tryCast(Class<T> targetClass) {
+        try {
+            return targetClass.cast(this);
+        } catch (ClassCastException e) {
+            ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_OPERANDS_TYPE);
+            throw new RuntimeException("placeholder exception");
+        }
+    }
+
+
 
     public abstract String represent();
 

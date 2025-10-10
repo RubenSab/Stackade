@@ -32,17 +32,20 @@ public class MultipleTokensBlock extends Block {
 
     @Override
     public void add(Block block) {
+        if (!blocks.isEmpty()) {
+            blocks.getLast().setNext(block);
+        }
         blocks.add(block);
+    }
+
+    @Override
+    public void setChildrenUnused() {
+        blocks.forEach(Block::setChildrenUnused);
     }
 
     @Override
     public void execute() {
         DataStack.getInstance().push(new UnexecutedSequence(blocks));
-    }
-
-    @Override
-    public List<Block> getChildren() {
-        return blocks;
     }
 
     @Override

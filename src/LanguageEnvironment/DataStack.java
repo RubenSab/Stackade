@@ -28,6 +28,15 @@ public class DataStack {
         }
     }
 
+    public LanguageObject pop() {
+        if (!stack.isEmpty()) {
+            return stack.pop();
+        } else {
+            ErrorsLogger.triggerInterpreterError(StackadeError.EMPTY_STACK);
+            return null;
+        }
+    }
+
     public LanguageObject peek(TokenAndLineWrapper possibleErrorSource) {
         if (!stack.isEmpty()) {
             return stack.peek();

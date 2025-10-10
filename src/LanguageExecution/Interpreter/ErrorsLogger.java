@@ -20,7 +20,7 @@ public class ErrorsLogger {
         halt();
     }
 
-    private static void halt() {
+    public static void halt() {
         Runtime.getRuntime().halt(0);
     }
 }

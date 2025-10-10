@@ -6,25 +6,34 @@ import java.util.List;
 
 public abstract class Block {
     private final Block parent;
-    private boolean traversed;
+    private Block next;
+
+    private boolean used = false;
 
     public Block(Block parent) {
         this.parent = parent;
+    }
+
+    public void setNext(Block next) {
+        this.next = next;
+    }
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public boolean getUsed() {
+        return used;
     }
 
     public Block getParent() {
         return parent;
     }
 
-    public boolean isTraversed() {
-        return traversed;
-    }
-
-    public void setTraversed(boolean traversed) {
-        this.traversed = traversed;
+    public Block getNext() {
+        return next;
     }
 
     public abstract void add(Block block);
+    public abstract void setChildrenUnused();
     public abstract void execute() throws DataStack.EmptyPopException;
-    public abstract List<Block> getChildren();
 }

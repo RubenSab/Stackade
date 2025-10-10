@@ -1,13 +1,10 @@
 package LanguageExecution;
 
-import LanguageEnvironment.DataStack;
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.MultipleTokensBlock;
 import LanguageExecution.Interpreter.Interpreter;
-import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,7 +37,7 @@ public class Runner {
         if (mainFile) {
             Namespaces.getInstance().pushNamespace();
         }
-        Interpreter.execute(blocks);
+        Interpreter.getInstance().interpret(blocks);
     }
 
     public String getCurrentFile() {
