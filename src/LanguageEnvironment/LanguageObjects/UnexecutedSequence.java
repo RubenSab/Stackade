@@ -2,15 +2,16 @@ package LanguageEnvironment.LanguageObjects;
 
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.Block;
+import LanguageExecution.Blocks.MultipleTokensBlock;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class UnexecutedSequence extends LanguageObject {
-    private final ArrayList<Block> blocks;
+    private final MultipleTokensBlock blocks;
     private String name;
 
-    public UnexecutedSequence(ArrayList<Block> blocks) {
+    public UnexecutedSequence(MultipleTokensBlock blocks) {
         this.blocks = blocks;
     }
 
@@ -20,7 +21,7 @@ public class UnexecutedSequence extends LanguageObject {
 
     public void execute() {
         Namespaces.getInstance().pushNamespace();
-        blocks.forEach(Block::execute); // TODO: push to exec
+        blocks.execute(); // TODO: push to exec
         Namespaces.getInstance().popNamespace();
     }
 

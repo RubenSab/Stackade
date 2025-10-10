@@ -2,6 +2,7 @@ package LanguageExecution.Interpreter;
 
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Blocks.Block;
 import LanguageExecution.Blocks.ConditionalBlock;
 import LanguageExecution.Blocks.MultipleTokensBlock;
@@ -16,10 +17,10 @@ public class Interpreter {
         return INSTANCE;
     }
 
-    public void interpret(MultipleTokensBlock mainBlock) {
+    public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
         while (true) {
-            //System.out.println(">> " + currentBlock);
+            System.out.println(">> " + currentBlock);
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
                     if (singleTokenBlock.getTokenWrapper().token().equals(KeywordToken.SELF)) {
@@ -50,11 +51,17 @@ public class Interpreter {
                     }
                 }
                 case MultipleTokensBlock multipleTokensBlock -> {
-                    if (multipleTokensBlock.getFirstBlock().getUsed()) {
+                    if (multipleTokensBlock.getNext() != null && (((SingleTokenBlock) multipleTokensBlock.getNext()).getTokenWrapper().token()).equals(KeywordToken.DEFINE_SEQ)) {
+                        DataStack.getInstance().push(new UnexecutedSequence(multipleTokensBlock));
                         goToNextElseParent();
                     } else {
-                        currentBlock = multipleTokensBlock.getFirstBlock();
+                        if (multipleTokensBlock.getFirstBlock().getUsed()) {
+                            goToNextElseParent();
+                        } else {
+                            currentBlock = multipleTokensBlock.getFirstBlock();
+                        }
                     }
+
                 }
                 default -> throw new IllegalStateException("Unexpected value: " + currentBlock);
             }

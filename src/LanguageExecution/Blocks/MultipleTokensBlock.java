@@ -44,9 +44,7 @@ public class MultipleTokensBlock extends Block {
     }
 
     @Override
-    public void execute() {
-        DataStack.getInstance().push(new UnexecutedSequence(blocks));
-    }
+    public void execute() {blocks.forEach(Block::execute);}
 
     @Override
     public String toString() {
