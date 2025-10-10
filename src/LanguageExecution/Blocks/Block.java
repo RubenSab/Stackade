@@ -2,8 +2,6 @@ package LanguageExecution.Blocks;
 
 import LanguageEnvironment.DataStack;
 
-import java.util.List;
-
 public abstract class Block {
     private final Block parent;
     private Block next;
@@ -34,6 +32,6 @@ public abstract class Block {
     }
 
     public abstract void add(Block block);
-    public abstract void setChildrenUnused();
+    public abstract void setUnusedRecursive();
     public abstract void execute() throws DataStack.EmptyPopException;
 }

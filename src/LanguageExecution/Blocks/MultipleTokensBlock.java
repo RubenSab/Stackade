@@ -5,7 +5,6 @@ import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MultipleTokensBlock extends Block {
 
@@ -39,8 +38,9 @@ public class MultipleTokensBlock extends Block {
     }
 
     @Override
-    public void setChildrenUnused() {
-        blocks.forEach(Block::setChildrenUnused);
+    public void setUnusedRecursive() {
+        setUsed(false);
+        blocks.forEach(Block::setUnusedRecursive);
     }
 
     @Override

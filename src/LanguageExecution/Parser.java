@@ -22,13 +22,14 @@ public class Parser {
             for (TokenAndLineWrapper tokenAndLineWrapper : tokens) {
                 switch (tokenAndLineWrapper.token()) {
                     case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock(tokenAndLineWrapper, blockStack.peek()));
+                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenAndLineWrapper, blockStack.peek()));
                     case KeywordToken.CLOSE_BLOCK, KeywordToken.CLOSE_COND -> {
                         Block lastBlock = blockStack.pop();
                         blockStack.peek().add(lastBlock);
                     }
-                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenAndLineWrapper, blockStack.peek()));
                     default -> {
-                        blockStack.peek().add(new SingleTokenBlock(tokenAndLineWrapper, blockStack.peek()));
+                        Block newBlock = new SingleTokenBlock(tokenAndLineWrapper, blockStack.peek());
+                        blockStack.peek().add(newBlock);
                     }
                 }
             }

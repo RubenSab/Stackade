@@ -34,7 +34,7 @@ public class SingleTokenBlock extends Block {
     }
 
     @Override
-    public void setChildrenUnused() {
-        this.setUsed(false);
+    public void setUnusedRecursive() {
+        setUsed(false);
     }
 }

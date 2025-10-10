@@ -1,6 +1,5 @@
 package LanguageExecution.Interpreter;
 
-import LanguageEnvironment.ConditionalContextsStack;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Box;
 import LanguageEnvironment.LanguageObjects.LanguageObject;

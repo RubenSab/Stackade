@@ -4,3 +4,5 @@
     (dup print " " print 1 + self)   # true
     ("done!" print)                  # false
 }
+
+debug

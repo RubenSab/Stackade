@@ -5,8 +5,6 @@ import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-import java.util.List;
-
 public class ConditionalBlock extends Block {
     private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
@@ -35,10 +33,11 @@ public class ConditionalBlock extends Block {
     }
 
     @Override
-    public void setChildrenUnused() {
-        conditionBlock.setChildrenUnused();
-        trueBlock.setChildrenUnused();
-        falseBlock.setChildrenUnused();
+    public void setUnusedRecursive() {
+        setUsed(false);
+        conditionBlock.setUnusedRecursive();
+        trueBlock.setUnusedRecursive();
+        falseBlock.setUnusedRecursive();
     }
 
     @Override
