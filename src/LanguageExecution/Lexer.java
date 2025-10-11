@@ -213,6 +213,11 @@ public class Lexer {
                 return KeywordToken.RUN;
             }
 
+            // Randomness
+            case "nanos" -> {
+                return KeywordToken.NANOS;
+            }
+
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes

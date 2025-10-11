@@ -41,5 +41,8 @@ public enum KeywordToken implements Token {
     OPEN_BLOCK, CLOSE_BLOCK,
 
     // Source files inclusion
-    RUN
+    RUN,
+
+    // Time
+    NANOS
 }

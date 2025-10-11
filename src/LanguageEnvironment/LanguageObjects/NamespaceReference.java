@@ -1,6 +1,5 @@
-package LanguageEnvironment.LanguageObjects.Primitives;
+package LanguageEnvironment.LanguageObjects;
 
-import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.Namespaces.Namespaces;
 
 import java.util.Objects;

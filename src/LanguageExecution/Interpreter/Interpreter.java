@@ -3,7 +3,6 @@ package LanguageExecution.Interpreter;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
-import LanguageEnvironment.LanguageObjects.Primitives.NamespaceReference;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.Block;

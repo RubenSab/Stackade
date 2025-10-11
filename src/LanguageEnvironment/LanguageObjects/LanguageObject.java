@@ -1,6 +1,5 @@
 package LanguageEnvironment.LanguageObjects;
 
-import LanguageEnvironment.LanguageObjects.Primitives.NamespaceReference;
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
 import LanguageExecution.Tokens.TokenAndLineWrapper;

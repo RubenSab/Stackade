@@ -5,8 +5,16 @@ import LanguageExecution.Interpreter.StackadeError;
 
 public class NumberPrimitive extends Primitive<Double> {
 
-    public NumberPrimitive(Number value) {
-        super((double) value);
+    public NumberPrimitive(Double value) {
+        super(value);
+    }
+
+    public NumberPrimitive(Integer value) {
+        super(Double.valueOf(value));
+    }
+
+    public NumberPrimitive(Long value) {
+        super(Double.valueOf(value));
     }
 
     public static NumberPrimitive parseNumber(String string) {

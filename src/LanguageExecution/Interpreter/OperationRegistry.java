@@ -3,10 +3,10 @@ package LanguageExecution.Interpreter;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Box;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
+import LanguageEnvironment.LanguageObjects.NamespaceReference;
 import LanguageEnvironment.LanguageObjects.Primitives.*;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageEnvironment.Namespaces.Namespaces;
-import LanguageExecution.Blocks.MultipleTokensBlock;
 import LanguageExecution.Runner;
 import LanguageExecution.Tokens.*;
 
@@ -176,6 +176,11 @@ public class OperationRegistry {
                         } catch (IOException e) {
                             ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.FILE_NOT_FOUND);
                         }
+                    }
+
+                    // Time
+                    case NANOS -> {
+                        stack.push(new NumberPrimitive(System.nanoTime()));
                     }
                     // Other
                     case TRUE -> stack.push(new BooleanPrimitive(true));
