@@ -6,6 +6,7 @@ import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.*;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageEnvironment.Namespaces.Namespaces;
+import LanguageExecution.Blocks.MultipleTokensBlock;
 import LanguageExecution.Runner;
 import LanguageExecution.Tokens.*;
 
@@ -29,14 +30,9 @@ public class OperationRegistry {
         switch (tokenWrapper.token()) {
             case NumberToken numberToken -> stack.push(new NumberPrimitive(numberToken.get()));
             case StringToken stringToken -> stack.push(new StringPrimitive(stringToken.get()));
-            case NamespaceToken namespaceToken -> {
+            case NamespaceToken namespaceToken -> { // Sequence type variables already handled by the Interpreter
                 try {
-                    LanguageObject invoked = namespaceToken.resolve();
-                    if (invoked instanceof UnexecutedSequence) {
-                        ((UnexecutedSequence) invoked).execute();
-                    } else {
-                        stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
-                    }
+                    stack.push(new NamespaceReference(namespaceToken.getName().getValue()));
                 } catch (Namespaces.UndefinedVariableException e) {
                     ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.UNDEFINED_VARIABLE);
                 }
@@ -193,6 +189,7 @@ public class OperationRegistry {
 
     // Helper functions
     private <T extends LanguageObject> void definitionFunction(Class<T> classOfVariable) {
+        // System.out.println(stack);
         try {
             T value = stack.pop(tokenWrapper).tryCast(classOfVariable, tokenWrapper); // not doing stack.pop().resolve() allows declaring pointer variables (NamespaceReference)
             String name = stack.pop(tokenWrapper).tryCast(StringPrimitive.class, tokenWrapper).getValue();

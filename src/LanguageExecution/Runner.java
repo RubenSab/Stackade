@@ -37,7 +37,7 @@ public class Runner {
         if (mainFile) {
             Namespaces.getInstance().pushNamespace();
         }
-        Interpreter.getInstance().interpret(blocks);
+        new Interpreter().interpret(blocks);
     }
 
     public String getCurrentFile() {

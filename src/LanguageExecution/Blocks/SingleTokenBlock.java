@@ -3,7 +3,6 @@ package LanguageExecution.Blocks;
 import LanguageExecution.Interpreter.OperationRegistry;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
-import java.util.List;
 
 public class SingleTokenBlock extends Block {
 

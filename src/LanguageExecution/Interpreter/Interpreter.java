@@ -1,29 +1,40 @@
 package LanguageExecution.Interpreter;
 
 import LanguageEnvironment.DataStack;
+import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageEnvironment.LanguageObjects.Primitives.NamespaceReference;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Blocks.Block;
 import LanguageExecution.Blocks.ConditionalBlock;
 import LanguageExecution.Blocks.MultipleTokensBlock;
 import LanguageExecution.Blocks.SingleTokenBlock;
 import LanguageExecution.Tokens.KeywordToken;
+import LanguageExecution.Tokens.NamespaceToken;
+import LanguageExecution.Tokens.Token;
 
 public class Interpreter {
-    private final static Interpreter INSTANCE = new Interpreter();
     private Block currentBlock;
-
-    public static Interpreter getInstance() {
-        return INSTANCE;
-    }
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
-        while (true) {
-            // System.out.println(">> " + currentBlock);
+        while (currentBlock != null) {
+            //System.out.println(">> " + currentBlock + " " + currentBlock.getClass());
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
-                    if (singleTokenBlock.getTokenWrapper().token().equals(KeywordToken.SELF)) {
+                    Token token = singleTokenBlock.getTokenWrapper().token();
+                    if (token instanceof NamespaceToken) {
+                        LanguageObject invoked = ((NamespaceToken) token).resolve();
+                        if (invoked instanceof UnexecutedSequence) {
+                            Interpreter sequenceInterpreter = new Interpreter();
+                            MultipleTokensBlock blocks = ((UnexecutedSequence) invoked).getBlocks();
+                            blocks.setNext(currentBlock.getNext());
+                            sequenceInterpreter.interpret(blocks);
+                        } else {
+                            singleTokenBlock.execute();
+                            goToNextElseParent();
+                        }
+                    } else if (token.equals(KeywordToken.SELF)) {
                         while (!(currentBlock instanceof ConditionalBlock)) {
                             currentBlock = currentBlock.getParent();
                         }
@@ -68,7 +79,7 @@ public class Interpreter {
         }
     }
 
-    private void goToParent() {
+    public void goToParent() {
         Block parent = currentBlock.getParent();
         if (parent == null) {
             ErrorsLogger.halt();

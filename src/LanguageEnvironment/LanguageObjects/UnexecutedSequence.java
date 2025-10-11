@@ -19,10 +19,8 @@ public class UnexecutedSequence extends LanguageObject {
         this.name = name;
     }
 
-    public void execute() {
-        Namespaces.getInstance().pushNamespace();
-        blocks.execute(); // TODO: push to exec
-        Namespaces.getInstance().popNamespace();
+    public MultipleTokensBlock getBlocks() {
+        return blocks;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class UnexecutedSequence extends LanguageObject {
 
     @Override
     public String toString() {
-        return "unexecuted sequence(" + name + ")";
+        return "unexecuted sequence " + name + "(" + blocks + ")";
     }
 
     @Override
