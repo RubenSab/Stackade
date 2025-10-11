@@ -26,8 +26,8 @@ public class MultipleTokensBlock extends Block {
         return blocks.getFirst();
     }
 
-    public void executeEveryBlockInside() { // TODO: push to exec
-        blocks.forEach(Block::execute);
+    public void evaluate() { // TODO: push to exec
+        blocks.forEach(x -> ((SingleTokenBlock) x).execute());
     }
 
     @Override
@@ -43,9 +43,6 @@ public class MultipleTokensBlock extends Block {
         setUsed(false);
         blocks.forEach(Block::setUnusedRecursive);
     }
-
-    @Override
-    public void execute() {blocks.forEach(Block::execute);}
 
     @Override
     public String toString() {

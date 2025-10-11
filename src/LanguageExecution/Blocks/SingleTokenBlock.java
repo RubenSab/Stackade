@@ -19,7 +19,6 @@ public class SingleTokenBlock extends Block {
         return tokenWrapper;
     }
 
-    @Override
     public void execute() { // TODO: push to exec
         OperationRegistry.getInstance().executeToken(tokenWrapper);
     }

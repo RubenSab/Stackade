@@ -1,5 +1,5 @@
 "++" (
-    dup refName swap 1 + :num
+    dup dup refName swap 1 + :num refName :raise
 ) :seq
 
 "printMatrix" (

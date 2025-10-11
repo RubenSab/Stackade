@@ -1,8 +1,5 @@
 package LanguageExecution.Blocks;
 
-import LanguageEnvironment.ConditionalContextsStack;
-import LanguageEnvironment.DataStack;
-import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.Objects;
@@ -41,25 +38,6 @@ public class ConditionalBlock extends Block {
         trueBlock.setUnusedRecursive();
         if (falseBlock != null) {
             falseBlock.setUnusedRecursive();
-        }
-    }
-
-    @Override
-    public void execute() { // TODO: push to exec
-        ConditionalContextsStack.getInstance().push(this);
-        try {
-            conditionBlock.executeEveryBlockInside();
-
-            boolean conditionResult = (DataStack.getInstance().pop(beginTokenWrapper).tryCast(BooleanPrimitive.class, beginTokenWrapper)).getValue();
-            if (conditionResult) {
-                trueBlock.executeEveryBlockInside();
-            } else {
-                if (falseBlock!=null) {
-                    falseBlock.executeEveryBlockInside();
-                }
-            }
-        } finally {
-            ConditionalContextsStack.getInstance().pop();
         }
     }
 

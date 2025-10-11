@@ -35,7 +35,7 @@ public class UnexecutedSequence extends LanguageObject {
 
     @Override
     public String toString() {
-        return "unexecuted sequence " + name + "(" + blocks + ")";
+        return "unexecuted sequence: " + name;
     }
 
     @Override

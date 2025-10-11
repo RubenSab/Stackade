@@ -14,12 +14,16 @@ import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.NamespaceToken;
 import LanguageExecution.Tokens.Token;
 
+import java.util.Stack;
+
 public class Interpreter {
     private Block currentBlock;
+    private final Stack<MultipleTokensBlock> callStack = new Stack<>();
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
         while (true) {
+            //System.out.println(Namespaces.getInstance());
             // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
@@ -29,6 +33,8 @@ public class Interpreter {
                         if (invoked instanceof UnexecutedSequence) {
                             MultipleTokensBlock sequenceBlocks = ((UnexecutedSequence) invoked).getBlocks();
                             sequenceBlocks.setUnusedRecursive();
+                            callStack.push(sequenceBlocks);
+                            Namespaces.getInstance().pushNamespace();
                             Block next = currentBlock.getNext();
                             currentBlock = sequenceBlocks; // substitution with function body
                             currentBlock.setNext(next);
@@ -42,7 +48,7 @@ public class Interpreter {
                         }
                         currentBlock.setUnusedRecursive();
                     } else {
-                        currentBlock.execute();
+                        ((SingleTokenBlock) currentBlock).execute();
                         currentBlock.setUsed(true);
                         goToNextElseParent();
                     }
@@ -51,7 +57,7 @@ public class Interpreter {
                     if (conditionalBlock.getConditionBlock().getUsed()) {
                         goToNextElseParent();
                     } else {
-                        conditionalBlock.getConditionBlock().executeEveryBlockInside();
+                        conditionalBlock.getConditionBlock().evaluate();
                         conditionalBlock.getConditionBlock().setUsed(true);
                         boolean conditionResult = (DataStack.getInstance().pop().tryCast(BooleanPrimitive.class)).getValue();
                         if (conditionResult) {
@@ -76,7 +82,6 @@ public class Interpreter {
                             currentBlock = multipleTokensBlock.getFirstBlock();
                         }
                     }
-
                 }
                 default -> throw new IllegalStateException("Unexpected value: " + currentBlock);
             }
@@ -93,6 +98,10 @@ public class Interpreter {
     }
 
     private void goToNextElseParent() {
+        if (!callStack.isEmpty() && currentBlock.equals(callStack.peek())) {
+            callStack.pop();
+            Namespaces.getInstance().popNamespace();
+        }
         Block next = currentBlock.getNext();
         if (next == null) {
             goToParent();
