@@ -2,25 +2,28 @@
     dup refName swap 1 + :num
 ) :seq
 
-"nextFibo" (dup rot +) :seq
+"printMatrix" (
 
-"fibonacci" (
     "n" swap :num
+    "i" 0 :num
+    "j" 0 :num
+
     {
-        (n 2 <)
-        (1 dup print "\n" print)
+        (i n <)
         (
-            1 1
-            "i" 0 :num
             {
-                (i n 2 - <=)
-                (nextFibo i ++
-                dup print "\n" print
-                self)
+                (j n <)
+                ({(i j ==)(1)(0)} print " " print j ++ self)
+                (j 0 =)
             }
+
+            "\n" print
+            i ++
+            self
         )
     }
 ) :seq
 
-1500 fibonacci
+10 printMatrix
+5 printMatrix
 debug
