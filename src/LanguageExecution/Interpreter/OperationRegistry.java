@@ -53,6 +53,7 @@ public class OperationRegistry {
                         stack.push(b);
                         stack.push(c);
                     }
+                    case STACK_HEIGHT -> stack.push(new NumberPrimitive(stack.height()));
                     case EQ -> {
                         Primitive<?> op2 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);
                         Primitive<?> op1 = stack.pop(tokenWrapper).resolve().tryCast(Primitive.class, tokenWrapper);

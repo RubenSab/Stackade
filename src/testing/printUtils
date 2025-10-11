@@ -1,0 +1,3 @@
+"prints" (print " " print) :seq
+"println" (print "\n" print) :seq
+"nline" ("\n" print) :seq

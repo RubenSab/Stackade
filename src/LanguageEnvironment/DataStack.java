@@ -53,8 +53,8 @@ public class DataStack {
         stack.push(second);
     }
 
-    public boolean isEmpty() {
-        return stack.isEmpty();
+    public int height() {
+        return stack.size();
     }
 
     @Override

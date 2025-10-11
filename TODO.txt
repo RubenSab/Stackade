@@ -1,3 +1,2 @@
 - add stackHeight
 - add rand
-- omptimize looping

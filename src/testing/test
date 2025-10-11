@@ -1,3 +1,5 @@
+"src/testing/printUtils" run
+
 "++" (
     dup dup refName swap 1 + :num refName :raise
 ) :seq
@@ -13,11 +15,11 @@
         (
             {
                 (j n <)
-                ({(i j ==)(1)(0)} print " " print j ++ self)
+                ({(i j ==)(1)(0)} prints j ++ self)
                 (j 0 =)
             }
 
-            "\n" print
+            nline
             i ++
             self
         )
@@ -25,5 +27,7 @@
 ) :seq
 
 10 printMatrix
+nline
 5 printMatrix
+
 debug

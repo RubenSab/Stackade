@@ -22,7 +22,7 @@ public class Interpreter {
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
-        while (true) {
+        while (currentBlock != null) {
             //System.out.println(Namespaces.getInstance());
             // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
             switch (currentBlock) {
@@ -90,11 +90,7 @@ public class Interpreter {
 
     public void goToParent() {
         Block parent = currentBlock.getParent();
-        if (parent == null) {
-            ErrorsLogger.halt();
-        } else {
-            currentBlock = parent;
-        }
+        currentBlock = parent;
     }
 
     private void goToNextElseParent() {
