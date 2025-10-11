@@ -26,7 +26,7 @@ public class Interpreter {
         this.caller = null;
     }
 
-    public void interpret(Block mainBlock) {
+    public void interpret(Block mainBlock) throws StackOverflowError {
         currentBlock = mainBlock;
         while (true) {
             // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
@@ -101,7 +101,7 @@ public class Interpreter {
         } else if (parent.equals(callerSequence.getBlocks())) {
             Namespaces.getInstance().popNamespace();
             parent.setUnusedRecursive();
-            currentBlock = parent.getNext();
+            currentBlock = parent.getNext(); // to fix
         } else {
             currentBlock = parent;
         }

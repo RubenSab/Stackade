@@ -37,7 +37,13 @@ public class Runner {
         if (mainFile) {
             Namespaces.getInstance().pushNamespace();
         }
-        new Interpreter().interpret(blocks);
+        try {
+            new Interpreter().interpret(blocks);
+        } catch (StackOverflowError e) {
+            for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+                System.out.println(element);
+            }
+        }
     }
 
     public String getCurrentFile() {
