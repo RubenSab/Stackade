@@ -5,6 +5,7 @@ import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageEnvironment.LanguageObjects.Primitives.NamespaceReference;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
+import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.Block;
 import LanguageExecution.Blocks.ConditionalBlock;
 import LanguageExecution.Blocks.MultipleTokensBlock;
@@ -15,18 +16,28 @@ import LanguageExecution.Tokens.Token;
 
 public class Interpreter {
     private Block currentBlock;
+    private final Block caller;
+
+    public Interpreter(Block caller) {
+        this.caller = caller;
+    }
+
+    public Interpreter() {
+        this.caller = null;
+    }
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
-        while (currentBlock != null) {
-            //System.out.println(">> " + currentBlock + " " + currentBlock.getClass());
+        while (true) {
+            // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
                     Token token = singleTokenBlock.getTokenWrapper().token();
                     if (token instanceof NamespaceToken) {
                         LanguageObject invoked = ((NamespaceToken) token).resolve();
                         if (invoked instanceof UnexecutedSequence) {
-                            Interpreter sequenceInterpreter = new Interpreter();
+                            Namespaces.getInstance().pushNamespace();
+                            Interpreter sequenceInterpreter = new Interpreter(currentBlock);
                             MultipleTokensBlock blocks = ((UnexecutedSequence) invoked).getBlocks();
                             blocks.setNext(currentBlock.getNext());
                             sequenceInterpreter.interpret(blocks);
@@ -66,9 +77,11 @@ public class Interpreter {
                         DataStack.getInstance().push(new UnexecutedSequence(multipleTokensBlock));
                         goToNextElseParent();
                     } else {
-                        if (multipleTokensBlock.getFirstBlock().getUsed()) {
+                        if (multipleTokensBlock.getUsed()) {
                             goToNextElseParent();
                         } else {
+                            // the current block is set used as soon as it's traversed, the blocks to execute are inside of it anyway.
+                            currentBlock.setUsed(true);
                             currentBlock = multipleTokensBlock.getFirstBlock();
                         }
                     }
@@ -81,11 +94,13 @@ public class Interpreter {
 
     public void goToParent() {
         Block parent = currentBlock.getParent();
+        MultipleTokensBlock callerBlocks = ((UnexecutedSequence)((NamespaceToken)((SingleTokenBlock) caller).getTokenWrapper().token()).resolve()).getBlocks();
         if (parent == null) {
             ErrorsLogger.halt();
-        } else {
-            currentBlock = parent;
+        } else if (parent.equals(callerBlocks)) {
+            Namespaces.getInstance().popNamespace();
         }
+        currentBlock = parent;
     }
 
     private void goToNextElseParent() {

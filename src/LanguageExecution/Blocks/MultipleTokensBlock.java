@@ -5,6 +5,7 @@ import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MultipleTokensBlock extends Block {
 
@@ -49,5 +50,17 @@ public class MultipleTokensBlock extends Block {
     @Override
     public String toString() {
         return "multipleTokensBlock(" + blocks + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null || getClass()!=o.getClass()) return false;
+        MultipleTokensBlock that = (MultipleTokensBlock) o;
+        return Objects.equals(blocks, that.blocks) && Objects.equals(beginTokenWrapper, that.beginTokenWrapper);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(blocks, beginTokenWrapper);
     }
 }

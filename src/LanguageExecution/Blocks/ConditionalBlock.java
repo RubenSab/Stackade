@@ -5,6 +5,8 @@ import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
+import java.util.Objects;
+
 public class ConditionalBlock extends Block {
     private final TokenAndLineWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
@@ -76,5 +78,17 @@ public class ConditionalBlock extends Block {
     @Override
     public String toString() {
         return "conditional block(condition block(" + conditionBlock + "), true block(" + trueBlock + "), false block(" + falseBlock + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o==null || getClass()!=o.getClass()) return false;
+        ConditionalBlock that = (ConditionalBlock) o;
+        return Objects.equals(beginTokenWrapper, that.beginTokenWrapper) && Objects.equals(getConditionBlock(), that.getConditionBlock()) && Objects.equals(getTrueBlock(), that.getTrueBlock()) && Objects.equals(getFalseBlock(), that.getFalseBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(beginTokenWrapper, getConditionBlock(), getTrueBlock(), getFalseBlock());
     }
 }
