@@ -16,15 +16,6 @@ import LanguageExecution.Tokens.Token;
 
 public class Interpreter {
     private Block currentBlock;
-    private final Block caller;
-
-    public Interpreter(Block caller) {
-        this.caller = caller;
-    }
-
-    public Interpreter() {
-        this.caller = null;
-    }
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
@@ -36,11 +27,11 @@ public class Interpreter {
                     if (token instanceof NamespaceToken) {
                         LanguageObject invoked = ((NamespaceToken) token).resolve();
                         if (invoked instanceof UnexecutedSequence) {
-                            Namespaces.getInstance().pushNamespace();
-                            Interpreter sequenceInterpreter = new Interpreter(currentBlock);
-                            MultipleTokensBlock blocks = ((UnexecutedSequence) invoked).getBlocks();
-                            blocks.setNext(currentBlock.getNext());
-                            sequenceInterpreter.interpret(blocks);
+                            MultipleTokensBlock sequenceBlocks = ((UnexecutedSequence) invoked).getBlocks();
+                            sequenceBlocks.setUnusedRecursive();
+                            Block next = currentBlock.getNext();
+                            currentBlock = sequenceBlocks;
+                            currentBlock.setNext(next);
                         } else {
                             singleTokenBlock.execute();
                             goToNextElseParent();
@@ -94,14 +85,8 @@ public class Interpreter {
 
     public void goToParent() {
         Block parent = currentBlock.getParent();
-        NamespaceToken token = (NamespaceToken) ((SingleTokenBlock) caller).getTokenWrapper().token();
-        UnexecutedSequence callerSequence = ((UnexecutedSequence)token.resolve());
         if (parent == null) {
             ErrorsLogger.halt();
-        } else if (parent.equals(callerSequence.getBlocks())) {
-            Namespaces.getInstance().popNamespace();
-            parent.setUnusedRecursive();
-            currentBlock = parent.getNext();
         } else {
             currentBlock = parent;
         }
