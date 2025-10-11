@@ -1,27 +1,8 @@
-"++" (
-    dup dup refName swap 1 + :num refName :raise
+"test" (
+    dup
 ) :seq
 
-"printMatrix" (
+"a" test
+"b" test
 
-    "n" swap :num
-    "i" 0 :num
-    "j" 0 :num
-
-    {
-        (i n <)
-        (
-            {
-                (j n <)
-                ({(i j ==)(1)(0)} print " " print j dup 1 + = self)
-                (j 0 =)
-            }
-
-            "\n" print
-            i dup 1 + =
-            self
-        )
-    }
-) :seq
-
-10000 printMatrix debug
+debug

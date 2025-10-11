@@ -1,5 +1,6 @@
 package LanguageExecution.Interpreter;
 
+import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Runner;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 

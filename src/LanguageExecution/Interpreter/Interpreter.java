@@ -94,10 +94,11 @@ public class Interpreter {
 
     public void goToParent() {
         Block parent = currentBlock.getParent();
-        MultipleTokensBlock callerBlocks = ((UnexecutedSequence)((NamespaceToken)((SingleTokenBlock) caller).getTokenWrapper().token()).resolve()).getBlocks();
+        NamespaceToken token = (NamespaceToken) ((SingleTokenBlock) caller).getTokenWrapper().token();
+        UnexecutedSequence callerSequence = ((UnexecutedSequence)token.resolve());
         if (parent == null) {
             ErrorsLogger.halt();
-        } else if (parent.equals(callerBlocks)) {
+        } else if (parent.equals(callerSequence.getBlocks())) {
             Namespaces.getInstance().popNamespace();
         }
         currentBlock = parent;
