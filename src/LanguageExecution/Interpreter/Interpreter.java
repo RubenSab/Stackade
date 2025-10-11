@@ -100,8 +100,11 @@ public class Interpreter {
             ErrorsLogger.halt();
         } else if (parent.equals(callerSequence.getBlocks())) {
             Namespaces.getInstance().popNamespace();
+            parent.setUnusedRecursive();
+            currentBlock = parent.getNext();
+        } else {
+            currentBlock = parent;
         }
-        currentBlock = parent;
     }
 
     private void goToNextElseParent() {
