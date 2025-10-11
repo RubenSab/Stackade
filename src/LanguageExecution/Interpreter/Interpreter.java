@@ -30,7 +30,7 @@ public class Interpreter {
                             MultipleTokensBlock sequenceBlocks = ((UnexecutedSequence) invoked).getBlocks();
                             sequenceBlocks.setUnusedRecursive();
                             Block next = currentBlock.getNext();
-                            currentBlock = sequenceBlocks;
+                            currentBlock = sequenceBlocks; // substitution with function body
                             currentBlock.setNext(next);
                         } else {
                             singleTokenBlock.execute();
