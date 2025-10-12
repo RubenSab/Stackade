@@ -1,0 +1,14 @@
+"**" (
+    "b" swap 0 + :num
+    {(b 0 ==)
+    (pop 1)
+    (
+        "a" swap 0 + :num
+        a {(b 1 >)(
+            a * b
+            b 1 - =
+            self
+        )}
+        0 +
+    )}
+) :seq

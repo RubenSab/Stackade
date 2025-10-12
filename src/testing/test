@@ -1,0 +1,3 @@
+"corelibs/random" run
+
+10 {(dup 0 >)("rand" strToRef refGet print "\n" print 1 - self)}

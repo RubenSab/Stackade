@@ -22,7 +22,7 @@ public class Interpreter {
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
         while (currentBlock != null) {
-            //System.out.println(Namespaces.getInstance());
+            // System.out.println(Namespaces.getInstance());
             // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
@@ -35,6 +35,10 @@ public class Interpreter {
                             callStack.push(sequenceBlocks);
                             Namespaces.getInstance().pushNamespace();
                             Block next = currentBlock.getNext();
+                            if (next == null) {
+                                next = currentBlock.getParent().getNext();
+                            }
+                            // System.out.println(token + ": " + next);
                             currentBlock = sequenceBlocks; // substitution with function body
                             currentBlock.setNext(next);
                         } else {

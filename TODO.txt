@@ -1,1 +1,3 @@
-- add rand
+- write stackHeight and time in readme
+- manage all logging errors
+- add invoke and write it in readme

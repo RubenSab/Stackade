@@ -1,0 +1,22 @@
+"corelibs/ops" run
+
+"nRand" (
+    "digits" swap :num
+    "i" digits refGet 1 + :num
+
+    0 {
+        (i 0 >)
+        (
+            nanos 10 %
+            10 i 2 - **
+            *
+            +
+            i i 1 - = self
+        )
+    }
+
+    10 digits ** /
+) :seq
+
+
+"rand" (16 nRand) :seq
