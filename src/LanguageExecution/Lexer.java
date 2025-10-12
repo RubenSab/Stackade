@@ -218,10 +218,6 @@ public class Lexer {
                 return KeywordToken.NANOS;
             }
 
-            case "invoke" -> {
-                return KeywordToken.INVOKE_SEQ;
-            }
-
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes

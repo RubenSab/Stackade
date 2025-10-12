@@ -24,10 +24,6 @@ public class Interpreter {
                 case SingleTokenBlock singleTokenBlock -> {
                     Token token = singleTokenBlock.getTokenWrapper().token();
 
-                    if (token.equals(KeywordToken.INVOKE_SEQ)) {
-                        token = new NamespaceToken((DataStack.getInstance().pop().tryCast(StringPrimitive.class).getValue()));
-                    }
-
                     if (token instanceof NamespaceToken) {
                         LanguageObject invoked = ((NamespaceToken) token).resolve();
                         if (invoked instanceof UnexecutedSequence) {

@@ -1,3 +1,9 @@
 "corelibs/random" run
 
-10 {(dup 0 >)("rand" invoke print "\n" print 1 - self)} debug
+"repeat" (
+    swap
+    "seq" swap strToRef refGet :seq
+    {(dup 0 >)(seq print "\n" print 1 - self)}
+) :seq
+
+"rand" 10 repeat
