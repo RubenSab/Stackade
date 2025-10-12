@@ -218,8 +218,8 @@ public class Lexer {
                 return KeywordToken.NANOS;
             }
 
-            case "end" -> {
-                return KeywordToken.END_SEQ;
+            case "invoke" -> {
+                return KeywordToken.INVOKE_SEQ;
             }
 
             default -> {

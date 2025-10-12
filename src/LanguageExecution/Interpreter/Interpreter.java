@@ -3,6 +3,7 @@ package LanguageExecution.Interpreter;
 import LanguageEnvironment.DataStack;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.BooleanPrimitive;
+import LanguageEnvironment.LanguageObjects.Primitives.StringPrimitive;
 import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.Block;
@@ -13,32 +14,30 @@ import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.NamespaceToken;
 import LanguageExecution.Tokens.Token;
 
-import java.util.Stack;
-
 public class Interpreter {
     private Block currentBlock;
-    private final Stack<MultipleTokensBlock> callStack = new Stack<>();
 
     public void interpret(Block mainBlock) {
         currentBlock = mainBlock;
         while (currentBlock != null) {
-            // System.out.println(Namespaces.getInstance());
-            // System.out.println(">> " + currentBlock + " " + currentBlock.getUsed());
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
                     Token token = singleTokenBlock.getTokenWrapper().token();
+
+                    if (token.equals(KeywordToken.INVOKE_SEQ)) {
+                        token = new NamespaceToken((DataStack.getInstance().pop().tryCast(StringPrimitive.class).getValue()));
+                    }
+
                     if (token instanceof NamespaceToken) {
                         LanguageObject invoked = ((NamespaceToken) token).resolve();
                         if (invoked instanceof UnexecutedSequence) {
                             MultipleTokensBlock sequenceBlocks = ((UnexecutedSequence) invoked).getBlocks();
                             sequenceBlocks.setUnusedRecursive();
-                            callStack.push(sequenceBlocks);
-                            Namespaces.getInstance().pushNamespace();
+                            Namespaces.getInstance().pushNamespace(); // Namespace popping is handled by END_SEQ KeywordToken in OperationRegistry
                             Block next = currentBlock.getNext();
                             if (next == null) {
                                 next = currentBlock.getParent().getNext();
                             }
-                            // System.out.println(token + ": " + next);
                             currentBlock = sequenceBlocks; // substitution with function body
                             currentBlock.setNext(next);
                         } else {
@@ -97,10 +96,6 @@ public class Interpreter {
     }
 
     private void goToNextElseParent() {
-        if (!callStack.isEmpty() && currentBlock.equals(callStack.peek())) {
-            callStack.pop();
-            // Namespaces.getInstance().popNamespace();
-        }
         Block next = currentBlock.getNext();
         if (next == null) {
             goToParent();

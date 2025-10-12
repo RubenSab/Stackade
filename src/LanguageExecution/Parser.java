@@ -15,7 +15,7 @@ import java.util.Stack;
 public class Parser {
 
     public static MultipleTokensBlock parse(List<TokenAndLineWrapper> tokens) {
-        //try {
+        try {
             Stack<Block> blockStack = new Stack<>();
             blockStack.push(new MultipleTokensBlock(null));
 
@@ -39,13 +39,12 @@ public class Parser {
                     }
                 }
             }
-        System.out.println(blockStack.peek());
             return (MultipleTokensBlock) blockStack.pop();
 
-        //} catch (ClassCastException e) {
-        //    ErrorsLogger.triggerParserError(StackadeError.INVALID_BRACKETING);
-        //    return null; // ensure method always returns something
-        //}
+        } catch (ClassCastException e) {
+            ErrorsLogger.triggerParserError(StackadeError.INVALID_BRACKETING);
+            return null; // ensure method always returns something
+        }
     }
 
 }
