@@ -1,9 +1,4 @@
+"corelibs/higherOrder" run
 "corelibs/random" run
 
-"repeat" (
-    swap
-    "seq" swap strToRef refGet :seq
-    {(dup 0 >)(seq print "\n" print 1 - self)}
-) :seq
-
-"rand" 10 repeat
+"rand" invoke runSeq print

@@ -1,4 +1,11 @@
-"corelibs/ops" run
+"corelibs/operators" run
+
+# nRand: pushes a uniformly random decimal number in [0, 1) of n decimal digits
+# using system time in nanoseconds as the source.
+# pops:
+# (num) n, the number of random decimal digits
+# pushes:
+# (num) a random decimal number in [0, 1) of n decimal digits
 
 "nRand" (
     "digits" swap :num
@@ -18,5 +25,9 @@
     10 digits ** /
 ) :seq
 
+# rand: supplies a uniformly random decimal number in [0, 1) of 16 decimal digits
+# using system time in nanoseconds as the source.
+# pushes:
+# (num) a random decimal number in [0, 1) of n decimal digits
 
 "rand" (16 nRand) :seq

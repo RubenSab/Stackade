@@ -1,3 +1,10 @@
+# **: n to the power of m
+# pops:
+# (num) n
+# (num) m
+# pushes:
+# (num) n to the power of m
+
 "**" (
     "b" swap 0 + :num
     {(b 0 ==)

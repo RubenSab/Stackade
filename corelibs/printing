@@ -1,3 +1,5 @@
+# Auto explicative print utilities
+
 "println" (print "\n" print) :seq
 "prints" (print " " print) :seq
 "nline" ("\n" print) :seq

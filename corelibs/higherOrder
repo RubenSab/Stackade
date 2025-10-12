@@ -1,0 +1,33 @@
+# invoke: Gets a variable name and pushes its content; it works for sequences too.
+# Useful for passing sequences to other sequences, achieving higher order functions.
+# pops:
+# (str) the variable name
+# pushes:
+# (any) the variable content.
+
+"invoke" (strToRef refGet) :seq
+
+
+# runSeq: Gets a sequence and runs it
+# Useful for invoked sequences through invoke function
+# pops:
+# (seq) the sequence to run
+# pushes:
+# (?) the sequence output/s
+
+"runSeq" ("sequence" swap :seq sequence) :seq
+
+
+# repeatSupplier: Repeats a sequence that doesn't pop anything (a supplier).
+# Useful for testing random number generators and timers.
+# pops:
+# (seq) the sequence to repeat
+# (num) the number of repetitions
+# pushes:
+# (?) the sequence outputs
+
+"repeatSupplier" (
+    swap
+    "sequence" swap :seq
+    {(dup 0 >)(sequence print "\n" print 1 - self)}
+) :seq
