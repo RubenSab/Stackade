@@ -213,9 +213,13 @@ public class Lexer {
                 return KeywordToken.RUN;
             }
 
-            // Randomness
+            // Time
             case "nanos" -> {
                 return KeywordToken.NANOS;
+            }
+
+            case "end" -> {
+                return KeywordToken.END_SEQ;
             }
 
             default -> {

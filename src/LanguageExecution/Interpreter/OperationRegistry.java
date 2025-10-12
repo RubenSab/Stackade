@@ -186,6 +186,7 @@ public class OperationRegistry {
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));
 
+                    case END_SEQ -> Namespaces.getInstance().popNamespace();
                 }
             }
 

@@ -99,7 +99,7 @@ public class Interpreter {
     private void goToNextElseParent() {
         if (!callStack.isEmpty() && currentBlock.equals(callStack.peek())) {
             callStack.pop();
-            Namespaces.getInstance().popNamespace();
+            // Namespaces.getInstance().popNamespace();
         }
         Block next = currentBlock.getNext();
         if (next == null) {

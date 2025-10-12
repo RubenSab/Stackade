@@ -44,5 +44,7 @@ public enum KeywordToken implements Token {
     RUN,
 
     // Time
-    NANOS
+    NANOS,
+
+    END_SEQ
 }

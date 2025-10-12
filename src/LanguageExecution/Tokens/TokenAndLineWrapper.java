@@ -1,6 +1,6 @@
 package LanguageExecution.Tokens;
 
-public record TokenAndLineWrapper(Token token, String symbol, int line) {
+public record TokenAndLineWrapper(Token token, String symbol, Integer line) {
 
 
     @Override
