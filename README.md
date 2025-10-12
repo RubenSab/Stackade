@@ -171,9 +171,13 @@ If the operator accepts a reference to a variable of the type of its main argume
 - `==`
 	- pops: `A`, `B`
 	- pushes: `(bool)` `true` if `A` equals `B` else `false`
+
 - `!=`
 	- pops: `A`, `B`
 	- pushes: `(bool)` false if `A` equals `B` else `true`
+
+- `stackHeight`
+    - pushes: the number of elements inside the Stack.
 
 ### 2.2.2. Numeric args operations
 
@@ -255,6 +259,7 @@ All fit the description:
 	- pops: `A(str)`
 	- deletes the variable named `A` from the local namespace and adds it to the caller's one, eventually replacing the old definition
 
+
 ##### Definitions
 
 They define a variable of name `B` and value `A` of the specified (immutable) type. 
@@ -332,7 +337,12 @@ They define a variable of name `B` and value `A` of the specified (immutable) ty
 - `run`
 	- pops: `A(str)` the source file to run inside the current program, without creating a new namespace (this allows programs to have dependencies to other programs used to reuse functions)
 
+### 2.2.12. Time
+
+- `nanos`
+  - pushes: `A(num)` the current time in nanoseconds from an arbitrary point; only appropriate to measure elapsed time.
 ---
+
 # 3. Flow control
 
 Stackade has a single flow control structure called **Conditional Block**.
