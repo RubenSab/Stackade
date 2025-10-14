@@ -37,6 +37,7 @@ public class Namespaces extends Namespace {
 
     public LanguageObject get(String name) {
         for (int i = namespaces.size() - 1; i >= 0; i--) {
+            // System.out.println(namespaces.get(i));
             LanguageObject variable = namespaces.get(i).get(name);
             if (variable!=null) {
                 return variable;

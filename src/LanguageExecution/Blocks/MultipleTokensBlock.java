@@ -21,7 +21,7 @@ public class MultipleTokensBlock extends Block {
     }
 
     public Block getFirstBlock() {
-        return blocks.getFirst();
+        return (!blocks.isEmpty()) ? blocks.getFirst() : null;
     }
 
     public void evaluate() { // TODO: push to exec

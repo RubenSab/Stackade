@@ -1,0 +1,31 @@
+"corelibs/strings" run
+"corelibs/printing" run
+
+# a: cy
+# c: a
+# y: aaa
+
+"computeNext" (
+    dup 0 strAt
+    {
+        (dup "a" ==)
+        ("cy" swap pop)
+        ({
+            ("c" ==)
+            ("a")
+            ("aaa")
+        })
+    }
+    strCat 2 sliceRight
+) :seq
+
+
+"loadToTuringMachine" (
+    dup println
+    {
+        (dup strLen 1 >)
+        (computeNext dup println self)
+    }
+) :seq
+
+"aaaaaa" loadToTuringMachine

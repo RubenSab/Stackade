@@ -77,7 +77,11 @@ public class Interpreter {
                         } else {
                             // the current block is set used as soon as it's traversed, the blocks to execute are inside of it anyway.
                             currentBlock.setUsed(true);
-                            currentBlock = multipleTokensBlock.getFirstBlock();
+                            if (multipleTokensBlock.getFirstBlock() != null) {
+                                currentBlock = multipleTokensBlock.getFirstBlock();
+                            } else {
+                                currentBlock = currentBlock.getParent();
+                            }
                         }
                     }
                 }
