@@ -5,7 +5,7 @@ import LanguageEnvironment.LanguageObjects.Box;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.NamespaceReference;
 import LanguageEnvironment.LanguageObjects.Primitives.*;
-import LanguageEnvironment.LanguageObjects.UnexecutedSequence;
+import LanguageEnvironment.LanguageObjects.Sequence;
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Runner;
 import LanguageExecution.Tokens.*;
@@ -140,7 +140,7 @@ public class OperationRegistry {
                     case DEFINE_BOOL -> definitionFunction(BooleanPrimitive.class);
                     case DEFINE_REF -> definitionFunction(NamespaceReference.class);
                     case DEFINE_BOX -> definitionFunction(Box.class);
-                    case DEFINE_SEQ -> definitionFunction(UnexecutedSequence.class);
+                    case DEFINE_SEQ -> definitionFunction(Sequence.class);
 
                     // Casting
                     case TYPE -> stack.push(new StringPrimitive(stack.pop(tokenWrapper).typeName()));
@@ -202,8 +202,8 @@ public class OperationRegistry {
             String name = stack.pop(tokenWrapper).tryCast(StringPrimitive.class, tokenWrapper).getValue();
             namespaces.define(name, value);
 
-            if (classOfVariable.equals(UnexecutedSequence.class)) {
-                ((UnexecutedSequence) value).setName(name);
+            if (classOfVariable.equals(Sequence.class)) {
+                ((Sequence) value).setName(name);
             }
         } catch (ClassCastException e) {
             ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.WRONG_DEFINITION_TYPE);

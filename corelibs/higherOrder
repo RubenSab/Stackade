@@ -18,7 +18,7 @@
 "runSeq" ("sequence" swap :seq sequence) :seq
 
 
-# repeatSupplier: Repeats a sequence that doesn't pop anything (a supplier).
+# repeat: Repeats a sequence that doesn't pop anything (a supplier).
 # Useful for testing random number generators and timers.
 # pops:
 # (seq) the sequence to repeat
@@ -26,7 +26,7 @@
 # pushes:
 # (?) the sequence outputs
 
-"repeatSupplier" (
+"repeat" (
     swap
     "sequence" swap :seq
     {(dup 0 >)(sequence print "\n" print 1 - self)}

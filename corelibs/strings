@@ -1,0 +1,20 @@
+"slice" (
+    "end" swap :num
+    "i" swap :num
+    "string" swap :str
+    "accumulator" "" :str
+
+    {(i end <=)
+    (
+        accumulator
+            dup refGet
+            string i strAt
+            strCat
+        =
+        i dup 1 + = self
+    )}
+    accumulator refGet
+) :seq
+
+"sliceRight" (swap dup strLen 1 - swap rot swap slice) :seq
+"sliceLeft" (0 swap slice) :seq

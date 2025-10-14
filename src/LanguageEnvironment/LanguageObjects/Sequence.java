@@ -1,17 +1,14 @@
 package LanguageEnvironment.LanguageObjects;
 
-import LanguageEnvironment.Namespaces.Namespaces;
-import LanguageExecution.Blocks.Block;
 import LanguageExecution.Blocks.MultipleTokensBlock;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
-public class UnexecutedSequence extends LanguageObject {
+public class Sequence extends LanguageObject {
     private final MultipleTokensBlock blocks;
     private String name;
 
-    public UnexecutedSequence(MultipleTokensBlock blocks) {
+    public Sequence(MultipleTokensBlock blocks) {
         this.blocks = blocks;
     }
 
@@ -35,13 +32,13 @@ public class UnexecutedSequence extends LanguageObject {
 
     @Override
     public String toString() {
-        return "unexecuted sequence: " + name;
+        return "sequence: " + name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o==null || getClass()!=o.getClass()) return false;
-        UnexecutedSequence that = (UnexecutedSequence) o;
+        Sequence that = (Sequence) o;
         return Objects.equals(blocks, that.blocks) && Objects.equals(name, that.name);
     }
 
