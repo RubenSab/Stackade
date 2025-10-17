@@ -10,11 +10,6 @@ public class ConditionalBlock extends Block {
     private MultipleTokensBlock trueBlock;
     private MultipleTokensBlock falseBlock;
 
-    public ConditionalBlock(Block parent) {
-        super(parent);
-        this.beginTokenWrapper = null;
-    }
-
     public ConditionalBlock(TokenAndLineWrapper beginTokenWrapper, Block parent) {
         super(parent);
         this.beginTokenWrapper = beginTokenWrapper;
@@ -51,6 +46,10 @@ public class ConditionalBlock extends Block {
 
     public MultipleTokensBlock getFalseBlock() {
         return falseBlock;
+    }
+
+    public TokenAndLineWrapper getBeginTokenWrapper() {
+        return beginTokenWrapper;
     }
 
     @Override

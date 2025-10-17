@@ -13,6 +13,8 @@ public enum StackadeError {
     DIVISION_BY_ZERO("Division by zero"),
     FILE_NOT_FOUND("File not found"),
     WRONG_OPERANDS_TYPE("Operand/s type is wrong for this operation"),
+    STRING_INDEX_OUT_OF_BOUNDS("String index out of bounds"),
+
     // Namespace,
     WRONG_DEFINITION_TYPE("Attempted to define a variable with the wrong type"),
     WRONG_REDEFINITION_TYPE("Attempted to redefine a variable with the wrong type"),

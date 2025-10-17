@@ -11,8 +11,8 @@ public class ErrorsLogger {
         halt();
     }
 
-    public static void triggerInterpreterError(TokenAndLineWrapper tokenWrapper, StackadeError stackadeError) {
-        System.out.println("(" + Runner.getInstance().getCurrentFile() + ") Interpreter error from " + tokenWrapper.toString() + ": " + stackadeError);
+    public static void triggerInterpreterError(TokenAndLineWrapper errorSource, StackadeError stackadeError) {
+        System.out.println("(" + Runner.getInstance().getCurrentFile() + ") Interpreter error from " + errorSource.toString() + ": " + stackadeError);
         halt();
     }
 

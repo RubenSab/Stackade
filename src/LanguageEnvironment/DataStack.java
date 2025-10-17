@@ -5,6 +5,7 @@ import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
 import LanguageExecution.Tokens.TokenAndLineWrapper;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class DataStack {
@@ -19,38 +20,33 @@ public class DataStack {
         stack.push(object);
     }
 
-    public LanguageObject pop(TokenAndLineWrapper possibleErrorSource) {
+    public LanguageObject pop(TokenAndLineWrapper errorSource) {
         if (!stack.isEmpty()) {
             return stack.pop();
         } else {
-            ErrorsLogger.triggerInterpreterError(possibleErrorSource, StackadeError.EMPTY_STACK);
+            ErrorsLogger.triggerInterpreterError(errorSource, StackadeError.EMPTY_STACK);
             return null;
         }
     }
 
-    public LanguageObject pop() {
-        if (!stack.isEmpty()) {
-            return stack.pop();
-        } else {
-            ErrorsLogger.triggerInterpreterError(StackadeError.EMPTY_STACK);
-            return null;
-        }
-    }
-
-    public LanguageObject peek(TokenAndLineWrapper possibleErrorSource) {
+    public LanguageObject peek(TokenAndLineWrapper errorSource) {
         if (!stack.isEmpty()) {
             return stack.peek();
         } else {
-            ErrorsLogger.triggerInterpreterError(possibleErrorSource, StackadeError.EMPTY_STACK);
+            ErrorsLogger.triggerInterpreterError(errorSource, StackadeError.EMPTY_STACK);
             return null;
         }
     }
 
-    public void swap() {
-        LanguageObject first = stack.pop();
-        LanguageObject second = stack.pop();
-        stack.push(first);
-        stack.push(second);
+    public void swap(TokenAndLineWrapper errorSource) {
+        try {
+            LanguageObject first = stack.pop();
+            LanguageObject second = stack.pop();
+            stack.push(first);
+            stack.push(second);
+        } catch (EmptyStackException e) {
+            ErrorsLogger.triggerInterpreterError(errorSource, StackadeError.EMPTY_STACK);
+        }
     }
 
     public int height() {
@@ -60,11 +56,5 @@ public class DataStack {
     @Override
     public String toString() {
         return stack.toString();
-    }
-
-    public static class EmptyPopException extends RuntimeException {
-        public EmptyPopException() {
-            super("Attempted to pop from empty stack.");
-        }
     }
 }

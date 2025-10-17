@@ -24,6 +24,10 @@ public class MultipleTokensBlock extends Block {
         return (!blocks.isEmpty()) ? blocks.getFirst() : null;
     }
 
+    public TokenAndLineWrapper getBeginTokenWrapper() {
+        return beginTokenWrapper;
+    }
+
     public void evaluate() { // TODO: push to exec
         blocks.forEach(x -> ((SingleTokenBlock) x).execute());
     }

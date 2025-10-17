@@ -1,6 +1,26 @@
 "corelibs/strings" run
 "corelibs/printing" run
 
+"annotate" (
+    "string" swap :str
+
+    "i" 0 :num
+    {(i 0 >=   i string strLen <   and)
+        (
+            {(string i strAt "a" ==)
+                (i dup 1 + =)
+                (i -1 =)
+            }
+            self
+        )
+    }
+
+    {(i string strLen ==)
+        (string " [" i numToStr "]" strCat strCat strCat)
+        (string refGet)
+    }
+) :seq
+
 # a: cy
 # c: a
 # y: aaa
@@ -21,11 +41,18 @@
 
 
 "loadToTuringMachine" (
-    dup println
+    dup annotate println
     {
         (dup strLen 1 >)
-        (computeNext dup println self)
+        (computeNext dup annotate println self)
     }
 ) :seq
 
-"aaaaaa" loadToTuringMachine
+
+"numToA" (
+    "i" swap :num
+    "a" {(i 1 >)("a" strCat i    dup 1 - =    self)}
+) :seq
+
+"write a number to give to the Turing Machine: " print
+input strToNum numToA loadToTuringMachine

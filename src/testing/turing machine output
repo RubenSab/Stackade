@@ -1,20 +1,21 @@
-aaaaaa (6)
+write a number to give to the Turing Machine: 6
+aaaaaa [6]
 aaaacy
 aacycy
 cycycy
 cycya
 cyaa
-aaa (3)
+aaa [3]
 acy
 ycy
 yaaa
-aaaaa (5)
+aaaaa [5]
 aaacy
 acycy
 ycycy
 ycyaaa
 yaaaaaa
-aaaaaaaa (8)
+aaaaaaaa [8]
 aaaaaacy
 aaaacycy
 aacycycy
@@ -22,10 +23,10 @@ cycycycy
 cycycya
 cycyaa
 cyaaa
-aaaa (4)
+aaaa [4]
 aacy
 cycy
 cya
-aa (2)
+aa [2]
 cy
-a (1)
+a [1]

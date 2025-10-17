@@ -13,6 +13,8 @@ import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.NamespaceToken;
 import LanguageExecution.Tokens.Token;
 
+import java.util.EmptyStackException;
+
 public class Interpreter {
     private Block currentBlock;
 
@@ -51,19 +53,31 @@ public class Interpreter {
                     }
                 }
                 case ConditionalBlock conditionalBlock -> {
-                    if (conditionalBlock.getConditionBlock().getUsed()) {
-                        goToNextElseParent();
-                    } else {
-                        conditionalBlock.getConditionBlock().evaluate();
-                        conditionalBlock.getConditionBlock().setUsed(true);
-                        boolean conditionResult = (DataStack.getInstance().pop().tryCast(BooleanPrimitive.class)).getValue();
-                        if (conditionResult) {
-                            currentBlock = conditionalBlock.getTrueBlock();
+                    if (conditionalBlock.getConditionBlock() != null) { // empty conditional block
+                        if (conditionalBlock.getConditionBlock().getUsed()) {
+                            goToNextElseParent();
                         } else {
-                            if (conditionalBlock.getFalseBlock()!=null) {
-                                currentBlock = conditionalBlock.getFalseBlock();
+                            conditionalBlock.getConditionBlock().evaluate();
+                            conditionalBlock.getConditionBlock().setUsed(true);
+                            try {
+                                boolean conditionResult = (
+                                        DataStack.getInstance().pop(conditionalBlock.getBeginTokenWrapper())
+                                                .tryCast(BooleanPrimitive.class))
+                                                .getValue();
+                                if (conditionResult) {
+                                    currentBlock = conditionalBlock.getTrueBlock();
+                                } else {
+                                    if (conditionalBlock.getFalseBlock()!=null) {
+                                        currentBlock = conditionalBlock.getFalseBlock();
+                                    }
+                                }
+                            } catch (EmptyStackException e) {
+                                ErrorsLogger.triggerInterpreterError(StackadeError.EMPTY_STACK);
                             }
                         }
+                    } else {
+                        currentBlock.setUsed(true);
+                        goToNextElseParent();
                     }
                 }
                 case MultipleTokensBlock multipleTokensBlock -> {

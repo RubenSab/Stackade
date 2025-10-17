@@ -44,7 +44,7 @@ public class OperationRegistry {
                     // Stack operations
                     case DUP -> stack.push(stack.peek(tokenWrapper));
                     case POP -> stack.pop(tokenWrapper);
-                    case SWAP -> stack.swap();
+                    case SWAP -> stack.swap(tokenWrapper);
                     case ROT -> {
                         LanguageObject a = stack.pop(tokenWrapper);
                         LanguageObject b = stack.pop(tokenWrapper);
@@ -98,7 +98,11 @@ public class OperationRegistry {
                     case STR_AT -> {
                         int index = stack.pop(tokenWrapper).resolve().tryCast(NumberPrimitive.class, tokenWrapper).intValue();
                         String string = stack.pop(tokenWrapper).resolve().tryCast(StringPrimitive.class, tokenWrapper).getValue();
-                        stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
+                        try {
+                            stack.push(new StringPrimitive(String.valueOf(string.charAt(index))));
+                        } catch (StringIndexOutOfBoundsException e) {
+                            ErrorsLogger.triggerInterpreterError(StackadeError.STRING_INDEX_OUT_OF_BOUNDS);
+                        }
                     }
                     case STR_CAT -> {
                         String second = stack.pop(tokenWrapper).resolve().tryCast(StringPrimitive.class, tokenWrapper).getValue();

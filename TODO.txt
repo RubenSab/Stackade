@@ -1,1 +1,1 @@
-- manage all logging errors
+- fix strings containing ( and )
