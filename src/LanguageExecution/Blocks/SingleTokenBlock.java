@@ -30,7 +30,7 @@ public class SingleTokenBlock extends Block {
 
     @Override
     public void add(Block block) {
-        throw new RuntimeException("SingleTokenBlock doesn't support adding blocks");
+        throw new RuntimeException("placeholder exception");
     }
 
     @Override

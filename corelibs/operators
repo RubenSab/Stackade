@@ -1,3 +1,46 @@
+# based on the assumption that variables from outer namespaces can only be read,
+# but they can be written with :raise (which needs to be able to redefine variables).
+
+"++" (
+    {(dup type "ref" ==)
+    	(
+    	    dup dup
+    	    # the first dup pushes two references to get name and value from,
+    	    # the second is necessary to have an argument for refName :raise
+
+    	    refName       # name
+    	    swap refGet   # value
+    	    1 +
+    	    :num
+
+    	    refName
+    	    :raise
+        )
+    	(1 +)
+    }
+) :seq
+
+
+"--" (
+    {(dup type "ref" ==)
+    	(
+    	    dup dup
+    	    # the first dup pushes two references to get name and value from,
+    	    # the second is necessary to have an argument for refName :raise
+
+    	    refName       # name
+    	    swap refGet   # value
+    	    1 -
+    	    :num
+
+    	    refName
+    	    :raise
+        )
+    	(1 -)
+    }
+) :seq
+
+
 # **: n to the power of m
 # pops:
 # (num) n

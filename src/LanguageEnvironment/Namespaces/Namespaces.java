@@ -2,6 +2,8 @@ package LanguageEnvironment.Namespaces;
 
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageEnvironment.LanguageObjects.Primitives.StringPrimitive;
+import LanguageExecution.Interpreter.ErrorsLogger;
+import LanguageExecution.Interpreter.StackadeError;
 
 import java.util.Stack;
 
@@ -43,7 +45,8 @@ public class Namespaces extends Namespace {
                 return variable;
             }
         }
-        throw new UndefinedVariableException(name);
+        ErrorsLogger.triggerInterpreterError(StackadeError.UNDEFINED_VARIABLE);
+        return null;
     }
 
     public void assign(String name, LanguageObject value) {

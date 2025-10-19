@@ -19,7 +19,7 @@ public abstract class LanguageObject {
             return targetClass.cast(this);
         } catch (ClassCastException e) {
             ErrorsLogger.triggerInterpreterError(tokenWrapper, StackadeError.WRONG_OPERANDS_TYPE);
-            throw new RuntimeException("placeholder exception");
+            return null;
         }
     }
 
@@ -28,10 +28,9 @@ public abstract class LanguageObject {
             return targetClass.cast(this);
         } catch (ClassCastException e) {
             ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_OPERANDS_TYPE);
-            throw new RuntimeException("placeholder exception");
+            return null;
         }
     }
-
 
 
     public abstract String represent();

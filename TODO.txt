@@ -1,1 +1,2 @@
 - fix strings containing ( and )
+- add tokenized errors in namespaces
