@@ -1,5 +1,3 @@
-"test" (a refName 1 :num a refName :raise) :seq
+"corelibs/operators" run
 
-"a" 0 :num
-test
-debug
+e 0 +

@@ -2,6 +2,7 @@ package LanguageEnvironment.LanguageObjects.Primitives;
 
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
+import LanguageExecution.Tokens.TokenWrapper;
 
 public class NumberPrimitive extends Primitive<Double> {
 
@@ -21,7 +22,7 @@ public class NumberPrimitive extends Primitive<Double> {
         try {
             return new NumberPrimitive(Double.parseDouble(string));
         } catch (NumberFormatException e) {
-            ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_OPERANDS_TYPE);
+            ErrorsLogger.triggerInterpreterError(new TokenWrapper(null, string, null), StackadeError.WRONG_OPERANDS_TYPE);
             return null;
         }
     }

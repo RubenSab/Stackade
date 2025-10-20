@@ -1,12 +1,10 @@
 package LanguageExecution;
 
-import LanguageEnvironment.LanguageObjects.Primitives.NumberPrimitive;
 import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Blocks.MultipleTokensBlock;
 import LanguageExecution.Interpreter.Interpreter;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
-import javax.naming.Name;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +27,7 @@ public class Runner {
         List<String> source = Files.readAllLines(Paths.get(filePath));
 
         // tokenize lines and append each Token and line number wrapped together inside TokenAndLineWrapper
-        List<TokenAndLineWrapper> tokens = new ArrayList<>();
+        List<TokenWrapper> tokens = new ArrayList<>();
         for (int i = 0; i < source.size(); i++) {
             tokens.addAll(Lexer.tokenize(source.get(i), i + 1));
         }

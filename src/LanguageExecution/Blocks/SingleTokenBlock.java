@@ -1,21 +1,21 @@
 package LanguageExecution.Blocks;
 
 import LanguageExecution.Interpreter.OperationRegistry;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.Objects;
 
 
 public class SingleTokenBlock extends Block {
 
-    private final TokenAndLineWrapper tokenWrapper;
+    private final TokenWrapper tokenWrapper;
 
-    public SingleTokenBlock(TokenAndLineWrapper tokenWrapper, Block parent) {
+    public SingleTokenBlock(TokenWrapper tokenWrapper, Block parent) {
         super(parent);
         this.tokenWrapper = tokenWrapper;
     }
 
-    public TokenAndLineWrapper getTokenWrapper() {
+    public TokenWrapper getTokenWrapper() {
         return tokenWrapper;
     }
 

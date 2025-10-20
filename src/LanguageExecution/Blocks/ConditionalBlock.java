@@ -1,16 +1,16 @@
 package LanguageExecution.Blocks;
 
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.Objects;
 
 public class ConditionalBlock extends Block {
-    private final TokenAndLineWrapper beginTokenWrapper;
+    private final TokenWrapper beginTokenWrapper;
     private MultipleTokensBlock conditionBlock;
     private MultipleTokensBlock trueBlock;
     private MultipleTokensBlock falseBlock;
 
-    public ConditionalBlock(TokenAndLineWrapper beginTokenWrapper, Block parent) {
+    public ConditionalBlock(TokenWrapper beginTokenWrapper, Block parent) {
         super(parent);
         this.beginTokenWrapper = beginTokenWrapper;
     }
@@ -48,7 +48,7 @@ public class ConditionalBlock extends Block {
         return falseBlock;
     }
 
-    public TokenAndLineWrapper getBeginTokenWrapper() {
+    public TokenWrapper getBeginTokenWrapper() {
         return beginTokenWrapper;
     }
 

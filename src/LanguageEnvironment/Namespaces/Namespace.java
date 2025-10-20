@@ -3,6 +3,7 @@ package LanguageEnvironment.Namespaces;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ public class Namespace {
         } else if (namespace.get(name).getClass().equals(entity.getClass())) {
             namespace.replace(name, entity);
         } else {
-            ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_REDEFINITION_TYPE);
+            ErrorsLogger.triggerInterpreterError(new TokenWrapper(null, name, null), StackadeError.WRONG_REDEFINITION_TYPE);
         }
     }
 
@@ -40,7 +41,7 @@ public class Namespace {
         if (oldValue!=null && (oldValue.getClass().equals(value.getClass()))) {
             namespace.replace(name, value);
         } else {
-            ErrorsLogger.triggerInterpreterError(StackadeError.WRONG_ASSIGNATION_TYPE);
+            ErrorsLogger.triggerInterpreterError(new TokenWrapper(null, name, null), StackadeError.WRONG_ASSIGNATION_TYPE);
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Lexer {
 
-    public static ArrayList<TokenAndLineWrapper> tokenize(String source, int line) {
+    public static ArrayList<TokenWrapper> tokenize(String source, int line) {
         // Regular expression to match:
         // 1. Strings in double quotes: ".*?"
         // 2. Numbers (integers or decimals): \d+\.?\d*
@@ -20,9 +20,9 @@ public class Lexer {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(sourceNoComments);
 
-        ArrayList<TokenAndLineWrapper> tokens = new ArrayList<>();
+        ArrayList<TokenWrapper> tokens = new ArrayList<>();
         while (matcher.find()) {
-            tokens.add(new TokenAndLineWrapper(buildToken(matcher.group()), matcher.group(), line));
+            tokens.add(new TokenWrapper(buildToken(matcher.group()), matcher.group(), line));
         }
         return tokens;
     }

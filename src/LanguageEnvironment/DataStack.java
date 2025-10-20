@@ -3,7 +3,7 @@ package LanguageEnvironment;
 import LanguageEnvironment.LanguageObjects.LanguageObject;
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -20,7 +20,7 @@ public class DataStack {
         stack.push(object);
     }
 
-    public LanguageObject pop(TokenAndLineWrapper errorSource) {
+    public LanguageObject pop(TokenWrapper errorSource) {
         if (!stack.isEmpty()) {
             return stack.pop();
         } else {
@@ -29,7 +29,7 @@ public class DataStack {
         }
     }
 
-    public LanguageObject peek(TokenAndLineWrapper errorSource) {
+    public LanguageObject peek(TokenWrapper errorSource) {
         if (!stack.isEmpty()) {
             return stack.peek();
         } else {
@@ -38,7 +38,7 @@ public class DataStack {
         }
     }
 
-    public void swap(TokenAndLineWrapper errorSource) {
+    public void swap(TokenWrapper errorSource) {
         try {
             LanguageObject first = stack.pop();
             LanguageObject second = stack.pop();

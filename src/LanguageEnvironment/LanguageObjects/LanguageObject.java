@@ -2,7 +2,7 @@ package LanguageEnvironment.LanguageObjects;
 
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 public abstract class LanguageObject {
 
@@ -14,7 +14,7 @@ public abstract class LanguageObject {
         }
     }
 
-    public <T extends LanguageObject> T tryCast(Class<T> targetClass, TokenAndLineWrapper tokenWrapper) {
+    public <T extends LanguageObject> T tryCast(Class<T> targetClass, TokenWrapper tokenWrapper) {
         try {
             return targetClass.cast(this);
         } catch (ClassCastException e) {

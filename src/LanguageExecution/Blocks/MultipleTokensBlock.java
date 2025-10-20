@@ -1,6 +1,6 @@
 package LanguageExecution.Blocks;
 
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,14 +8,14 @@ import java.util.Objects;
 public class MultipleTokensBlock extends Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
-    private final TokenAndLineWrapper beginTokenWrapper;
+    private final TokenWrapper beginTokenWrapper;
 
     public MultipleTokensBlock(Block parent) {
         super(parent);
         this.beginTokenWrapper = null;
     }
 
-    public MultipleTokensBlock(TokenAndLineWrapper beginTokenWrapper, Block parent) {
+    public MultipleTokensBlock(TokenWrapper beginTokenWrapper, Block parent) {
         super(parent);
         this.beginTokenWrapper = beginTokenWrapper;
     }
@@ -24,7 +24,7 @@ public class MultipleTokensBlock extends Block {
         return (!blocks.isEmpty()) ? blocks.getFirst() : null;
     }
 
-    public TokenAndLineWrapper getBeginTokenWrapper() {
+    public TokenWrapper getBeginTokenWrapper() {
         return beginTokenWrapper;
     }
 

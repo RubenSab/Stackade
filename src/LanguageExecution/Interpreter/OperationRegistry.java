@@ -18,13 +18,13 @@ public class OperationRegistry {
     private static final OperationRegistry INSTANCE = new OperationRegistry();
     private static final DataStack stack = DataStack.getInstance();
     private static final Namespaces namespaces = Namespaces.getInstance();
-    private TokenAndLineWrapper tokenWrapper;
+    private TokenWrapper tokenWrapper;
 
     public static OperationRegistry getInstance() {
         return INSTANCE;
     }
 
-    public void executeToken(TokenAndLineWrapper tokenWrapper) {
+    public void executeToken(TokenWrapper tokenWrapper) {
         this.tokenWrapper = tokenWrapper;
 
         switch (tokenWrapper.token()) {

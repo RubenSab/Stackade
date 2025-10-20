@@ -7,34 +7,34 @@ import LanguageExecution.Blocks.SingleTokenBlock;
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
 import LanguageExecution.Tokens.KeywordToken;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.List;
 import java.util.Stack;
 
 public class Parser {
 
-    public static MultipleTokensBlock parse(List<TokenAndLineWrapper> tokens) {
+    public static MultipleTokensBlock parse(List<TokenWrapper> tokens) {
         try {
             Stack<Block> blockStack = new Stack<>();
             blockStack.push(new MultipleTokensBlock(null));
 
-            for (TokenAndLineWrapper tokenAndLineWrapper : tokens) {
-                switch (tokenAndLineWrapper.token()) {
-                    case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock(tokenAndLineWrapper, blockStack.peek()));
-                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenAndLineWrapper, blockStack.peek()));
+            for (TokenWrapper tokenWrapper : tokens) {
+                switch (tokenWrapper.token()) {
+                    case KeywordToken.OPEN_BLOCK -> blockStack.push(new MultipleTokensBlock(tokenWrapper, blockStack.peek()));
+                    case KeywordToken.OPEN_COND -> blockStack.push(new ConditionalBlock(tokenWrapper, blockStack.peek()));
                     case KeywordToken.CLOSE_BLOCK, KeywordToken.CLOSE_COND -> {
                         Block lastBlock = blockStack.pop();
 
                         // If the top Block is a Sequence definition, add an END_SEQ token at the end of it
                         if (!(lastBlock instanceof SingleTokenBlock) && !(lastBlock instanceof ConditionalBlock) && !(lastBlock.getParent() instanceof ConditionalBlock)) {
-                            lastBlock.add(new SingleTokenBlock(new TokenAndLineWrapper(KeywordToken.END_SEQ, null, null), lastBlock));
+                            lastBlock.add(new SingleTokenBlock(new TokenWrapper(KeywordToken.END_SEQ, null, null), lastBlock));
                         }
 
                         blockStack.peek().add(lastBlock);
                     }
                     default -> {
-                        Block newBlock = new SingleTokenBlock(tokenAndLineWrapper, blockStack.peek());
+                        Block newBlock = new SingleTokenBlock(tokenWrapper, blockStack.peek());
                         blockStack.peek().add(newBlock);
                     }
                 }

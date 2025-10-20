@@ -1,9 +1,9 @@
 package LanguageEnvironment.Namespaces;
 
 import LanguageEnvironment.LanguageObjects.LanguageObject;
-import LanguageEnvironment.LanguageObjects.Primitives.StringPrimitive;
 import LanguageExecution.Interpreter.ErrorsLogger;
 import LanguageExecution.Interpreter.StackadeError;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.Stack;
 
@@ -45,7 +45,7 @@ public class Namespaces extends Namespace {
                 return variable;
             }
         }
-        ErrorsLogger.triggerInterpreterError(StackadeError.UNDEFINED_VARIABLE);
+        ErrorsLogger.triggerInterpreterError(new TokenWrapper(null, name, null), StackadeError.UNDEFINED_VARIABLE);
         return null;
     }
 

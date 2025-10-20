@@ -1,8 +1,7 @@
 package LanguageExecution.Interpreter;
 
-import LanguageEnvironment.Namespaces.Namespaces;
 import LanguageExecution.Runner;
-import LanguageExecution.Tokens.TokenAndLineWrapper;
+import LanguageExecution.Tokens.TokenWrapper;
 
 public class ErrorsLogger {
 
@@ -11,7 +10,7 @@ public class ErrorsLogger {
         halt();
     }
 
-    public static void triggerInterpreterError(TokenAndLineWrapper errorSource, StackadeError stackadeError) {
+    public static void triggerInterpreterError(TokenWrapper errorSource, StackadeError stackadeError) {
         System.out.println("(" + Runner.getInstance().getCurrentFile() + ") Interpreter error from " + errorSource.toString() + ": " + stackadeError);
         halt();
     }
