@@ -218,6 +218,15 @@ public class Lexer {
                 return KeywordToken.NANOS;
             }
 
+            // Higher order
+            case "@" -> {
+                return KeywordToken.PUSH_SEQ;
+            }
+
+            case "!" -> {
+                return KeywordToken.RUN_SEQ;
+            }
+
             default -> {
                 if (representation.startsWith("\"") && representation.endsWith("\"")) {
                     // build new token from substring from index 1 to -1 to remove double quotes

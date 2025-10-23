@@ -12,6 +12,7 @@ import LanguageExecution.Blocks.SingleTokenBlock;
 import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.NamespaceToken;
 import LanguageExecution.Tokens.Token;
+import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.EmptyStackException;
 
@@ -23,10 +24,12 @@ public class Interpreter {
         while (currentBlock != null) {
             switch (currentBlock) {
                 case SingleTokenBlock singleTokenBlock -> {
+                    TokenWrapper wrapper = singleTokenBlock.getTokenWrapper();
                     Token token = singleTokenBlock.getTokenWrapper().token();
 
-                    if (token instanceof NamespaceToken) {
-                        LanguageObject invoked = ((NamespaceToken) token).resolve();
+                    if (token instanceof NamespaceToken || token.equals(KeywordToken.RUN_SEQ)) {
+                        LanguageObject invoked = token instanceof NamespaceToken ?
+                                ((NamespaceToken) token).resolve() : DataStack.getInstance().pop(wrapper).tryCast(Sequence.class);
                         if (invoked instanceof Sequence) {
                             MultipleTokensBlock sequenceBlocks = ((Sequence) invoked).getBlocks();
                             sequenceBlocks.setUnusedRecursive();
@@ -82,7 +85,11 @@ public class Interpreter {
                 }
                 case MultipleTokensBlock multipleTokensBlock -> {
                     // System.out.println(multipleTokensBlock);
-                    if (multipleTokensBlock.getNext() != null && (multipleTokensBlock.getNext() instanceof SingleTokenBlock) && (((SingleTokenBlock) multipleTokensBlock.getNext()).getTokenWrapper().token()).equals(KeywordToken.DEFINE_SEQ)) {
+                    if (
+                            multipleTokensBlock.getNext() != null && (multipleTokensBlock.getNext() instanceof SingleTokenBlock) &&
+                            ((((SingleTokenBlock) multipleTokensBlock.getNext()).getTokenWrapper().token()).equals(KeywordToken.DEFINE_SEQ) ||
+                            (((SingleTokenBlock) multipleTokensBlock.getNext()).getTokenWrapper().token()).equals(KeywordToken.PUSH_SEQ))
+                    ){
                         DataStack.getInstance().push(new Sequence(multipleTokensBlock));
                         goToNextElseParent();
                     } else {

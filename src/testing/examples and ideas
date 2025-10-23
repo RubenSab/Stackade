@@ -197,3 +197,47 @@ debug
 "a" "b" circularRef
 "a = " print a print "\n" print
 "b = " print b print "\n" print
+
+
+# 2 3
+# 3 2 swap
+# 3 2 2 dup
+# 2 2 3 rot
+# 2 2 3 3 dup
+# 2 3 3 2 rot
+# 2 3 2 3 swap
+
+"ternaryComparison" ({
+    (swap dup rot dup rot swap <)
+    (pop pop -1)
+    ({
+        (>)
+        (1)
+        (0)
+    })
+}) :seq
+
+
+"corelibs/higherOrder" run
+
+"f" (+ 2 *) :seq
+"g" (1 -) :seq
+
+"compose" (
+    "second" swap :seq
+    "first" swap :seq
+    first second
+) :seq
+
+2 3
+"f" invoke "g" invoke compose print
+
+
+"compose" (
+    "second" swap :seq
+    "first" swap :seq
+    first second
+) :seq
+
+2 3
+(+ 2 *)@ (1 -)@ compose print

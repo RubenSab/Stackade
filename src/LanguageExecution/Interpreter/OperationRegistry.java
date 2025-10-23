@@ -186,6 +186,7 @@ public class OperationRegistry {
                     case NANOS -> {
                         stack.push(new NumberPrimitive(System.nanoTime()));
                     }
+
                     // Other
                     case TRUE -> stack.push(new BooleanPrimitive(true));
                     case FALSE -> stack.push(new BooleanPrimitive(false));

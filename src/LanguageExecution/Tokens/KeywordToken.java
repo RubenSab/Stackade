@@ -46,6 +46,9 @@ public enum KeywordToken implements Token {
     // Time
     NANOS,
 
+    // Higher order
+    PUSH_SEQ, RUN_SEQ,
+
     END_SEQ
 
 }

@@ -1,2 +1,2 @@
+- allow sequences not to be defined
 - fix strings containing ( and )
-- add tokenized errors in namespaces

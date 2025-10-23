@@ -1,3 +1,8 @@
-"corelibs/operators" run
+"compose" (
+    "second" swap :seq
+    "first" swap :seq
+    first second
+) :seq
 
-e 0 +
+2 3
+(+ 2 *)@ (1 -)@ compose print

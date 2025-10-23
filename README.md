@@ -53,7 +53,7 @@ The **Stack** and **Namespaces** are central to Stackade:
   
   For example, the operator `+` pops the lasts two elements from the stack and pushes their sum.
 
-> IMPORTANT: almost every language element is a stack operator or it's made from stack operators, as *even data types* execute by pushing themselves to the stack.
+> IMPORTANT: almost every language element is a stack operator, or it's made from stack operators, as *even data types* execute by pushing themselves to the stack.
 
 - the **Namespaces** are a linked list of maps, each linking the variable name to its content. Having multiple namespaces in a hierarchy allows cleansing un-needed local variables after a **sequence** is executed.
 
@@ -139,7 +139,7 @@ Sequences are blocks of code that isn't directly executed when processed, but is
 ---
 ## 2.2. Operations
 
-For ease of description, when appliable, arguments (pops) of operators are written as:
+For ease of description, when applicable, arguments (pops) of operators are written as:
 
 - `A(type)`: the element on top of the stack (of assumed type on the right) before operator's execution.
 - `B(type)`: the element below A (of assumed type on the right) before operator's execution.
@@ -335,12 +335,18 @@ They define a variable of name `B` and value `A` of the specified (immutable) ty
 ### 2.2.11. Source files inclusion
 
 - `run`
-	- pops: `A(str)` the source file to run inside the current program, without creating a new namespace (this allows programs to have dependencies to other programs used to reuse functions)
+	- pops: `(str)` the source file to run inside the current program, without creating a new namespace (this allows programs to have dependencies to other programs used to reuse functions)
 
 ### 2.2.12. Time
 
 - `nanos`
-  - pushes: `A(num)` the current time in nanoseconds from an arbitrary point; only appropriate to measure elapsed time.
+  - pushes: `(num)` the current time in nanoseconds from an arbitrary point; only appropriate to measure elapsed time.
+
+### 2.2.13 Higher order sequences
+
+- `runSeq`
+  - pops: `(seq)`
+  - pushes: `(?)` the output (if any) of the popped sequence
 ---
 
 # 3. Flow control
@@ -355,7 +361,25 @@ Its syntax is as follows (but it can be indented on multiple lines to enhance cl
 
 The interpreter executes `conditionSequence`; if the top of the stack is `true`, it executes the `trueSequence`, otherwise it executes the `falseSequence`.
 
-## 3.1. The `self` keyword
+## 3.1. Interpreter directives
+
+Some tokens don't directly trigger actions on the Stack or Namespace, but they determine how other tokens are executed and manipulate the execution flow of the program.
+
+- `self` makes the current cycle execute itself again.
+- `:seq` defines a sequence. It is a directive because the interpreter doesn't execute a sequence if there's `:seq` right after it (read 2.2.6)
+
+> Note: an _"anonymous sequence"_ is a sequence which is not defined in the namespace. Its body is written in the code without nor a name nor `:seq`.
+
+- `@` pushes the anonymous sequence it follows.
+- `!` executes the anonymous sequence it follows (useful in rare circumstances: normally, sequences are executed unless the interpreter is told otherwise).
+
+Example: (using `compose` from "higherOrder" module)
+
+```
+(+ 2 *)@ (1 -)@ compose print
+```
+
+### 3.1.2 The `self` directive
 
 The interpreter is always aware of the current block in execution, so the cycle can reference itself from one of its branches using `self` as a simple syntactic substitution.
 
@@ -365,7 +389,7 @@ For example, this program counts from 0 to 10:
 0
 {
     (dup 10 <=)
-    (dup print " " print 1 + self) # true
-    ("done!" print)                  # false
+    (dup print " " print 1 + self)  # true
+    ("done!" print)                 # false
 }
 ```
