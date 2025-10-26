@@ -406,13 +406,8 @@ Some tokens don't directly trigger actions on the Stack or Namespace, but they d
 > Note: an _"anonymous sequence"_ is a sequence which is not defined in the namespace. Its body is written in the code without nor a name nor `:seq`.
 
 - `@` pushes the anonymous sequence it follows.
-- `!` executes the anonymous sequence it follows (useful in rare circumstances: normally, sequences are executed unless the interpreter is told otherwise).
+- `!` pops and executes the expected anonymous sequence on top of the stack.
 
-Example: (using `compose` from "higherOrder" module)
-
-```
-(+ 2 *)@ (1 -)@ compose print
-```
 
 ### 3.1.2 The `self` directive
 
