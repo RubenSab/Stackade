@@ -49,6 +49,11 @@ public class Interpreter {
                             currentBlock = currentBlock.getParent();
                         }
                         currentBlock.setUnusedRecursive();
+                    } else if (token.equals(KeywordToken.BREAK)) {
+                        while (!(currentBlock instanceof ConditionalBlock && ((ConditionalBlock) currentBlock).isALoop())) { // get surrounding conditional block
+                            currentBlock = currentBlock.getParent();
+                        }
+                        goToNextElseParent();
                     } else {
                         ((SingleTokenBlock) currentBlock).execute();
                         currentBlock.setUsed(true);
@@ -112,11 +117,13 @@ public class Interpreter {
     }
 
     public void goToParent() {
-        Block parent = currentBlock.getParent();
-        currentBlock = parent;
+        currentBlock = currentBlock.getParent();
     }
 
     private void goToNextElseParent() {
+        if (currentBlock == null) {
+            return;
+        }
         Block next = currentBlock.getNext();
         if (next == null) {
             goToParent();

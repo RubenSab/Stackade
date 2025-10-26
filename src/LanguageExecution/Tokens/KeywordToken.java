@@ -26,8 +26,8 @@ public enum KeywordToken implements Token {
     // Casting
     TYPE, BOX, UNBOX, STR_TO_NUM, STR_TO_REF, NUM_TO_STR,
 
-    // Self referencing
-    SELF,
+    // Self referencing and break
+    SELF, BREAK,
 
     // I/O
     PRINT, INPUT,

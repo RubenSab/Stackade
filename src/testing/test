@@ -1,8 +1,0 @@
-"compose" (
-    "second" swap :seq
-    "first" swap :seq
-    first second
-) :seq
-
-2 3
-(+ 2 *)@ (1 -)@ compose print

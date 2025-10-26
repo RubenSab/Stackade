@@ -26,6 +26,10 @@ public class ConditionalBlock extends Block {
         }
     }
 
+    public boolean isALoop() {
+        return trueBlock.isALoop() || falseBlock!=null && falseBlock.isALoop();
+    }
+
     @Override
     public void setUnusedRecursive() {
         setUsed(false);

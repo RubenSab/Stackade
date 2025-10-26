@@ -16,7 +16,7 @@ public class Lexer {
         // 4. Names (letters and/or underscores): [a-zA-Z_]+
         // + others
         String sourceNoComments = source.replaceAll("#.*", "");
-        String regex = "\"(?:\\\\[^(){}]|[^\"\\\\(){}])*\"|\\d*\\.\\d+|\\d+|[(){}]|[^\\s\"(){}]+";
+        String regex = "\"(?:\\\\.|[^\"\\\\])*\"|\\d*\\.\\d+|\\d+|[(){}]|[^\\s\"(){}]+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(sourceNoComments);
 
@@ -187,9 +187,13 @@ public class Lexer {
                 return KeywordToken.NUM_TO_STR;
             }
 
-            // self referencing
+            // self referencing and break
             case "self" -> {
                 return KeywordToken.SELF;
+            }
+
+            case "break" -> {
+                return KeywordToken.BREAK;
             }
 
             // I/O

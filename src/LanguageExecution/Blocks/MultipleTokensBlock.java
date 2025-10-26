@@ -1,5 +1,6 @@
 package LanguageExecution.Blocks;
 
+import LanguageExecution.Tokens.KeywordToken;
 import LanguageExecution.Tokens.TokenWrapper;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class MultipleTokensBlock extends Block {
 
     protected final ArrayList<Block> blocks = new ArrayList<>();
     private final TokenWrapper beginTokenWrapper;
+    private boolean isALoop = false;
 
     public MultipleTokensBlock(Block parent) {
         super(parent);
@@ -24,16 +26,19 @@ public class MultipleTokensBlock extends Block {
         return (!blocks.isEmpty()) ? blocks.getFirst() : null;
     }
 
-    public TokenWrapper getBeginTokenWrapper() {
-        return beginTokenWrapper;
-    }
-
     public void evaluate() { // TODO: push to exec
         blocks.forEach(x -> ((SingleTokenBlock) x).execute());
     }
 
+    public boolean isALoop() {
+        return isALoop;
+    }
+
     @Override
     public void add(Block block) {
+        if (block instanceof SingleTokenBlock && ((SingleTokenBlock) block).getTokenWrapper().token().equals(KeywordToken.SELF)) {
+            isALoop = true;
+        }
         if (!blocks.isEmpty()) {
             blocks.getLast().setNext(block);
         }

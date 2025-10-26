@@ -157,8 +157,6 @@ public class OperationRegistry {
                     case NUM_TO_STR ->
                             stack.push(stack.pop(tokenWrapper).resolve().tryCast(NumberPrimitive.class, tokenWrapper).toStringPrimitive());
 
-                    // Self referencing (handled by interpreter)
-
                     // I/O
                     case PRINT -> System.out.print((stack.pop(tokenWrapper).resolve()).represent());
                     case INPUT -> {
@@ -183,9 +181,7 @@ public class OperationRegistry {
                     }
 
                     // Time
-                    case NANOS -> {
-                        stack.push(new NumberPrimitive(System.nanoTime()));
-                    }
+                    case NANOS -> stack.push(new NumberPrimitive(System.nanoTime()));
 
                     // Other
                     case TRUE -> stack.push(new BooleanPrimitive(true));
