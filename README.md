@@ -400,7 +400,7 @@ The interpreter executes `conditionSequence`; if the top of the stack is `true`,
 Some tokens don't directly trigger actions on the Stack or Namespace, but they determine how other tokens are executed and manipulate the execution flow of the program.
 
 - `self` makes the current conditional block execute itself again.
-- `break` immediately terminates the execution of the current conditional block. It then searches for the nearest enclosing "loop" block (one which contain the "self" directive) in the hierarchy and resumes execution from the block after it.
+- `break` immediately terminates the execution of the current conditional block. It then searches for the nearest enclosing "loop" block (one which contains the "self" directive) in the hierarchy and resumes execution from the block after it.
 - `:seq` defines a sequence. It is also a directive because the interpreter doesn't execute a sequence if there's `:seq` right after it (read 2.2.6)
 
 > Note: an _"anonymous sequence"_ is a sequence which is not defined in the namespace. Its body is written in the code without nor a name nor `:seq`.

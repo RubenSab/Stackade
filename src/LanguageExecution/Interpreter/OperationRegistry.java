@@ -149,7 +149,7 @@ public class OperationRegistry {
                     // Casting
                     case TYPE -> stack.push(new StringPrimitive(stack.pop(tokenWrapper).typeName()));
                     case BOX -> stack.push(new Box(stack.pop(tokenWrapper)));
-                    case UNBOX -> stack.push(stack.pop(tokenWrapper).tryCast(Box.class, tokenWrapper).getContent());
+                    case UNBOX -> stack.push(stack.pop(tokenWrapper).resolve().tryCast(Box.class, tokenWrapper).getContent());
                     case STR_TO_NUM ->
                             stack.push(stack.pop(tokenWrapper).resolve().tryCast(StringPrimitive.class, tokenWrapper).toNumberPrimitive());
                     case STR_TO_REF ->
