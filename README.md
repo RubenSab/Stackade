@@ -1,6 +1,9 @@
+Stackade is a high-level, stack based, [concatenative](https://ratfactor.com/cards/concatenative) interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
+
+
 # Installation and usage of the interpreter
 
-## Quick installation for testing purposes
+## Quick installation (for testing purposes)
 Download the desired jar file from Releases (on the right pane), then you'll be able to run the interpreter from the command line (only from the same directory as the jar file) using this command:
 
 ```
@@ -47,10 +50,12 @@ stackade <program name>
 
 3. Create a file named `stackade.bat` in `C:\Stackade\`.
 4. Paste the following:
-   ```batch
-   @echo off
-   java -jar "C:\Stackade\Stackade.jar" %*
-   ```
+
+```batch
+@echo off
+java -jar "C:\Stackade\Stackade.jar" %*
+```
+
 5. Save the file.
 
 #### **Add the Folder to System PATH**
@@ -73,8 +78,6 @@ stackade <program name>
 # Language Documentation
 
 # 1. Introduction
-
-Stackade is a high-level, stack based, concatenative interpreted language. It features a tiny core consisting of a few primitives and built in operators coupled with a **stack** and a **namespace**.
 
 ## 1.1. Stack and Namespaces
 
