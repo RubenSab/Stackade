@@ -1,41 +1,72 @@
 # Installation and usage of the interpreter
 
-Download the desired jar file from Releases (on the right pane), then you'll be able to run the interpreter from the command line using this command:
+## Quick installation for testing purposes
+Download the desired jar file from Releases (on the right pane), then you'll be able to run the interpreter from the command line (only from the same directory as the jar file) using this command:
 
 ```
 java -jar stackade.jar <program name>
 ```
 
-If you are on Linux, you can run it with a single command from every directory following these steps:
+## Installing to System PATH (recommended)
+
+### Linux and macOS
 
 1. Go to Releases and download the desired jar file.
-2. Create a file named just `stackade` in the same directory.
 
-Write this script inside the new file `stackade`:
+2. Run `sudo cp Stackade.jar /usr/local/bin/` to move it where it will be accessible from every directory.
+
+3. Create a file named `stackade` without any extension.
+
+Write this script inside `stackade`:
 
 ```bash
 #!/bin/sh
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-java -jar "$SCRIPT_DIR/stackade.jar" "$@"
+java -jar "/usr/local/bin/Stackade.jar" "$@"
 ```
 
-3. Run this to move `stackade` to a directory in PATH:
+4. Make the script `stackade` executable:
 
 ```
-sudo mv stackade /usr/local/bin/
+sudo chmod +x /usr/local/bin/stackade
 ```
 
-4. Make it executable:
-
-```
-chmod +x /usr/local/bin/stackade
-```
-
-5. Now every user in the system can run the interpreter with:
+Now you can run the interpreter from everywhere with this command:
 
 ```
 stackade <program name>
 ```
+
+### Windows
+
+#### **Download the JAR File**
+
+1. Download `Stackade.jar` from the Releases page.
+2. Save it to a permanent location (e.g., `C:\Stackade\`).
+
+#### **Create a Batch File**
+
+3. Create a file named `stackade.bat` in `C:\Stackade\`.
+4. Paste the following:
+   ```batch
+   @echo off
+   java -jar "C:\Stackade\Stackade.jar" %*
+   ```
+5. Save the file.
+
+#### **Add the Folder to System PATH**
+
+6. Open System Properties, then press `Win + R`, type `sysdm.cpl`, and click **Enter**.
+7. Go to Advanced > Environment Variables.
+8. Under System Variables, select `Path` and click **Edit**.
+9. Click New and add `C:\Stackade\`.
+10. Click OK to save.
+
+Now you can run the interpreter from everywhere with this command:
+
+```
+stackade <program name>
+```
+
 
 ---
 
